@@ -1,0 +1,69 @@
+<!-- ============ HEADER / NAV (floating, glass effect) ============ -->
+<header class="site-header">
+  <div class="header-inner glass-solid">
+
+    <a href="/" class="logo">
+      <svg class="logo-icon" width="51" height="34" viewBox="0 0 150 100" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="wGradNav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#cfcbc0"/>
+          </linearGradient>
+          <linearGradient id="wDotGradNav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f5c877"/>
+            <stop offset="1" stop-color="#d4901f"/>
+          </linearGradient>
+        </defs>
+        <path d="M16 27 L42 83 L66 45 L90 83 L116 27" stroke="#8f8b80" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M12 22 L38 78 L62 40 L86 78 L112 22" stroke="url(#wGradNav)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="129" cy="80" r="17" fill="#a8752a"/>
+        <circle cx="126" cy="76" r="17" fill="url(#wDotGradNav)"/>
+      </svg>
+      <span class="logo-text">WallDrop<span class="logo-accent">4K</span></span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <button class="nav-link dropdown-toggle">Desktop <span class="chevron">&#9662;</span></button>
+          <div class="dropdown-menu glass-solid">
+            <div class="mega-columns">
+              {% for cat in categories.desktop %}
+              <a href="/category/desktop/{{ cat.slug }}/" class="mega-link">{{ cat.name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </li>
+        <li class="has-dropdown">
+          <button class="nav-link dropdown-toggle">Mobile <span class="chevron">&#9662;</span></button>
+          <div class="dropdown-menu glass-solid">
+            <div class="mega-columns">
+              {% for cat in categories.mobile %}
+              <a href="/category/mobile/{{ cat.slug }}/" class="mega-link">{{ cat.name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        </li>
+        <li><a href="/articles/" class="nav-link">Articles</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <a href="/category/desktop/4k/" class="btn btn-primary">Browse all</a>
+
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </div>
+</header>

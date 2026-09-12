@@ -1,0 +1,56 @@
+---
+layout: base.njk
+---
+{% from "partials/macros.njk" import articleCard with context %}
+
+  <section class="section" style="padding-bottom: 0;">
+    <div class="section-inner readable">
+
+      <!-- ============ ARTICLE HEADER ============ -->
+      <div class="article-header">
+        <p class="card-eyebrow">{{ category }}</p>
+        <h1 class="page-title">{{ title }}</h1>
+        <p class="article-meta">{{ date | readableDate }} · {{ readTime }}</p>
+      </div>
+
+      <!-- ============ FEATURED IMAGE ============ -->
+      <div class="featured-image">
+        {% if image %}
+        <img src="{{ image }}" alt="{{ title }}" style="width:100%;height:100%;object-fit:cover;">
+        {% else %}
+        <div class="thumb-bg {{ gradientClass }}"></div>
+        {% endif %}
+      </div>
+
+      <!-- ============ ARTICLE BODY ============ -->
+      <div class="article-body">
+        {{ content | safe }}
+      </div>
+
+      <div class="ad-slot ad-slot-inline">Ad space</div>
+
+    </div>
+  </section>
+
+  <!-- ============ RELATED ARTICLES ============ -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Related articles</h2>
+      <div class="article-grid">
+        {% set relatedList = collections.allArticles | excludeSlug(slug) %}
+        {% for a in relatedList.slice(0, 3) %}{{ articleCard(a) }}{% endfor %}
+      </div>
+    </div>
+  </section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ title | jsonify | safe }},
+  "description": {{ excerpt | jsonify | safe }},
+  "author": { "@type": "Person", "name": {{ author | jsonify | safe }} },
+  "datePublished": {{ date | isoDate | jsonify | safe }},
+  "publisher": { "@type": "Organization", "name": {{ settings.title | jsonify | safe }} }
+}
+</script>

@@ -1,0 +1,24 @@
+---
+layout: base.njk
+title: The Journal
+permalink: /articles/index.html
+---
+{% from "partials/macros.njk" import articleCard with context %}
+
+  <!-- ============ PAGE HEADING ============ -->
+  <section class="page-intro-section">
+    <div class="section-inner">
+      <p class="eyebrow">The Journal</p>
+      <h1 class="page-title">Guides, trends &amp; tips</h1>
+      <p class="page-desc">Short reads on picking, setting and caring for your wallpapers — plus the occasional deep dive into what's trending.</p>
+    </div>
+  </section>
+
+  <!-- ============ ARTICLE GRID ============ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner">
+      <div class="article-grid">
+        {% for a in collections.allArticles %}{{ articleCard(a) }}{% endfor %}
+      </div>
+    </div>
+  </section>

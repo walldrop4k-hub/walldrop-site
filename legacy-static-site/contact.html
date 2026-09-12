@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — WallDrop4K</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+
+<!-- ============ HEADER / NAV ============ -->
+<header class="site-header">
+  <div class="header-inner glass-solid">
+
+    <a href="index.html" class="logo">
+      <svg class="logo-icon" width="51" height="34" viewBox="0 0 150 100" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="wGradNav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#cfcbc0"/>
+          </linearGradient>
+          <linearGradient id="wDotGradNav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f5c877"/>
+            <stop offset="1" stop-color="#d4901f"/>
+          </linearGradient>
+        </defs>
+        <path d="M16 27 L42 83 L66 45 L90 83 L116 27" stroke="#8f8b80" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M12 22 L38 78 L62 40 L86 78 L112 22" stroke="url(#wGradNav)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="129" cy="80" r="17" fill="#a8752a"/>
+        <circle cx="126" cy="76" r="17" fill="url(#wDotGradNav)"/>
+      </svg>
+      <span class="logo-text">WallDrop<span class="logo-accent">4K</span></span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <button class="nav-link dropdown-toggle">Desktop <span class="chevron">&#9662;</span></button>
+          <div class="dropdown-menu glass-solid">
+            <div class="mega-columns">
+              <a href="category.html" class="mega-link">4K</a>
+              <a href="category.html" class="mega-link">Ultra HD</a>
+              <a href="category.html" class="mega-link">8K</a>
+              <a href="category.html" class="mega-link">Gaming</a>
+              <a href="category.html" class="mega-link">Nature</a>
+              <a href="category.html" class="mega-link">Abstract</a>
+              <a href="category.html" class="mega-link">Minimal</a>
+              <a href="category.html" class="mega-link">Dark</a>
+              <a href="category.html" class="mega-link">Space</a>
+              <a href="category.html" class="mega-link">Cars</a>
+              <a href="category.html" class="mega-link">Anime</a>
+              <a href="category.html" class="mega-link">City</a>
+            </div>
+          </div>
+        </li>
+        <li class="has-dropdown">
+          <button class="nav-link dropdown-toggle">Mobile <span class="chevron">&#9662;</span></button>
+          <div class="dropdown-menu glass-solid">
+            <div class="mega-columns">
+              <a href="category-mobile.html" class="mega-link">iPhone</a>
+              <a href="category-mobile.html" class="mega-link">Samsung</a>
+              <a href="category-mobile.html" class="mega-link">Android</a>
+              <a href="category-mobile.html" class="mega-link">Abstract</a>
+              <a href="category-mobile.html" class="mega-link">Dark</a>
+              <a href="category-mobile.html" class="mega-link">Anime</a>
+              <a href="category-mobile.html" class="mega-link">Nature</a>
+              <a href="category-mobile.html" class="mega-link">Minimal</a>
+              <a href="category-mobile.html" class="mega-link">AMOLED</a>
+              <a href="category-mobile.html" class="mega-link">Gaming</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="articles.html" class="nav-link">Articles</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <a href="category.html" class="btn btn-primary">Browse all</a>
+
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+  <section class="page-intro-section">
+    <div class="section-inner">
+      <p class="eyebrow">Contact</p>
+      <h1 class="page-title">Get in touch</h1>
+      <p class="page-desc">Category requests, licensing questions, or just feedback on the site — send it over and we'll get back to you.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner">
+      <div class="contact-layout">
+
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option>General Inquiry</option>
+              <option>DMCA</option>
+              <option>Wallpaper Request</option>
+              <option>Partnership</option>
+              <option>Bug Report</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="What's on your mind?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large">Send message</button>
+        </form>
+
+        <div class="contact-sidebar">
+          <div class="contact-card">
+            <h3>Other ways to reach us</h3>
+            <p>The fastest way to reach us is by email:</p>
+            <p><a href="mailto:walldrop4k@gmail.com" class="email-link">walldrop4k@gmail.com</a></p>
+            <p>Typical response time is <strong style="color: var(--text);">24–48 hours</strong>, Monday through Friday.</p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Copyright claim?</h3>
+            <p>If you're reaching out about a copyright issue, please use our dedicated <a href="dmca.html" style="color: var(--accent);">DMCA page</a> instead — it has the exact information we need to process your request quickly, and outlines our takedown process.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner readable">
+      <h2 class="section-title">Frequently asked questions</h2>
+
+      <div class="faq-item">
+        <p class="faq-question">Are the wallpapers really free?</p>
+        <p class="faq-answer">Yes. Every wallpaper on WallDrop4K can be downloaded for free, with no account, signup, or hidden fee required.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Can I use a wallpaper for commercial purposes?</p>
+        <p class="faq-answer">No. Wallpapers on this site are made available for personal use only — as a desktop or lock screen background. Commercial use, resale, or redistribution isn't permitted unless you've received separate written permission. See our <a href="terms.html" style="color: var(--accent);">Terms of Use</a> for the full license terms.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Can I submit my own wallpaper?</p>
+        <p class="faq-answer">We're not currently set up for public submissions, but we're always open to hearing from photographers and designers directly — reach out through this page with the "Partnership" subject and a link to your work.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">How do I file a copyright claim?</p>
+        <p class="faq-answer">Visit our <a href="dmca.html" style="color: var(--accent);">DMCA page</a> for the full process. In short: email us at <a href="mailto:walldrop4k@gmail.com" class="email-link">walldrop4k@gmail.com</a> with the required information and we'll act on valid requests within 48 hours.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">How often do new wallpapers get added?</p>
+        <p class="faq-answer">New wallpapers go up on a weekly schedule. Check the "Latest drops" section on the homepage or follow a specific category to see what's new.</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-stats glass">
+      <span class="footer-stat-item">4K to 8K resolutions</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">Desktop &amp; Mobile</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">No signup required</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">Free forever</span>
+    </div>
+
+    <div class="footer-columns">
+      <div class="footer-col footer-brand">
+        <div class="footer-logo">
+          <svg class="logo-icon" width="51" height="34" viewBox="0 0 150 100" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="wGradFoot" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset="1" stop-color="#cfcbc0"/>
+              </linearGradient>
+              <linearGradient id="wDotGradFoot" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f5c877"/>
+                <stop offset="1" stop-color="#d4901f"/>
+              </linearGradient>
+            </defs>
+            <path d="M16 27 L42 83 L66 45 L90 83 L116 27" stroke="#8f8b80" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M12 22 L38 78 L62 40 L86 78 L112 22" stroke="url(#wGradFoot)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="129" cy="80" r="17" fill="#a8752a"/>
+            <circle cx="126" cy="76" r="17" fill="url(#wDotGradFoot)"/>
+          </svg>
+          <span class="logo-text">WallDrop<span class="logo-accent">4K</span></span>
+        </div>
+        <p class="footer-desc">A small, hand-curated wallpaper library for desktop and mobile. New drops every week — no signup, no limits.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Desktop</h4>
+        <ul>
+          <li><a href="category.html">4K</a></li>
+          <li><a href="category.html">Gaming</a></li>
+          <li><a href="category.html">Nature</a></li>
+          <li><a href="category.html">Abstract</a></li>
+          <li><a href="category.html">Dark</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Mobile</h4>
+        <ul>
+          <li><a href="category-mobile.html">iPhone</a></li>
+          <li><a href="category-mobile.html">Samsung</a></li>
+          <li><a href="category-mobile.html">Anime</a></li>
+          <li><a href="category-mobile.html">AMOLED</a></li>
+          <li><a href="category-mobile.html">Minimal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="dmca.html">DMCA</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-tags">
+      <a href="category.html" class="pill">Nature</a>
+      <a href="category.html" class="pill">Gaming</a>
+      <a href="category.html" class="pill">Dark</a>
+      <a href="category.html" class="pill">Anime</a>
+      <a href="category.html" class="pill">Minimal</a>
+      <a href="category.html" class="pill">Abstract</a>
+      <a href="category.html" class="pill">4K</a>
+      <a href="category.html" class="pill">8K</a>
+      <a href="category.html" class="pill">iPhone</a>
+      <a href="category.html" class="pill">Samsung</a>
+      <a href="category.html" class="pill">Space</a>
+      <a href="category.html" class="pill">City</a>
+      <a href="category.html" class="pill">Cars</a>
+      <a href="category.html" class="pill">AMOLED</a>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 WallDrop4K. All rights reserved.</p>
+      <p class="footer-notice">All wallpapers are the property of their respective owners.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

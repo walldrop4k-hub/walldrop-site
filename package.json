@@ -1,0 +1,14 @@
+{
+  "name": "walldrop4k",
+  "version": "1.0.0",
+  "description": "WallDrop4K — Eleventy-powered wallpaper site with Decap CMS.",
+  "private": true,
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "debug": "DEBUG=Eleventy* eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

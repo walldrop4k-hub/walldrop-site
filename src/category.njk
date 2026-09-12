@@ -1,0 +1,68 @@
+---js
+{
+  layout: "base.njk",
+  pagination: {
+    data: "categoryPages",
+    size: 1,
+    alias: "cat"
+  },
+  eleventyComputed: {
+    title: (data) => `${data.cat.type === "desktop" ? "Desktop" : "Mobile"} ${data.cat.name} Wallpapers`,
+    permalink: (data) => `/category/${data.cat.type}/${data.cat.slug}/index.html`
+  }
+}
+---
+{% from "partials/macros.njk" import wallpaperCard with context %}
+{% set gridClass = "wallpaper-grid-desktop" if cat.type == "desktop" else "wallpaper-grid-mobile" %}
+{% set chips = categories.chipsDesktop if cat.type == "desktop" else categories.chipsMobile %}
+{% set typeLabel = "Desktop" if cat.type == "desktop" else "Mobile" %}
+
+  <!-- ============ CATEGORY HEADER ============ -->
+  <section class="page-intro-section">
+    <div class="section-inner">
+      <p class="eyebrow">{{ typeLabel }} Wallpapers</p>
+      <h1 class="page-title">{{ cat.name }}</h1>
+      <p class="page-desc">{{ cat.description }}</p>
+    </div>
+  </section>
+
+  <!-- ============ FILTERS + SORT ============ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner">
+
+      <div class="filter-bar">
+        <div class="chip-row">
+          {% for chip in chips %}
+          <button class="chip{{ ' is-active' if loop.first }}">{{ chip }}</button>
+          {% endfor %}
+        </div>
+        <select class="sort-select">
+          <option>Latest</option>
+          <option>Most downloaded</option>
+          <option>Random</option>
+        </select>
+      </div>
+
+      <!-- ============ WALLPAPER GRID ============ -->
+      {% set matches = collections.allWallpapers | byCategory(cat.type, cat.slug) %}
+      <div class="{{ gridClass }}">
+        {% for w in matches %}
+        {{ wallpaperCard(w) }}
+        {% else %}
+        <p class="page-desc">No wallpapers in this category yet — add one from the CMS and it'll show up here automatically.</p>
+        {% endfor %}
+      </div>
+
+      <!-- ============ AD SLOT ============ -->
+      <div class="ad-slot" style="margin-top: 32px;">Ad space</div>
+
+      <!-- ============ PAGINATION ============ -->
+      <nav class="pagination" aria-label="Pagination">
+        <a href="#" class="page-btn is-active">1</a>
+        <a href="#" class="page-btn">2</a>
+        <a href="#" class="page-btn">3</a>
+        <a href="#" class="page-btn page-next">Next</a>
+      </nav>
+
+    </div>
+  </section>

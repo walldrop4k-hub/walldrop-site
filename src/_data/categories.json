@@ -1,0 +1,38 @@
+{
+  "chipsDesktop": ["All", "Landscape", "City", "Space", "Minimal", "Dark"],
+  "chipsMobile": ["All", "Minimal", "Dark", "AMOLED", "Anime", "Nature"],
+
+  "footerDesktop": ["4k", "gaming", "nature", "abstract", "dark"],
+  "footerMobile": ["iphone", "samsung", "anime", "amoled", "minimal"],
+
+  "homeTileDesktop": ["4k", "gaming", "nature", "abstract"],
+  "homeTileMobile": ["iphone", "samsung", "dark", "anime"],
+
+  "desktop": [
+    { "slug": "4k", "name": "4K", "description": "Ultra-sharp wallpapers built for large desktop displays. Every image here is hand-checked for crisp detail at full 4K resolution.", "gradient": "grad-1" },
+    { "slug": "ultra-hd", "name": "Ultra HD", "description": "High-resolution wallpapers for large desktop displays, one step below full 4K.", "gradient": "grad-2" },
+    { "slug": "8k", "name": "8K", "description": "The sharpest wallpapers in the library, built for the largest and highest-resolution displays.", "gradient": "grad-3" },
+    { "slug": "gaming", "name": "Gaming", "description": "High-energy wallpapers pulled from and inspired by games, built for wide desktop displays.", "gradient": "grad-2" },
+    { "slug": "nature", "name": "Nature", "description": "Calm, natural scenes — forests, mountains, water — checked for detail at full desktop resolution.", "gradient": "grad-3" },
+    { "slug": "abstract", "name": "Abstract", "description": "Color, shape and gradient-driven wallpapers that work well behind a busy desktop.", "gradient": "grad-4" },
+    { "slug": "minimal", "name": "Minimal", "description": "Quiet, simple compositions that stay out of the way of your icons and widgets.", "gradient": "grad-5" },
+    { "slug": "dark", "name": "Dark", "description": "Deep, low-light wallpapers built for dark-mode desktops.", "gradient": "grad-7" },
+    { "slug": "space", "name": "Space", "description": "Nebulas, planets and starfields for a desktop with a bit more scale.", "gradient": "grad-6" },
+    { "slug": "cars", "name": "Cars", "description": "Automotive wallpapers checked for detail at full desktop resolution.", "gradient": "grad-4" },
+    { "slug": "anime", "name": "Anime", "description": "Anime and illustrated wallpapers built for wide desktop displays.", "gradient": "grad-8" },
+    { "slug": "city", "name": "City", "description": "Skylines and street scenes checked for detail at full desktop resolution.", "gradient": "grad-6" }
+  ],
+
+  "mobile": [
+    { "slug": "iphone", "name": "iPhone", "description": "Tall, portrait-ready wallpapers built for iPhone lock and home screens.", "gradient": "grad-5" },
+    { "slug": "samsung", "name": "Samsung", "description": "Tall, portrait-ready wallpapers built for Samsung lock and home screens.", "gradient": "grad-6" },
+    { "slug": "android", "name": "Android", "description": "Tall, portrait-ready wallpapers for Android phones.", "gradient": "grad-2" },
+    { "slug": "abstract", "name": "Abstract", "description": "Color and gradient-driven wallpapers built for tall phone screens.", "gradient": "grad-4" },
+    { "slug": "dark", "name": "Dark", "description": "Deep, low-light wallpapers tuned for AMOLED and OLED phone screens.", "gradient": "grad-7" },
+    { "slug": "anime", "name": "Anime", "description": "Anime and illustrated wallpapers built for tall phone screens.", "gradient": "grad-8" },
+    { "slug": "nature", "name": "Nature", "description": "Calm, natural scenes cropped for tall phone screens.", "gradient": "grad-3" },
+    { "slug": "minimal", "name": "Minimal", "description": "Quiet, simple compositions for a phone lock screen.", "gradient": "grad-2" },
+    { "slug": "amoled", "name": "AMOLED", "description": "True-black wallpapers built to save battery and look sharp on AMOLED screens.", "gradient": "grad-7" },
+    { "slug": "gaming", "name": "Gaming", "description": "High-energy wallpapers pulled from and inspired by games, cropped for phone screens.", "gradient": "grad-2" }
+  ]
+}

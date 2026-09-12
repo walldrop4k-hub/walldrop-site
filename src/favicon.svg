@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -25 150 150" width="150" height="150">
+  <defs>
+    <linearGradient id="wGradFav" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#cfcbc0"/>
+    </linearGradient>
+    <linearGradient id="wDotGradFav" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f5c877"/>
+      <stop offset="1" stop-color="#d4901f"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="-25" width="150" height="150" rx="30" fill="#14141a"/>
+  <path d="M16 27 L42 83 L66 45 L90 83 L116 27" stroke="#8f8b80" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M12 22 L38 78 L62 40 L86 78 L112 22" stroke="url(#wGradFav)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="129" cy="80" r="17" fill="#a8752a"/>
+  <circle cx="126" cy="76" r="17" fill="url(#wDotGradFav)"/>
+</svg>

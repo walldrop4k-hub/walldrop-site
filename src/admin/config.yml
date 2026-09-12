@@ -1,0 +1,134 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Editorial workflow — every save creates a draft PR-like entry that goes
+# through Draft → In Review → Ready before it's published, instead of
+# writing straight to the live branch.
+publish_mode: editorial_workflow
+
+media_folder: src/assets/wallpapers
+public_folder: /assets/wallpapers
+
+site_url: https://walldrop4k.com
+display_url: https://walldrop4k.com
+logo_url: /favicon.svg
+
+collections:
+  - name: wallpapers
+    label: Wallpapers
+    label_singular: Wallpaper
+    folder: src/wallpapers
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{category}} / {{subcategory}}"
+    fields:
+      - { label: Title, name: title, widget: string, hint: "e.g. Amber Horizon" }
+      - { label: Slug, name: slug, widget: string, hint: "Lowercase, hyphenated — kept in sync with the filename." }
+
+      - label: Format
+        name: category
+        widget: select
+        options:
+          - { label: "Desktop (16:9)", value: desktop }
+          - { label: "Mobile (9:16)", value: mobile }
+        hint: "Which grid and aspect ratio this wallpaper belongs to."
+
+      - label: Subcategory
+        name: subcategory
+        widget: select
+        hint: "Must match a category slug from src/_data/categories.json."
+        options:
+          - { label: "4K (desktop)", value: "4k" }
+          - { label: "Ultra HD (desktop)", value: "ultra-hd" }
+          - { label: "8K (desktop)", value: "8k" }
+          - { label: "Gaming (desktop)", value: "gaming" }
+          - { label: "Nature (desktop)", value: "nature" }
+          - { label: "Abstract (desktop)", value: "abstract" }
+          - { label: "Minimal (desktop)", value: "minimal" }
+          - { label: "Dark (desktop)", value: "dark" }
+          - { label: "Space (desktop)", value: "space" }
+          - { label: "Cars (desktop)", value: "cars" }
+          - { label: "Anime (desktop)", value: "anime" }
+          - { label: "City (desktop)", value: "city" }
+          - { label: "iPhone (mobile)", value: "iphone" }
+          - { label: "Samsung (mobile)", value: "samsung" }
+          - { label: "Android (mobile)", value: "android" }
+          - { label: "AMOLED (mobile)", value: "amoled" }
+
+      - { label: "Full image (optional — upload later when you have it)", name: image, widget: image, required: false }
+      - { label: "Thumbnail (optional, falls back to the full image)", name: thumbnail, widget: image, required: false }
+
+      - label: "Placeholder color (used until you upload a real image)"
+        name: gradientClass
+        widget: select
+        required: false
+        default: grad-1
+        options: [grad-1, grad-2, grad-3, grad-4, grad-5, grad-6, grad-7, grad-8]
+
+      - label: Resolutions
+        name: resolutions
+        widget: list
+        summary: "{{fields.label}} — {{fields.dimensions}}"
+        fields:
+          - { label: "Label (e.g. 4K, iPhone, Full HD)", name: label, widget: string }
+          - { label: "Dimensions (e.g. 3840 × 2160)", name: dimensions, widget: string }
+
+      - { label: File Size, name: fileSize, widget: string, hint: "e.g. 4.8 MB" }
+      - label: Format
+        name: format
+        widget: select
+        options: [JPG, PNG, WEBP]
+        default: JPG
+
+      - { label: Tags, name: tags, widget: list, field: { label: Tag, name: tag, widget: string } }
+
+      - { label: Description, name: body, widget: markdown, hint: "Shown as the write-up on the wallpaper's page." }
+
+      - { label: Date Added, name: date, widget: datetime }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Trending, name: trending, widget: boolean, default: false }
+
+  - name: articles
+    label: Articles
+    label_singular: Article
+    folder: src/articles
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string, hint: "Lowercase, hyphenated — kept in sync with the filename." }
+      - { label: Excerpt, name: excerpt, widget: text, hint: "Shown on article cards." }
+
+      - label: Category
+        name: category
+        widget: select
+        options: [Guides, Trends, Tips]
+
+      - { label: "Featured image (optional)", name: image, widget: image, required: false }
+      - label: "Placeholder color (used until you upload a real image)"
+        name: gradientClass
+        widget: select
+        required: false
+        default: grad-5
+        options: [grad-1, grad-2, grad-3, grad-4, grad-5, grad-6, grad-7, grad-8]
+
+      - { label: Date, name: date, widget: datetime }
+      - { label: Author, name: author, widget: string, default: "WallDrop4K Team" }
+      - { label: Read Time, name: readTime, widget: string, hint: "e.g. 5 min read" }
+
+      - { label: Body, name: body, widget: markdown }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: general
+        label: General
+        file: src/_data/settings.json
+        fields:
+          - { label: Site Title, name: title, widget: string }
+          - { label: Tagline, name: tagline, widget: string }
+          - { label: Description, name: description, widget: text }
+          - { label: Contact Email, name: contactEmail, widget: string }

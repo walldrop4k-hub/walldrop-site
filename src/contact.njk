@@ -1,0 +1,94 @@
+---
+layout: base.njk
+title: Contact
+permalink: /contact/index.html
+---
+
+  <section class="page-intro-section">
+    <div class="section-inner">
+      <p class="eyebrow">Contact</p>
+      <h1 class="page-title">Get in touch</h1>
+      <p class="page-desc">Category requests, licensing questions, or just feedback on the site — send it over and we'll get back to you.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner">
+      <div class="contact-layout">
+
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option>General Inquiry</option>
+              <option>DMCA</option>
+              <option>Wallpaper Request</option>
+              <option>Partnership</option>
+              <option>Bug Report</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="What's on your mind?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-large">Send message</button>
+        </form>
+
+        <div class="contact-sidebar">
+          <div class="contact-card">
+            <h3>Other ways to reach us</h3>
+            <p>The fastest way to reach us is by email:</p>
+            <p><a href="mailto:{{ settings.contactEmail }}" class="email-link">{{ settings.contactEmail }}</a></p>
+            <p>Typical response time is <strong style="color: var(--text);">24–48 hours</strong>, Monday through Friday.</p>
+          </div>
+
+          <div class="contact-card">
+            <h3>Copyright claim?</h3>
+            <p>If you're reaching out about a copyright issue, please use our dedicated <a href="/dmca/" style="color: var(--accent);">DMCA page</a> instead — it has the exact information we need to process your request quickly, and outlines our takedown process.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner readable">
+      <h2 class="section-title">Frequently asked questions</h2>
+
+      <div class="faq-item">
+        <p class="faq-question">Are the wallpapers really free?</p>
+        <p class="faq-answer">Yes. Every wallpaper on {{ settings.title }} can be downloaded for free, with no account, signup, or hidden fee required.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Can I use a wallpaper for commercial purposes?</p>
+        <p class="faq-answer">No. Wallpapers on this site are made available for personal use only — as a desktop or lock screen background. Commercial use, resale, or redistribution isn't permitted unless you've received separate written permission. See our <a href="/terms/" style="color: var(--accent);">Terms of Use</a> for the full license terms.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Can I submit my own wallpaper?</p>
+        <p class="faq-answer">We're not currently set up for public submissions, but we're always open to hearing from photographers and designers directly — reach out through this page with the "Partnership" subject and a link to your work.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">How do I file a copyright claim?</p>
+        <p class="faq-answer">Visit our <a href="/dmca/" style="color: var(--accent);">DMCA page</a> for the full process. In short: email us at <a href="mailto:{{ settings.contactEmail }}" class="email-link">{{ settings.contactEmail }}</a> with the required information and we'll act on valid requests within 48 hours.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">How often do new wallpapers get added?</p>
+        <p class="faq-answer">New wallpapers go up on a weekly schedule. Check the "Latest drops" section on the homepage or follow a specific category to see what's new.</p>
+      </div>
+
+    </div>
+  </section>

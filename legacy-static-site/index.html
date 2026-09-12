@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WallDrop4K — Wallpapers worth waiting for</title>
+
+<!-- Google Fonts: Fraunces (headings) + Sora (body/UI) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body>
+
+<!-- ============ HEADER / NAV (floating, glass effect) ============ -->
+<header class="site-header">
+  <div class="header-inner glass-solid">
+
+    <a href="index.html" class="logo">
+      <!--
+        BRAND NAME: change it in two places — here, and again in the
+        footer further down this file. Keep the text split the same
+        way ("WallDrop" + accent span) so the "4K" part stays gold.
+      -->
+      <svg class="logo-icon" width="51" height="34" viewBox="0 0 150 100" fill="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="wGradNav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#cfcbc0"/>
+          </linearGradient>
+          <linearGradient id="wDotGradNav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f5c877"/>
+            <stop offset="1" stop-color="#d4901f"/>
+          </linearGradient>
+        </defs>
+        <path d="M16 27 L42 83 L66 45 L90 83 L116 27" stroke="#8f8b80" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M12 22 L38 78 L62 40 L86 78 L112 22" stroke="url(#wGradNav)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <circle cx="129" cy="80" r="17" fill="#a8752a"/>
+        <circle cx="126" cy="76" r="17" fill="url(#wDotGradNav)"/>
+      </svg>
+      <span class="logo-text">WallDrop<span class="logo-accent">4K</span></span>
+    </a>
+
+    <nav class="main-nav" id="main-nav">
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <button class="nav-link dropdown-toggle">Desktop <span class="chevron">&#9662;</span></button>
+          <div class="dropdown-menu glass-solid">
+            <div class="mega-columns">
+              <a href="category.html" class="mega-link">4K</a>
+              <a href="category.html" class="mega-link">Ultra HD</a>
+              <a href="category.html" class="mega-link">8K</a>
+              <a href="category.html" class="mega-link">Gaming</a>
+              <a href="category.html" class="mega-link">Nature</a>
+              <a href="category.html" class="mega-link">Abstract</a>
+              <a href="category.html" class="mega-link">Minimal</a>
+              <a href="category.html" class="mega-link">Dark</a>
+              <a href="category.html" class="mega-link">Space</a>
+              <a href="category.html" class="mega-link">Cars</a>
+              <a href="category.html" class="mega-link">Anime</a>
+              <a href="category.html" class="mega-link">City</a>
+            </div>
+          </div>
+        </li>
+        <li class="has-dropdown">
+          <button class="nav-link dropdown-toggle">Mobile <span class="chevron">&#9662;</span></button>
+          <div class="dropdown-menu glass-solid">
+            <div class="mega-columns">
+              <a href="category-mobile.html" class="mega-link">iPhone</a>
+              <a href="category-mobile.html" class="mega-link">Samsung</a>
+              <a href="category-mobile.html" class="mega-link">Android</a>
+              <a href="category-mobile.html" class="mega-link">Abstract</a>
+              <a href="category-mobile.html" class="mega-link">Dark</a>
+              <a href="category-mobile.html" class="mega-link">Anime</a>
+              <a href="category-mobile.html" class="mega-link">Nature</a>
+              <a href="category-mobile.html" class="mega-link">Minimal</a>
+              <a href="category-mobile.html" class="mega-link">AMOLED</a>
+              <a href="category-mobile.html" class="mega-link">Gaming</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="articles.html" class="nav-link">Articles</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+      <a href="category.html" class="btn btn-primary">Browse all</a>
+
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ SEARCH ============ -->
+  <section class="search-hero">
+    <div class="section-inner">
+      <h1 class="search-hero-title">Find your next wallpaper</h1>
+      <p class="search-hero-desc">Hand-picked 4K and 8K wallpapers for desktop and mobile. Free, no signup.</p>
+
+      <div class="search-bar glass">
+        <svg class="search-bar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="search-bar-input" placeholder="Search wallpapers, categories, or tags...">
+        <button type="button" class="search-bar-btn">Search</button>
+      </div>
+
+      <div class="search-popular">
+        <span class="search-popular-label">Popular:</span>
+        <a href="category.html" class="pill glass">4K</a>
+        <a href="category.html" class="pill glass">Dark</a>
+        <a href="category.html" class="pill glass">Nature</a>
+        <a href="category.html" class="pill glass">Gaming</a>
+        <a href="category.html" class="pill glass">Minimal</a>
+        <a href="category-mobile.html" class="pill glass">iPhone</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRENDING NOW ============ -->
+  <section class="section trending-section reveal">
+    <div class="section-inner">
+      <div class="section-title-row">
+        <h2 class="section-title">Trending now</h2>
+        <div class="section-title-actions">
+          <div class="format-tabs glass" data-tabs="trending">
+            <button class="format-tab" data-format="desktop">Desktop</button>
+            <button class="format-tab" data-format="mobile">Mobile</button>
+          </div>
+          <a href="category.html" class="view-all-link">View all <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel-group="trending" data-panel="trending-desktop">
+        <div class="trending-grid-desktop">
+
+          <a href="wallpaper.html" class="trending-card ratio-16-9 fade-item">
+            <div class="trending-bg grad-1"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">4K</span>
+            <div class="trending-info">
+              <h3 class="card-title">Amber Horizon</h3>
+              <p class="card-res">3840 × 2160</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="trending-card ratio-16-9 fade-item">
+            <div class="trending-bg grad-2"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">Gaming</span>
+            <div class="trending-info">
+              <h3 class="card-title">Cyber Alley</h3>
+              <p class="card-res">2560 × 1440</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="trending-card ratio-16-9 fade-item">
+            <div class="trending-bg grad-3"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">Nature</span>
+            <div class="trending-info">
+              <h3 class="card-title">Misty Pines</h3>
+              <p class="card-res">3840 × 2160</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel-group="trending" data-panel="trending-mobile">
+        <div class="trending-grid-mobile">
+
+          <a href="wallpaper-mobile.html" class="trending-card ratio-9-16 fade-item">
+            <div class="trending-bg grad-8"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">Anime</span>
+            <div class="trending-info">
+              <h3 class="card-title">Sakura Nights</h3>
+              <p class="card-res">1170 × 2532</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="trending-card ratio-9-16 fade-item">
+            <div class="trending-bg grad-5"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">iPhone</span>
+            <div class="trending-info">
+              <h3 class="card-title">Pastel Dawn</h3>
+              <p class="card-res">1170 × 2532</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="trending-card ratio-9-16 fade-item">
+            <div class="trending-bg grad-6"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">Samsung</span>
+            <div class="trending-info">
+              <h3 class="card-title">Deep Sea Glow</h3>
+              <p class="card-res">1440 × 3200</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="trending-card ratio-9-16 fade-item">
+            <div class="trending-bg grad-7"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">Dark</span>
+            <div class="trending-info">
+              <h3 class="card-title">Charcoal Bloom</h3>
+              <p class="card-res">1440 × 3120</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="trending-card ratio-9-16 fade-item">
+            <div class="trending-bg grad-8"></div>
+            <div class="trending-overlay"></div>
+            <span class="tag">Anime</span>
+            <div class="trending-info">
+              <h3 class="card-title">Neon Ronin</h3>
+              <p class="card-res">1440 × 3120</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CATEGORY RAIL ============ -->
+  <section class="section category-section reveal">
+    <div class="section-inner">
+      <h2 class="section-title">Jump to a category</h2>
+      <div class="category-rail">
+        <a href="category.html" class="category-tile fade-item grad-1">
+          <span class="category-name">Desktop 4K</span>
+        </a>
+        <a href="category.html" class="category-tile fade-item grad-2">
+          <span class="category-name">Desktop Gaming</span>
+        </a>
+        <a href="category.html" class="category-tile fade-item grad-3">
+          <span class="category-name">Desktop Nature</span>
+        </a>
+        <a href="category.html" class="category-tile fade-item grad-4">
+          <span class="category-name">Desktop Abstract</span>
+        </a>
+        <a href="category-mobile.html" class="category-tile fade-item grad-5">
+          <span class="category-name">Mobile iPhone</span>
+        </a>
+        <a href="category-mobile.html" class="category-tile fade-item grad-6">
+          <span class="category-name">Mobile Samsung</span>
+        </a>
+        <a href="category-mobile.html" class="category-tile fade-item grad-7">
+          <span class="category-name">Mobile Dark</span>
+        </a>
+        <a href="category-mobile.html" class="category-tile fade-item grad-8">
+          <span class="category-name">Mobile Anime</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LATEST DROPS ============ -->
+  <section class="section reveal" id="latest-drops">
+    <div class="section-inner">
+      <div class="section-title-row">
+        <h2 class="section-title">Latest drops</h2>
+        <div class="format-tabs glass" data-tabs="latest">
+          <button class="format-tab" data-format="desktop">Desktop</button>
+          <button class="format-tab" data-format="mobile">Mobile</button>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel-group="latest" data-panel="latest-desktop">
+        <div class="wallpaper-grid-desktop">
+
+          <a href="wallpaper.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-16-9">
+              <div class="thumb-bg grad-1"></div>
+              <span class="tag">4K</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Amber Horizon</h3>
+              <p class="card-res">3840 × 2160</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-16-9">
+              <div class="thumb-bg grad-2"></div>
+              <span class="tag">Gaming</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Cyber Alley</h3>
+              <p class="card-res">2560 × 1440</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-16-9">
+              <div class="thumb-bg grad-3"></div>
+              <span class="tag">Nature</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Misty Pines</h3>
+              <p class="card-res">3840 × 2160</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-16-9">
+              <div class="thumb-bg grad-4"></div>
+              <span class="tag">Abstract</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Fluid Motion</h3>
+              <p class="card-res">2560 × 1440</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-16-9">
+              <div class="thumb-bg grad-1"></div>
+              <span class="tag">4K</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Golden Dunes</h3>
+              <p class="card-res">3840 × 2160</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-16-9">
+              <div class="thumb-bg grad-2"></div>
+              <span class="tag">Gaming</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Arcade Drift</h3>
+              <p class="card-res">2560 × 1440</p>
+            </div>
+          </a>
+
+          <a href="wallpaper.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-16-9">
+              <div class="thumb-bg grad-3"></div>
+              <span class="tag">Nature</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Fern Canopy</h3>
+              <p class="card-res">3840 × 2160</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel-group="latest" data-panel="latest-mobile">
+        <div class="wallpaper-grid-mobile">
+
+          <a href="wallpaper-mobile.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-9-16">
+              <div class="thumb-bg grad-5"></div>
+              <span class="tag">iPhone</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Pastel Dawn</h3>
+              <p class="card-res">1170 × 2532</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-9-16">
+              <div class="thumb-bg grad-6"></div>
+              <span class="tag">Samsung</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Deep Sea Glow</h3>
+              <p class="card-res">1440 × 3200</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-9-16">
+              <div class="thumb-bg grad-7"></div>
+              <span class="tag">Dark</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Charcoal Bloom</h3>
+              <p class="card-res">1440 × 3120</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-9-16">
+              <div class="thumb-bg grad-8"></div>
+              <span class="tag">Anime</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Sakura Nights</h3>
+              <p class="card-res">1170 × 2532</p>
+            </div>
+          </a>
+
+          <a href="wallpaper-mobile.html" class="wallpaper-card fade-item">
+            <div class="thumb ratio-9-16">
+              <div class="thumb-bg grad-8"></div>
+              <span class="tag">Anime</span>
+              <button class="download-btn" aria-label="Download">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v12"></path>
+                  <path d="M7 10l5 5 5-5"></path>
+                  <path d="M4 19h16"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="card-info">
+              <h3 class="card-title">Neon Ronin</h3>
+              <p class="card-res">1440 × 3120</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AD SLOT ============ -->
+  <section class="section reveal">
+    <div class="section-inner">
+      <div class="ad-slot">Ad space</div>
+    </div>
+  </section>
+
+  <!-- ============ FROM THE JOURNAL ============ -->
+  <section class="section reveal">
+    <div class="section-inner">
+      <h2 class="section-title">From the journal</h2>
+      <div class="article-grid">
+        <a href="article.html" class="article-card fade-item">
+          <div class="thumb"><div class="thumb-bg grad-5"></div></div>
+          <div class="card-info">
+            <p class="card-eyebrow">Guides</p>
+            <h3 class="card-title">How to set the perfect wallpaper for dual monitors</h3>
+          </div>
+        </a>
+        <a href="article.html" class="article-card fade-item">
+          <div class="thumb"><div class="thumb-bg grad-7"></div></div>
+          <div class="card-info">
+            <p class="card-eyebrow">Trends</p>
+            <h3 class="card-title">The dark-mode wallpaper trend taking over 2026</h3>
+          </div>
+        </a>
+        <a href="article.html" class="article-card fade-item">
+          <div class="thumb"><div class="thumb-bg grad-4"></div></div>
+          <div class="card-info">
+            <p class="card-eyebrow">Tips</p>
+            <h3 class="card-title">4K vs 5K wallpapers: what actually matters</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-stats glass">
+      <span class="footer-stat-item">4K to 8K resolutions</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">Desktop &amp; Mobile</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">No signup required</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">Free forever</span>
+    </div>
+
+    <div class="footer-columns">
+      <div class="footer-col footer-brand">
+        <div class="footer-logo">
+          <svg class="logo-icon" width="51" height="34" viewBox="0 0 150 100" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="wGradFoot" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset="1" stop-color="#cfcbc0"/>
+              </linearGradient>
+              <linearGradient id="wDotGradFoot" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#f5c877"/>
+                <stop offset="1" stop-color="#d4901f"/>
+              </linearGradient>
+            </defs>
+            <path d="M16 27 L42 83 L66 45 L90 83 L116 27" stroke="#8f8b80" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M12 22 L38 78 L62 40 L86 78 L112 22" stroke="url(#wGradFoot)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="129" cy="80" r="17" fill="#a8752a"/>
+            <circle cx="126" cy="76" r="17" fill="url(#wDotGradFoot)"/>
+          </svg>
+          <span class="logo-text">WallDrop<span class="logo-accent">4K</span></span>
+        </div>
+        <p class="footer-desc">A small, hand-curated wallpaper library for desktop and mobile. New drops every week — no signup, no limits.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Desktop</h4>
+        <ul>
+          <li><a href="category.html">4K</a></li>
+          <li><a href="category.html">Gaming</a></li>
+          <li><a href="category.html">Nature</a></li>
+          <li><a href="category.html">Abstract</a></li>
+          <li><a href="category.html">Dark</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Mobile</h4>
+        <ul>
+          <li><a href="category-mobile.html">iPhone</a></li>
+          <li><a href="category-mobile.html">Samsung</a></li>
+          <li><a href="category-mobile.html">Anime</a></li>
+          <li><a href="category-mobile.html">AMOLED</a></li>
+          <li><a href="category-mobile.html">Minimal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="dmca.html">DMCA</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-tags">
+      <a href="category.html" class="pill">Nature</a>
+      <a href="category.html" class="pill">Gaming</a>
+      <a href="category.html" class="pill">Dark</a>
+      <a href="category.html" class="pill">Anime</a>
+      <a href="category.html" class="pill">Minimal</a>
+      <a href="category.html" class="pill">Abstract</a>
+      <a href="category.html" class="pill">4K</a>
+      <a href="category.html" class="pill">8K</a>
+      <a href="category.html" class="pill">iPhone</a>
+      <a href="category.html" class="pill">Samsung</a>
+      <a href="category.html" class="pill">Space</a>
+      <a href="category.html" class="pill">City</a>
+      <a href="category.html" class="pill">Cars</a>
+      <a href="category.html" class="pill">AMOLED</a>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 WallDrop4K. All rights reserved.</p>
+      <p class="footer-notice">All wallpapers are the property of their respective owners.</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

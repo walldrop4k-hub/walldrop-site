@@ -1,0 +1,61 @@
+{# Reusable card/tile renderers, shared by the homepage, category pages,
+   and "related" sections — one definition per card type instead of the
+   same markup hand-copied in five places. #}
+
+{% macro downloadIcon() %}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M4 19h16"></path></svg>{% endmacro %}
+
+{% macro wallpaperCard(w, extraClass="") %}
+{% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
+{% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
+<a href="{{ w.url }}" class="wallpaper-card {{ extraClass }}">
+  <div class="thumb {{ ratio }}">
+    {% if w.data.image %}<img class="thumb-bg" src="{{ w.data.image }}" alt="{{ w.data.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="thumb-bg {{ w.data.gradientClass }}"></div>{% endif %}
+    <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
+    <button class="download-btn" aria-label="Download">{{ downloadIcon() }}</button>
+  </div>
+  <div class="card-info">
+    <h3 class="card-title">{{ w.data.title }}</h3>
+    <p class="card-res">{{ w.data.resolutions[0].dimensions if w.data.resolutions and w.data.resolutions.length else "" }}</p>
+  </div>
+</a>
+{% endmacro %}
+
+{% macro trendingCard(w) %}
+{% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
+{% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
+<a href="{{ w.url }}" class="trending-card {{ ratio }} fade-item">
+  {% if w.data.image %}<img class="trending-bg" src="{{ w.data.image }}" alt="{{ w.data.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="trending-bg {{ w.data.gradientClass }}"></div>{% endif %}
+  <div class="trending-overlay"></div>
+  <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
+  <div class="trending-info">
+    <h3 class="card-title">{{ w.data.title }}</h3>
+    <p class="card-res">{{ w.data.resolutions[0].dimensions if w.data.resolutions and w.data.resolutions.length else "" }}</p>
+  </div>
+</a>
+{% endmacro %}
+
+{% macro categoryTile(slug, type) %}
+{% set cat = categories[type] | findBySlug(slug) %}
+{% if cat %}
+{% set label = ("Desktop " if type == "desktop" else "Mobile ") + cat.name %}
+<a href="/category/{{ type }}/{{ slug }}/" class="category-tile fade-item {{ cat.gradient }}">
+  <span class="category-name">{{ label }}</span>
+</a>
+{% endif %}
+{% endmacro %}
+
+{% macro articleCard(a, showExcerpt=true) %}
+<a href="{{ a.url }}" class="article-card fade-item">
+  <div class="thumb">
+    {% if a.data.image %}<img class="thumb-bg" src="{{ a.data.image }}" alt="{{ a.data.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="thumb-bg {{ a.data.gradientClass }}"></div>{% endif %}
+  </div>
+  <div class="card-info">
+    <p class="card-eyebrow">{{ a.data.category }}</p>
+    <h3 class="card-title">{{ a.data.title }}</h3>
+    {% if showExcerpt %}
+    <p class="card-excerpt">{{ a.data.excerpt }}</p>
+    <p class="card-meta">{{ a.data.readTime }}</p>
+    {% endif %}
+  </div>
+</a>
+{% endmacro %}

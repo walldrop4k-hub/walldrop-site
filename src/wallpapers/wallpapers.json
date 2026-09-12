@@ -1,0 +1,4 @@
+{
+  "layout": "wallpaper.njk",
+  "permalink": "/wallpaper/{{ page.fileSlug }}/index.html"
+}

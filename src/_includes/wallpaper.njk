@@ -1,0 +1,104 @@
+---
+layout: base.njk
+---
+{% from "partials/macros.njk" import wallpaperCard with context %}
+{% set cat = categories[category] | findBySlug(subcategory) %}
+{% set ratio = "ratio-16-9" if category == "desktop" else "ratio-9-16" %}
+{% set detailModifier = "" if category == "desktop" else " wallpaper-detail-mobile" %}
+{% set typeLabel = "Desktop" if category == "desktop" else "Mobile" %}
+{% set catName = cat.name if cat else subcategory %}
+
+  <section class="section" style="padding-bottom: 0;">
+    <div class="section-inner">
+
+      <!-- ============ BREADCRUMB ============ -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/category/{{ category }}/{{ subcategory }}/">{{ typeLabel }}</a>
+        <span>/</span>
+        <a href="/category/{{ category }}/{{ subcategory }}/">{{ catName }}</a>
+        <span>/</span>
+        <span class="current">{{ title }}</span>
+      </nav>
+
+      <!-- ============ DETAIL LAYOUT ============ -->
+      <div class="wallpaper-detail{{ detailModifier }}">
+
+        <div class="preview-panel">
+          {% if image %}
+          <img class="preview-media {{ ratio }}" src="{{ image }}" alt="{{ title }}" style="width:100%;height:100%;object-fit:cover;">
+          {% else %}
+          <div class="preview-media {{ ratio }} {{ gradientClass }}"></div>
+          {% endif %}
+        </div>
+
+        <aside class="detail-sidebar">
+          <span class="tag" style="position: static; display: inline-flex; background: rgba(232,163,61,0.12); border-color: rgba(232,163,61,0.3); color: var(--accent);">{{ catName }}</span>
+          <h1 class="detail-title">{{ title }}</h1>
+
+          <div class="res-options">
+            {% for r in resolutions %}
+            <button class="res-btn{{ ' is-active' if loop.first }}">
+              <strong>{{ r.label }}</strong>
+              <span>{{ r.dimensions }}</span>
+            </button>
+            {% endfor %}
+          </div>
+
+          <button class="btn btn-primary btn-large btn-block">Download — {{ fileSize }}</button>
+
+          <div class="info-rows">
+            <div class="info-row"><span>Resolution</span><span>{{ resolutions[0].dimensions }}</span></div>
+            <div class="info-row"><span>File size</span><span>{{ fileSize }}</span></div>
+            <div class="info-row"><span>Format</span><span>{{ format }}</span></div>
+            <div class="info-row"><span>Category</span><span>{{ typeLabel }} · {{ catName }}</span></div>
+            <div class="info-row"><span>Added</span><span>{{ date | readableDate }}</span></div>
+          </div>
+
+          <div class="tag-pills">
+            {% for t in tags %}<span class="pill">{{ t }}</span>{% endfor %}
+          </div>
+        </aside>
+
+      </div>
+
+      <!-- ============ DESCRIPTION ============ -->
+      <div class="detail-description">
+        {{ content | safe }}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ RELATED WALLPAPERS ============ -->
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Related wallpapers</h2>
+      <div class="{{ 'wallpaper-grid-desktop' if category == 'desktop' else 'wallpaper-grid-mobile' }}">
+        {% set relatedList = (collections.desktopWallpapers if category == "desktop" else collections.mobileWallpapers) | excludeSlug(slug) %}
+        {% for w in relatedList.slice(0, 3) %}{{ wallpaperCard(w) }}{% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AD SLOT ============ -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="ad-slot">Ad space</div>
+    </div>
+  </section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "name": {{ title | jsonify | safe }},
+  "description": {{ content | plainText(200) | jsonify | safe }},
+  "contentUrl": {{ (site.url + (image if image else "/favicon.svg")) | jsonify | safe }},
+  "datePublished": {{ date | isoDate | jsonify | safe }},
+  "keywords": {{ (tags | join(", ")) | jsonify | safe }},
+  "width": {{ resolutions[0].dimensions | dimension("width") | jsonify | safe }},
+  "height": {{ resolutions[0].dimensions | dimension("height") | jsonify | safe }}
+}
+</script>
