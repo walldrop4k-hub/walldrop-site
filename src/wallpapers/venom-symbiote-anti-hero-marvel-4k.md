@@ -5,7 +5,7 @@ category: desktop
 subcategory: 4k
 image: /assets/wallpapers/venom-symbiote-anti-hero-hd-desktop-wallpaper.jpg
 gradientClass: null
-fileSize: 1.2 MB
+fileSize: 1.0 MB
 format: JPG
 tags:
   - Dark
