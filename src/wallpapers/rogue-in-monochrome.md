@@ -5,10 +5,8 @@ category: desktop
 subcategory: anime
 image: /assets/wallpapers/dark-anime-rogue-pistol-desktop-wallpaper.jpg
 gradientClass: null
-resolutions:
-  - label: "Label: 4K Dimensions: 3840 × 2160"
-    dimensions: 1.0 MB
-fileSize: "Label: 4K Dimensions: 3840 × 2160"
+resolutions: []
+fileSize: 3840 × 2160 1.0MB
 format: JPG
 tags:
   - anime
