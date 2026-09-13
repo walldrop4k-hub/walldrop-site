@@ -1,7 +1,7 @@
 ---
 layout: base.njk
 ---
-{% from "partials/macros.njk" import wallpaperCard with context %}
+{% from "partials/macros.njk" import wallpaperCard, mediaOrFallback with context %}
 {% set cat = categories[category] | findBySlug(subcategory) %}
 {% set ratio = "ratio-16-9" if category == "desktop" else "ratio-9-16" %}
 {% set detailModifier = "" if category == "desktop" else " wallpaper-detail-mobile" %}
@@ -26,11 +26,7 @@ layout: base.njk
       <div class="wallpaper-detail{{ detailModifier }}">
 
         <div class="preview-panel">
-          {% if image %}
-          <img class="preview-media {{ ratio }}" src="{{ image }}" alt="{{ title }}" style="width:100%;height:100%;object-fit:cover;">
-          {% else %}
-          <div class="preview-media {{ ratio }} {{ gradientClass }}"></div>
-          {% endif %}
+          {{ mediaOrFallback(image, title, "preview-media " + ratio, gradientClass) }}
         </div>
 
         <aside class="detail-sidebar">

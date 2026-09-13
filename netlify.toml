@@ -11,13 +11,20 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
 
-# Wallpaper images uploaded through the CMS get a new filename every time
-# (Decap never overwrites one in place), so it's safe to cache them
-# forever — a URL's content never changes under it.
+# NOT "immutable" — that was the actual root cause of CMS-uploaded images
+# showing broken. Decap's git-gateway saves an upload as two separate git
+# commits (the image file, then the markdown entry that references it).
+# If a browser requests the image URL in the gap between the page going
+# live and that specific image's own deploy landing, it gets a 404 — and
+# an "immutable, max-age=31536000" header applies to THAT response too,
+# so the browser would cache "this URL is broken" for a full year, even
+# though the real file shows up moments later. A short, revalidating
+# cache means any such bad response self-heals almost immediately
+# instead of looking permanently broken.
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=300, must-revalidate"
 
 # style.css and script.js are NOT filename-hashed — they can change in
 # place on a deploy, so they get a short cache instead of "immutable".

@@ -4,12 +4,22 @@
 
 {% macro downloadIcon() %}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M4 19h16"></path></svg>{% endmacro %}
 
+{# Renders an <img>, but falls back to the gradient placeholder look if
+   the image URL ever 404s (a broken upload, a deploy that hasn't fully
+   propagated yet, a since-deleted file) — so a visitor only ever sees a
+   clean placeholder, never a broken-image icon. cssClass carries any
+   positioning classes (e.g. "thumb-bg", "preview-media ratio-16-9") so
+   the fallback div lines up exactly like the image would have. #}
+{% macro mediaOrFallback(src, alt, cssClass, gradientClass) %}
+{% if src %}<img class="{{ cssClass }}" src="{{ src }}" alt="{{ alt }}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="{{ cssClass }} {{ gradientClass or 'grad-1' }}" style="display:none;"></div>{% else %}<div class="{{ cssClass }} {{ gradientClass or 'grad-1' }}"></div>{% endif %}
+{% endmacro %}
+
 {% macro wallpaperCard(w, extraClass="") %}
 {% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
 {% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
 <a href="{{ w.url }}" class="wallpaper-card {{ extraClass }}">
   <div class="thumb {{ ratio }}">
-    {% if w.data.image %}<img class="thumb-bg" src="{{ w.data.image }}" alt="{{ w.data.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="thumb-bg {{ w.data.gradientClass }}"></div>{% endif %}
+    {{ mediaOrFallback(w.data.image, w.data.title, "thumb-bg", w.data.gradientClass) }}
     <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
     {# Decorative only — not a real control, so it can't be the thing a
        tap lands on. The whole card is the one click target; the actual
@@ -27,7 +37,7 @@
 {% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
 {% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
 <a href="{{ w.url }}" class="trending-card {{ ratio }} fade-item">
-  {% if w.data.image %}<img class="trending-bg" src="{{ w.data.image }}" alt="{{ w.data.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="trending-bg {{ w.data.gradientClass }}"></div>{% endif %}
+  {{ mediaOrFallback(w.data.image, w.data.title, "trending-bg", w.data.gradientClass) }}
   <div class="trending-overlay"></div>
   <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
   <div class="trending-info">
@@ -50,7 +60,7 @@
 {% macro articleCard(a, showExcerpt=true) %}
 <a href="{{ a.url }}" class="article-card fade-item">
   <div class="thumb">
-    {% if a.data.image %}<img class="thumb-bg" src="{{ a.data.image }}" alt="{{ a.data.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="thumb-bg {{ a.data.gradientClass }}"></div>{% endif %}
+    {{ mediaOrFallback(a.data.image, a.data.title, "thumb-bg", a.data.gradientClass) }}
   </div>
   <div class="card-info">
     <p class="card-eyebrow">{{ a.data.category }}</p>

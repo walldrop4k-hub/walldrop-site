@@ -1897,7 +1897,12 @@ main {
     display: flex;
   }
 
-  .btn-primary {
+  /* Only the nav's own "Browse all" button — NOT every .btn-primary
+     site-wide. That used to be the bare .btn-primary selector, which
+     silently hid the wallpaper download button, the contact form's
+     submit button, and the 404/thank-you page buttons below 900px too,
+     since they all share the same button class. */
+  .nav-browse-btn {
     display: none;
   }
 
