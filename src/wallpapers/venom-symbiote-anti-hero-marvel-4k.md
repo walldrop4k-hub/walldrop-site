@@ -4,7 +4,7 @@ slug: venom-symbiote-anti-hero-marvel-4k
 category: desktop
 subcategory: 4k
 image: /assets/wallpapers/venom-symbiote-anti-hero-hd-desktop-wallpaper.jpg
-thumbnail: /assets/wallpapers/venom-symbiote-anti-hero-hd-desktop-wallpaper.jpg
+thumbnail: ""
 gradientClass: null
 fileSize: 1.0 MB
 format: JPG
