@@ -5,7 +5,10 @@ category: mobile
 subcategory: amoled
 image: /assets/wallpapers/whatsapp-image-2026-09-13-at-20.18.40.jpeg
 gradientClass: null
-fileSize: Full HD
+resolutions:
+  - label: "FULL HD "
+    dimensions: 1920 × 1080
+fileSize: 1.3 MB
 format: JPG
 tags:
   - 4K Mobile
