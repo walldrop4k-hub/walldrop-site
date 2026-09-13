@@ -1390,53 +1390,16 @@ main {
   margin: 10px 0 20px;
 }
 
-.res-options {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.res-btn {
-  flex: 1;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 8px;
-  text-align: center;
-  color: var(--text-muted);
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-.res-btn strong {
-  display: block;
-  font-size: 0.9rem;
-  color: var(--text);
-  font-weight: 600;
-}
-
-.res-btn span {
-  display: block;
-  font-size: 0.72rem;
-  margin-top: 2px;
-}
-
-.res-btn:hover {
-  border-color: var(--accent);
-}
-
-.res-btn.is-active {
-  border-color: var(--accent);
-  background: rgba(232, 163, 61, 0.1);
-  color: var(--accent);
-}
-
-.res-btn.is-active strong {
-  color: var(--text);
-}
-
 .btn-block {
   display: flex;
   width: 100%;
+  margin-bottom: 8px;
+}
+
+.download-meta {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
   margin-bottom: 24px;
 }
 
@@ -2002,14 +1965,6 @@ main {
 
   .featured-image {
     aspect-ratio: 4 / 3;
-  }
-
-  .res-options {
-    flex-wrap: wrap;
-  }
-
-  .res-btn {
-    flex: 1 1 45%;
   }
 
   .footer-columns {

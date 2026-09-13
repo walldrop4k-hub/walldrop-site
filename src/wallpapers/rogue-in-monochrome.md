@@ -4,11 +4,11 @@ slug: rogue-in-monochrome
 category: desktop
 subcategory: anime
 image: /assets/wallpapers/dark-anime-rogue-pistol-desktop-wallpaper.jpg
-gradientClass: null
+gradientClass: grad-7
 resolutions:
-  - label: "Label: 4K Dimensions: 3840 × 2160"
-    dimensions: 1.0 MB
-fileSize: "Label: 4K Dimensions: 3840 × 2160"
+  - label: "4K"
+    dimensions: "3840 × 2160"
+fileSize: "1.0 MB"
 format: JPG
 tags:
   - anime
