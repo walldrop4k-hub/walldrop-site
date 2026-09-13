@@ -5,6 +5,9 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/whatsapp-image-2026-09-13-at-20.18.43.jpeg
 gradientClass: null
+resolutions:
+  - label: Full HD
+    dimensions: 1920 × 1080
 fileSize: 1.2 MB
 format: JPG
 tags:
