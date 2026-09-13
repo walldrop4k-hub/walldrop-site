@@ -2,16 +2,20 @@ backend:
   name: git-gateway
   branch: main
 
-# Editorial workflow — every save creates a draft PR-like entry that goes
-# through Draft → In Review → Ready before it's published, instead of
-# writing straight to the live branch.
-publish_mode: editorial_workflow
+# Simple publish mode — saving an entry commits it straight to `main`
+# and it goes live on the next build. (The alternative, editorial_workflow,
+# adds a Draft → In Review → Ready step before publish — worth turning
+# back on if more than one person starts editing the site.)
+publish_mode: simple
 
 media_folder: src/assets/wallpapers
 public_folder: /assets/wallpapers
 
-site_url: https://walldrop4k.com
-display_url: https://walldrop4k.com
+# Keep these two in sync with the "url" field in src/_data/site.json —
+# that field drives the real site, this just points the CMS's own
+# preview/link-back at the same place.
+site_url: https://rococo-gumdrop-51c976.netlify.app
+display_url: https://rococo-gumdrop-51c976.netlify.app
 logo_url: /favicon.svg
 
 collections:
@@ -70,10 +74,11 @@ collections:
       - label: Resolutions
         name: resolutions
         widget: list
+        hint: "Most wallpapers only need one entry — the site is built for a single resolution per wallpaper."
         summary: "{{fields.label}} — {{fields.dimensions}}"
         fields:
-          - { label: "Label (e.g. 4K, iPhone, Full HD)", name: label, widget: string }
-          - { label: "Dimensions (e.g. 3840 × 2160)", name: dimensions, widget: string }
+          - { label: "Name shown on the button (e.g. Full HD, 4K, iPhone)", name: label, widget: string, hint: "This is a NAME, not pixels — e.g. \"Full HD\"." }
+          - { label: "Pixel size (e.g. 1920 × 1080)", name: dimensions, widget: string, hint: "This is the actual WIDTH × HEIGHT in pixels." }
 
       - { label: File Size, name: fileSize, widget: string, hint: "e.g. 4.8 MB" }
       - label: Format

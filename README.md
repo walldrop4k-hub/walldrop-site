@@ -103,14 +103,11 @@ You only ever have to do this once.
    tags, a short description, and — once you have a real image — upload it).
    Leaving the image field empty is fine for now; the page will show a
    placeholder color block instead.
-4. Click **Save**. Because this site uses an "editorial workflow", saving
-   doesn't publish it instantly — it creates a **draft**. You (or Netlify)
-   can then move it from Draft → In Review → Ready, and only then does it go
-   live. This gives you a chance to double-check things before they're
-   public. You can also just publish immediately from the CMS if you don't
-   need that safety net.
-5. A few minutes after publishing, Netlify rebuilds the whole site
-   automatically, and your new wallpaper is live.
+4. Click **Save**. It publishes immediately — Netlify picks up the change
+   and rebuilds the site within a minute or two. (If more than one person
+   ever starts editing this site and you want a draft/review step before
+   things go live, switch `publish_mode` back to `editorial_workflow` in
+   `src/admin/config.yml`.)
 
 ### What happens automatically when you add a wallpaper
 
@@ -143,7 +140,30 @@ every page already has the tracking code in place.
 
 ---
 
-## 5. A note on the design
+## 5. Moving to your real domain
+
+Right now `src/_data/site.json` has `"url": "https://rococo-gumdrop-51c976.netlify.app"`
+— that's the temporary Netlify address the site is running on. Every URL the
+site generates (canonical links, `sitemap.xml`, `robots.txt`, the Open Graph
+preview image/link used when a page is shared, and the structured data on
+wallpaper/article pages) is built from this one field. **When you connect a
+real domain, change just this one value** and everything updates on the next
+build — nothing else needs editing.
+
+---
+
+## 6. The contact form
+
+The contact page's form is wired up to **Netlify Forms** — no code or extra
+setup needed once the site is deployed on Netlify; it detects the form
+automatically from the page's HTML the first time it builds. Submissions
+show up in your Netlify dashboard under **Forms**, and a visitor who submits
+it lands on a "Message sent" thank-you page. It also has a hidden honeypot
+field to catch basic spam bots.
+
+---
+
+## 7. A note on the design
 
 The visual design (colors, spacing, glass effects, tabs, grids) lives
 entirely in `src/style.css` and `src/script.js` — the same two files from

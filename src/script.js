@@ -1,24 +1,72 @@
-// WallDrop — mobile menu toggle
+// WallDrop — mobile menu
+//
+// The desktop nav's Desktop/Mobile dropdowns are hover-driven mega
+// menus and stay exactly that on desktop. Below 900px they're replaced
+// entirely by #mobile-nav, a separate full-height overlay with its own
+// open/close state and its own Desktop/Mobile accordions — see nav.njk
+// and the ".mobile-nav" rules in style.css for why these are kept
+// fully independent instead of reusing the desktop dropdown markup.
 
 const hamburgerBtn = document.getElementById('hamburger-btn');
-const mainNav = document.getElementById('main-nav');
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
+
+function openMobileNav() {
+  mobileNav.classList.add('is-open');
+  mobileNav.setAttribute('aria-hidden', 'false');
+  hamburgerBtn.classList.add('is-active');
+  hamburgerBtn.setAttribute('aria-expanded', 'true');
+  document.body.classList.add('no-scroll');
+}
+
+function closeMobileNav() {
+  mobileNav.classList.remove('is-open');
+  mobileNav.setAttribute('aria-hidden', 'true');
+  hamburgerBtn.classList.remove('is-active');
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('no-scroll');
+}
 
 hamburgerBtn.addEventListener('click', () => {
-  const isOpen = mainNav.classList.toggle('is-open');
-  hamburgerBtn.classList.toggle('is-active', isOpen);
-  hamburgerBtn.setAttribute('aria-expanded', isOpen);
+  if (mobileNav.classList.contains('is-open')) {
+    closeMobileNav();
+  } else {
+    openMobileNav();
+  }
 });
 
-// On mobile, dropdowns open on hover normally, which doesn't work on
-// touch screens. So on small screens we make the dropdown buttons
-// toggle open/closed on tap instead.
-const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+mobileNavClose.addEventListener('click', closeMobileNav);
 
-dropdownToggles.forEach((toggle) => {
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && mobileNav.classList.contains('is-open')) {
+    closeMobileNav();
+  }
+});
+
+// Tapping an actual link inside the menu should close it, not leave it
+// open behind the page it just navigated to.
+mobileNav.querySelectorAll('a').forEach((link) => {
+  link.addEventListener('click', closeMobileNav);
+});
+
+// Desktop/Mobile accordions inside the mobile menu — tapping one opens
+// its category list; the other one(s) close, so only one is open at a time.
+const accordionToggles = mobileNav.querySelectorAll('[data-accordion-toggle]');
+
+accordionToggles.forEach((toggle) => {
   toggle.addEventListener('click', () => {
-    if (window.innerWidth > 900) return; // desktop uses hover, skip
-    const parent = toggle.closest('.has-dropdown');
-    parent.classList.toggle('is-open');
+    const accordion = toggle.closest('.mobile-accordion');
+    const isOpen = accordion.classList.contains('is-open');
+
+    mobileNav.querySelectorAll('.mobile-accordion.is-open').forEach((open) => {
+      open.classList.remove('is-open');
+      open.querySelector('[data-accordion-toggle]').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      accordion.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
   });
 });
 

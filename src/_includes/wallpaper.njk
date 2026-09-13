@@ -37,6 +37,7 @@ layout: base.njk
           <span class="tag" style="position: static; display: inline-flex; background: rgba(232,163,61,0.12); border-color: rgba(232,163,61,0.3); color: var(--accent);">{{ catName }}</span>
           <h1 class="detail-title">{{ title }}</h1>
 
+          {% if resolutions.length > 1 %}
           <div class="res-options">
             {% for r in resolutions %}
             <button class="res-btn{{ ' is-active' if loop.first }}">
@@ -45,8 +46,14 @@ layout: base.njk
             </button>
             {% endfor %}
           </div>
+          {% endif %}
 
-          <button class="btn btn-primary btn-large btn-block">Download — {{ fileSize }}</button>
+          {% set downloadLabel = "Download" + (" — " + resolutions[0].label + " (" + resolutions[0].dimensions + ")" if resolutions.length else "") %}
+          {% if image %}
+          <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ format | lower }}" class="btn btn-primary btn-large btn-block">{{ downloadLabel }}</a>
+          {% else %}
+          <button class="btn btn-primary btn-large btn-block" disabled style="opacity: 0.5; cursor: not-allowed;">{{ downloadLabel }}</button>
+          {% endif %}
 
           <div class="info-rows">
             <div class="info-row"><span>Resolution</span><span>{{ resolutions[0].dimensions }}</span></div>
@@ -79,13 +86,6 @@ layout: base.njk
         {% set relatedList = (collections.desktopWallpapers if category == "desktop" else collections.mobileWallpapers) | excludeSlug(slug) %}
         {% for w in relatedList.slice(0, 3) %}{{ wallpaperCard(w) }}{% endfor %}
       </div>
-    </div>
-  </section>
-
-  <!-- ============ AD SLOT ============ -->
-  <section class="section">
-    <div class="section-inner">
-      <div class="ad-slot">Ad space</div>
     </div>
   </section>
 

@@ -10,3 +10,30 @@
   [headers.values]
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
+
+# Wallpaper images uploaded through the CMS get a new filename every time
+# (Decap never overwrites one in place), so it's safe to cache them
+# forever — a URL's content never changes under it.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# style.css and script.js are NOT filename-hashed — they can change in
+# place on a deploy, so they get a short cache instead of "immutable".
+# (Netlify's own CDN still serves the new version instantly on deploy;
+# this only controls how long a visitor's browser trusts its old copy.)
+[[headers]]
+  for = "/style.css"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/script.js"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+
+[[headers]]
+  for = "/favicon.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"

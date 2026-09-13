@@ -11,7 +11,10 @@
   <div class="thumb {{ ratio }}">
     {% if w.data.image %}<img class="thumb-bg" src="{{ w.data.image }}" alt="{{ w.data.title }}" style="width:100%;height:100%;object-fit:cover;">{% else %}<div class="thumb-bg {{ w.data.gradientClass }}"></div>{% endif %}
     <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
-    <button class="download-btn" aria-label="Download">{{ downloadIcon() }}</button>
+    {# Decorative only — not a real control, so it can't be the thing a
+       tap lands on. The whole card is the one click target; the actual
+       download link lives on the wallpaper's own page. #}
+    <span class="download-btn" aria-hidden="true">{{ downloadIcon() }}</span>
   </div>
   <div class="card-info">
     <h3 class="card-title">{{ w.data.title }}</h3>

@@ -54,6 +54,11 @@ module.exports = function (eleventyConfig) {
   // built-in tojson/dump filter).
   eleventyConfig.addFilter("jsonify", (val) => JSON.stringify(val));
 
+  // "https://example.com" -> "example.com", for mentioning the site's
+  // own domain in body copy (e.g. the privacy policy) without the
+  // scheme reading awkwardly.
+  eleventyConfig.addFilter("bareDomain", (url) => String(url || "").replace(/^https?:\/\//, ""));
+
   // Same wallpaper/mobile collection minus the current page, for "Related
   // wallpapers" — avoids relying on for-loop counters, which Nunjucks
   // doesn't reliably persist across iterations.

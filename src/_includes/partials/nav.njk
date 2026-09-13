@@ -58,7 +58,7 @@
       </button>
       <a href="/category/desktop/4k/" class="btn btn-primary">Browse all</a>
 
-      <button class="hamburger" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false" aria-controls="main-nav">
+      <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
         <span></span>
         <span></span>
         <span></span>
@@ -67,3 +67,45 @@
 
   </div>
 </header>
+
+<!-- ============ MOBILE NAV (separate from the desktop mega menu) ============ -->
+<div class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <div class="mobile-nav-inner">
+    <div class="mobile-nav-header">
+      <span class="logo-text">WallDrop<span class="logo-accent">4K</span></span>
+      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="mobile-nav-body">
+      <div class="mobile-accordion">
+        <button class="mobile-accordion-toggle" data-accordion-toggle="mnav-desktop" aria-expanded="false">
+          Desktop <span class="chevron">&#9662;</span>
+        </button>
+        <div class="mobile-accordion-panel" id="mnav-desktop">
+          {% for cat in categories.desktop %}
+          <a href="/category/desktop/{{ cat.slug }}/" class="mobile-accordion-link">{{ cat.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="mobile-accordion">
+        <button class="mobile-accordion-toggle" data-accordion-toggle="mnav-mobile" aria-expanded="false">
+          Mobile <span class="chevron">&#9662;</span>
+        </button>
+        <div class="mobile-accordion-panel" id="mnav-mobile">
+          {% for cat in categories.mobile %}
+          <a href="/category/mobile/{{ cat.slug }}/" class="mobile-accordion-link">{{ cat.name }}</a>
+          {% endfor %}
+        </div>
+      </div>
+
+      <a href="/articles/" class="mobile-nav-link">Articles</a>
+      <a href="/about/" class="mobile-nav-link">About</a>
+    </div>
+  </div>
+</div>
