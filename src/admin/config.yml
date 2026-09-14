@@ -13,7 +13,7 @@ backend:
   #      e.g. https://walldrop4k-cms-auth.<your-subdomain>.workers.dev
   #   2. auth_endpoint usually stays "auth" — only change it if your
   #      specific Worker template uses a different route.
-  base_url: https://REPLACE-WITH-YOUR-CLOUDFLARE-WORKER-URL.workers.dev
+  base_url: https://walldrop4k-cms-auth.walldrop4k.workers.dev
   auth_endpoint: auth
 
 # Simple publish mode — saving an entry commits it straight to `main`
