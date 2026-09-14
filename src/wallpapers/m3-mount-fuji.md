@@ -2,9 +2,9 @@
 title: M3 Mount Fuji
 slug: bmw-e36-m3-mount-fuji
 category: desktop
-subcategory: 8k
+subcategory: 4k
 image: /assets/wallpapers/far-from-away-any-road-at.jpg
-gradientClass: grad-1
+gradientClass: null
 resolutions:
   - label: Full HD
     dimensions: 1920 × 1080
