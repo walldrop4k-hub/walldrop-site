@@ -1,5 +1,5 @@
 ---
-title: Venom Symbiote Anti Hero Marvel 4K
+title: Venom Symbiote
 slug: venom-symbiote-anti-hero-marvel-4k
 category: desktop
 subcategory: 4k
