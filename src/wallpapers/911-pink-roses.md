@@ -2,7 +2,7 @@
 title: 911 Pink Roses
 slug: porsche-911-pink-roses
 category: mobile
-subcategory: iphone
+subcategory: android
 image: /assets/wallpapers/porsche-911-cherry-blossoms-wallpaper.jpg
 gradientClass: null
 resolutions:
@@ -10,6 +10,9 @@ resolutions:
     dimensions: " 1920 × 1080"
 fileSize: 1.0 MB
 format: JPG
+tags:
+  - "cars "
+  - Mobile Wallpaper
 date: 2026-09-14T11:53:00.000+03:00
 featured: true
 trending: true
