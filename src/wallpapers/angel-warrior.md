@@ -10,6 +10,10 @@ resolutions:
     dimensions: 1920 × 1080
 fileSize: 343 KB
 format: JPG
+tags:
+  - Dark
+  - Amoled
+  - Phone Wallpaper
 date: 2026-09-14T17:25:00.000+03:00
 featured: true
 trending: true
