@@ -1,0 +1,13 @@
+{
+  "name": "walldrop4k-cms-auth",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Decap CMS GitHub OAuth proxy for WallDrop4K, deployed as a Cloudflare Worker.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^3.78.0"
+  }
+}

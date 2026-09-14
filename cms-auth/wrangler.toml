@@ -1,0 +1,12 @@
+name = "walldrop4k-cms-auth"
+main = "src/worker.js"
+compatibility_date = "2024-09-23"
+
+# Not secret — these are fine to commit and read in the dashboard.
+# GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET are set separately as real
+# secrets with `wrangler secret put`, never written here.
+[vars]
+# Update this once you know your real Cloudflare Pages URL (and again if
+# you later connect a custom domain), then run `npx wrangler deploy` again.
+SITE_URL = "https://REPLACE-WITH-YOUR-CLOUDFLARE-PAGES-URL.pages.dev"
+GITHUB_REPO = "walldrop4k-hub/walldrop-site"
