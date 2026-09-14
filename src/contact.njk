@@ -16,10 +16,20 @@ permalink: /contact/index.html
     <div class="section-inner">
       <div class="contact-layout">
 
-        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you/">
-          <input type="hidden" name="form-name" value="contact">
+        <!--
+          Formspree setup (free tier, no backend needed):
+            1. Go to https://formspree.io and create a free account.
+            2. Create a new form there — it gives you an endpoint that
+               looks like https://formspree.io/f/xxxxxxxx.
+            3. Paste that into the action= below, replacing the
+               placeholder.
+          _next tells Formspree where to send people after a successful
+          submit — it's already pointed at this site's own thank-you page.
+        -->
+        <form class="contact-form" method="POST" action="https://formspree.io/f/REPLACE-WITH-YOUR-FORMSPREE-ID">
+          <input type="hidden" name="_next" value="{{ site.url }}/thank-you/">
           <p style="position: absolute; left: -9999px;" aria-hidden="true">
-            <label>Leave this field blank if you're human: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+            <label>Leave this field blank if you're human: <input name="_gotcha" tabindex="-1" autocomplete="off"></label>
           </p>
 
           <div class="form-group">

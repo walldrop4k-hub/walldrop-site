@@ -5,9 +5,6 @@
   "footerDesktop": ["4k", "gaming", "nature", "abstract", "dark"],
   "footerMobile": ["iphone", "samsung", "anime", "amoled", "minimal"],
 
-  "homeTileDesktop": ["4k", "gaming", "nature", "abstract"],
-  "homeTileMobile": ["iphone", "samsung", "dark", "anime"],
-
   "desktop": [
     { "slug": "4k", "name": "4K", "description": "Ultra-sharp wallpapers built for large desktop displays. Every image here is hand-checked for crisp detail at full 4K resolution.", "gradient": "grad-1" },
     { "slug": "ultra-hd", "name": "Ultra HD", "description": "High-resolution wallpapers for large desktop displays, one step below full 4K.", "gradient": "grad-2" },

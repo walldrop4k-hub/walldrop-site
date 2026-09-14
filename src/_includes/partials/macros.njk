@@ -47,16 +47,6 @@
 </a>
 {% endmacro %}
 
-{% macro categoryTile(slug, type) %}
-{% set cat = categories[type] | findBySlug(slug) %}
-{% if cat %}
-{% set label = ("Desktop " if type == "desktop" else "Mobile ") + cat.name %}
-<a href="/category/{{ type }}/{{ slug }}/" class="category-tile fade-item {{ cat.gradient }}">
-  <span class="category-name">{{ label }}</span>
-</a>
-{% endif %}
-{% endmacro %}
-
 {% macro articleCard(a, showExcerpt=true) %}
 <a href="{{ a.url }}" class="article-card fade-item">
   <div class="thumb">

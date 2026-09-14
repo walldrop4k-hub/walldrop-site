@@ -26,7 +26,7 @@ for a beginner, not a developer.
   use day to day, instead of touching files directly.
 - **`_site/`** — the finished website, built automatically from everything
   above. You never edit this folder by hand — it gets regenerated every time
-  you (or Netlify) run a build. It's not saved in git.
+  you (or Cloudflare) run a build. It's not saved in git.
 
 ---
 
@@ -67,35 +67,50 @@ The finished site appears in the `_site` folder.
 
 ---
 
-## 3. Adding content through the CMS (the normal way)
-
-You won't use the CMS on your own computer — it needs to be connected to a
-live site on Netlify and a GitHub repository, because that's what it saves
-your changes to. Here's the one-time setup, then the day-to-day workflow.
-
-### One-time setup (do this once, with help if needed)
+## 3. Deploying to Cloudflare Pages
 
 1. **Push this project to GitHub** as a repository (if it isn't already).
-2. **Create a Netlify site** from that GitHub repository
-   ([netlify.com](https://netlify.com) → "Add new site" → "Import an
-   existing project"). Netlify will read `netlify.toml` automatically and
-   know how to build the site — you don't need to configure anything.
-3. In your new Netlify site's dashboard, go to **Site configuration →
-   Identity** and click **Enable Identity**.
-4. Still under Identity, go to **Services** and click **Enable Git Gateway**.
-   This is what lets the CMS save changes back to your GitHub repo on your
-   behalf.
-5. Under Identity → **Registration**, you can set it to "Invite only" so
-   random people can't sign up.
-6. Invite yourself as a user (Identity tab → "Invite users" → your email).
-   You'll get an email — click the link, set a password.
+2. In the [Cloudflare dashboard](https://dash.cloudflare.com), go to
+   **Workers & Pages → Create → Pages → Connect to Git**, and pick this
+   repository.
+3. When it asks for build settings:
+   - **Build command:** `npm run build`
+   - **Build output directory:** `_site`
+   - Leave everything else as default.
+4. Click **Save and Deploy**. The first build takes a couple of minutes.
+   When it's done, Cloudflare gives you a URL like
+   `https://walldrop-site.pages.dev` — that's your live site.
+5. Every time `main` on GitHub changes (including when the CMS saves an
+   edit), Cloudflare automatically rebuilds and redeploys — you don't have
+   to trigger anything by hand.
+
+## 4. Setting up the CMS (one-time)
+
+This site's CMS logs in through GitHub directly, via a small piece of
+middleware called an **OAuth proxy**. Cloudflare Pages doesn't include one
+built in (Netlify used to provide this automatically — Cloudflare
+doesn't), so it needs to be deployed once as its own small Cloudflare
+Worker. This is the one genuinely technical step in this whole setup —
+it's fine to get help with it if you're not comfortable with Workers.
+
+1. Deploy a Decap/Netlify-CMS-compatible **GitHub OAuth Worker**. There
+   are ready-made templates for this — search for "decap-cms-oauth
+   Cloudflare Worker" — that you deploy with a couple of `wrangler`
+   commands after creating a GitHub OAuth App for this repository.
+2. Once it's deployed, you'll have a Worker URL like
+   `https://walldrop4k-cms-auth.<your-subdomain>.workers.dev`.
+3. Open `src/admin/config.yml` and replace
+   `REPLACE-WITH-YOUR-CLOUDFLARE-WORKER-URL` in the `base_url` line with
+   that Worker URL. Commit and push — the next deploy picks it up.
+4. Go to `https://<your-site>.pages.dev/admin/` and log in with your
+   GitHub account. Only people with write access to this repository can
+   actually save changes.
 
 You only ever have to do this once.
 
 ### Using the CMS day to day
 
-1. Go to `your-site-url.netlify.app/admin/` and log in with the account you
-   just created.
+1. Go to `https://<your-site>.pages.dev/admin/` and log in with GitHub.
 2. You'll see three sections in the sidebar: **Wallpapers**, **Articles**,
    and **Site Settings**.
 3. To add a wallpaper: click **Wallpapers → New Wallpaper**, fill in the
@@ -103,11 +118,11 @@ You only ever have to do this once.
    tags, a short description, and — once you have a real image — upload it).
    Leaving the image field empty is fine for now; the page will show a
    placeholder color block instead.
-4. Click **Save**. It publishes immediately — Netlify picks up the change
-   and rebuilds the site within a minute or two. (If more than one person
-   ever starts editing this site and you want a draft/review step before
-   things go live, switch `publish_mode` back to `editorial_workflow` in
-   `src/admin/config.yml`.)
+4. Click **Save**. It publishes immediately — Cloudflare picks up the
+   change and rebuilds the site within a minute or two. (If more than one
+   person ever starts editing this site and you want a draft/review step
+   before things go live, switch `publish_mode` back to
+   `editorial_workflow` in `src/admin/config.yml`.)
 
 ### What happens automatically when you add a wallpaper
 
@@ -131,7 +146,7 @@ will pick it up automatically the next time the site builds.
 
 ---
 
-## 4. Turning on Google Analytics
+## 5. Turning on Google Analytics
 
 Open `src/_data/site.json` and replace `"G-XXXXXXXXXX"` with your real GA4
 measurement ID (it looks like `G-` followed by letters and numbers, found in
@@ -140,30 +155,55 @@ every page already has the tracking code in place.
 
 ---
 
-## 5. Moving to your real domain
+## 6. Connecting your own domain, and the `url` field
 
-Right now `src/_data/site.json` has `"url": "https://rococo-gumdrop-51c976.netlify.app"`
-— that's the temporary Netlify address the site is running on. Every URL the
-site generates (canonical links, `sitemap.xml`, `robots.txt`, the Open Graph
-preview image/link used when a page is shared, and the structured data on
-wallpaper/article pages) is built from this one field. **When you connect a
-real domain, change just this one value** and everything updates on the next
-build — nothing else needs editing.
+**Connecting the domain**, in Cloudflare: open your Pages project →
+**Custom domains → Set up a custom domain**, and follow the prompts. If the
+domain is already on Cloudflare (DNS-wise), this is basically instant; if
+not, Cloudflare walks you through pointing it there first.
+
+**Then update `src/_data/site.json`.** Right now it has a placeholder —
+`"url": "https://REPLACE-WITH-YOUR-CLOUDFLARE-PAGES-URL.pages.dev"`.
+Change that one value to:
+- your `*.pages.dev` address, as soon as the first deploy is live (so the
+  site isn't pointing at a fake placeholder), and then
+- your real domain, once it's connected.
+
+Every URL the site generates — canonical links, `sitemap.xml`,
+`robots.txt`, the Open Graph preview image/link used when a page is
+shared, the structured data on wallpaper/article pages, and the contact
+form's post-submit redirect — is built from this one field. Changing it
+updates all of them on the next build; nothing else needs editing.
+
+(The `site_url` / `display_url` lines near the top of
+`src/admin/config.yml` are a separate, smaller thing — they only affect
+the CMS's own "view live" links, and should just be kept matching the
+same URL.)
 
 ---
 
-## 6. The contact form
+## 7. The contact form (Formspree)
 
-The contact page's form is wired up to **Netlify Forms** — no code or extra
-setup needed once the site is deployed on Netlify; it detects the form
-automatically from the page's HTML the first time it builds. Submissions
-show up in your Netlify dashboard under **Forms**, and a visitor who submits
-it lands on a "Message sent" thank-you page. It also has a hidden honeypot
-field to catch basic spam bots.
+The contact page's form posts to **Formspree** — a free service that
+emails you form submissions without needing any backend code of your own.
+To turn it on:
+
+1. Go to [formspree.io](https://formspree.io) and create a free account.
+2. Create a new form there. It gives you an endpoint URL that looks like
+   `https://formspree.io/f/xxxxxxxx`.
+3. Open `src/contact.njk` and replace
+   `REPLACE-WITH-YOUR-FORMSPREE-ID` in the form's `action=` with that
+   endpoint (the full instructions are also in a comment right above the
+   form in that file).
+
+A visitor who submits the form lands on the "Message sent" thank-you
+page, same as before. It also still has a hidden honeypot field (a trap
+field real visitors never fill in) to catch basic spam bots — Formspree
+recognizes it automatically since it's named the way Formspree expects.
 
 ---
 
-## 7. A note on the design
+## 8. A note on the design
 
 The visual design (colors, spacing, glass effects, tabs, grids) lives
 entirely in `src/style.css` and `src/script.js` — the same two files from

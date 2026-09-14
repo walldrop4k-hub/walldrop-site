@@ -5,6 +5,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/assets");
   eleventyConfig.addPassthroughCopy("src/admin");
+  // Cloudflare Pages reads this from the build output root.
+  eleventyConfig.addPassthroughCopy("src/_headers");
 
   // Decap CMS's admin/index.html is a static app shell (loads the CMS
   // script itself), not an Eleventy template — don't run it through the

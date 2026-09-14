@@ -1,0 +1,24 @@
+# Cloudflare Pages reads this file from the build output root and applies
+# these headers automatically — no dashboard config needed. Same rules
+# that used to live in netlify.toml.
+
+/assets/*
+  Cache-Control: public, max-age=300, must-revalidate
+
+# style.css and script.js are NOT filename-hashed — they can change in
+# place on a deploy, so they get a short cache instead of "immutable".
+# (Cloudflare's own CDN still serves the new version instantly on
+# deploy; this only controls how long a visitor's browser trusts its
+# old copy.)
+/style.css
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/script.js
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/favicon.svg
+  Cache-Control: public, max-age=86400, must-revalidate
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY

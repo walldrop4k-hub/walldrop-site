@@ -1,6 +1,20 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: walldrop4k-hub/walldrop-site
   branch: main
+  # This site now logs into the CMS via GitHub directly, through a small
+  # OAuth proxy — Cloudflare Pages has no built-in equivalent to Netlify's
+  # Identity + Git Gateway, so that proxy has to be deployed separately
+  # as a Cloudflare Worker (e.g. using a ready-made "decap-cms-oauth" /
+  # "netlify-cms-oauth-provider-for-cloudflare-pages" template).
+  #
+  # TODO once that Worker is deployed:
+  #   1. Set base_url below to the Worker's own URL,
+  #      e.g. https://walldrop4k-cms-auth.<your-subdomain>.workers.dev
+  #   2. auth_endpoint usually stays "auth" — only change it if your
+  #      specific Worker template uses a different route.
+  base_url: https://REPLACE-WITH-YOUR-CLOUDFLARE-WORKER-URL.workers.dev
+  auth_endpoint: auth
 
 # Simple publish mode — saving an entry commits it straight to `main`
 # and it goes live on the next build. (The alternative, editorial_workflow,
@@ -14,8 +28,8 @@ public_folder: /assets/wallpapers
 # Keep these two in sync with the "url" field in src/_data/site.json —
 # that field drives the real site, this just points the CMS's own
 # preview/link-back at the same place.
-site_url: https://rococo-gumdrop-51c976.netlify.app
-display_url: https://rococo-gumdrop-51c976.netlify.app
+site_url: https://REPLACE-WITH-YOUR-CLOUDFLARE-PAGES-URL.pages.dev
+display_url: https://REPLACE-WITH-YOUR-CLOUDFLARE-PAGES-URL.pages.dev
 logo_url: /favicon.svg
 
 collections:

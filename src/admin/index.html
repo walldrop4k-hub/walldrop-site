@@ -6,25 +6,11 @@
   <title>Content Manager — WallDrop4K</title>
 </head>
 <body>
-  <!-- Required for the git-gateway backend — this is what makes the
-       "log in with GitHub" button in the CMS actually work once Netlify
-       Identity + Git Gateway are turned on for the site. -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-
   <!-- Decap CMS — the admin UI itself is loaded entirely from this script,
-       config.yml (next to this file) tells it what content to edit. -->
+       config.yml (next to this file) tells it what content to edit. Login
+       goes through GitHub directly (see config.yml's backend block) via a
+       Cloudflare Worker OAuth proxy — no extra script needed here for that,
+       unlike the old Netlify Identity setup. -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", (user) => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>

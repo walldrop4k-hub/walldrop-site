@@ -824,60 +824,6 @@ main {
 }
 
 /* ==========================================================
-   Category rail
-   ========================================================== */
-
-.category-rail {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  padding-bottom: 8px;
-  scrollbar-width: thin;
-}
-
-.category-tile {
-  position: relative;
-  flex: 0 0 auto;
-  width: 220px;
-  height: 140px;
-  border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
-  border: 1px solid var(--border);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.category-tile:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-}
-
-.category-tile::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(20, 20, 26, 0) 40%, rgba(20, 20, 26, 0.75) 100%);
-}
-
-.category-name {
-  position: relative;
-  z-index: 1;
-  display: inline-block;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--text);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  padding: 8px 14px;
-  border-radius: 999px;
-  box-shadow: inset 0 1px 0 var(--glass-highlight);
-}
-
-/* ==========================================================
    Wallpaper cards (latest drops)
    ========================================================== */
 
@@ -1957,11 +1903,6 @@ main {
   .trending-grid-mobile {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
-  }
-
-  .category-tile {
-    width: 180px;
-    height: 120px;
   }
 
   .article-grid {

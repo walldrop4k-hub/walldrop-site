@@ -2,7 +2,7 @@
 layout: base.njk
 permalink: /index.html
 ---
-{% from "partials/macros.njk" import wallpaperCard, trendingCard, categoryTile, articleCard with context %}
+{% from "partials/macros.njk" import wallpaperCard, trendingCard, articleCard with context %}
 
   <!-- ============ SEARCH ============ -->
   <section class="search-hero">
@@ -57,17 +57,6 @@ permalink: /index.html
         <div class="trending-grid-mobile">
           {% for w in collections.trendingMobile %}{{ trendingCard(w) }}{% endfor %}
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CATEGORY RAIL ============ -->
-  <section class="section category-section reveal">
-    <div class="section-inner">
-      <h2 class="section-title">Jump to a category</h2>
-      <div class="category-rail">
-        {% for slug in categories.homeTileDesktop %}{{ categoryTile(slug, "desktop") }}{% endfor %}
-        {% for slug in categories.homeTileMobile %}{{ categoryTile(slug, "mobile") }}{% endfor %}
       </div>
     </div>
   </section>
