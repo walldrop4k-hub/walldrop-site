@@ -1065,10 +1065,18 @@ main {
 .footer-col ul {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  /* The link itself now supplies its own vertical spacing via padding
+     (see .footer-col a below) so its tap target is actually 44px tall,
+     not just its text glyphs — an explicit gap on top of that would
+     just double up the spacing. */
+  gap: 0;
 }
 
 .footer-col a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 0;
   color: var(--text-muted);
   font-size: 0.88rem;
   transition: color 0.2s ease;
@@ -1092,6 +1100,10 @@ main {
 }
 
 .footer-tags a.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 16px;
   transition: border-color 0.2s ease, color 0.2s ease;
 }
 
@@ -1304,6 +1316,13 @@ main {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
+  /* Grid items default to min-width: auto, which refuses to shrink
+     below the intrinsic size of whatever's inside (here, an image) —
+     that's what was letting a tall portrait preview blow the whole
+     grid wider than the viewport on mobile, forcing a zoomed-out,
+     horizontally-scrollable page. min-width: 0 lets it actually
+     shrink to fit its grid track like normal block content would. */
+  min-width: 0;
 }
 
 .preview-media {
@@ -1313,7 +1332,7 @@ main {
 
 .preview-media.ratio-9-16 {
   aspect-ratio: 9 / 16;
-  max-height: 80vh;
+  max-height: 70vh;
   margin: 0 auto;
 }
 
@@ -1327,6 +1346,9 @@ main {
   padding: 28px;
   position: sticky;
   top: calc(var(--nav-height) + var(--nav-gap));
+  /* Same grid-blowout fix as .preview-panel — a long title or tag can
+     otherwise stop this column from shrinking to fit its track. */
+  min-width: 0;
 }
 
 .detail-title {
@@ -1854,6 +1876,11 @@ main {
 
   .wallpaper-detail {
     grid-template-columns: 1fr;
+    /* Stacked (preview above sidebar) instead of side-by-side here —
+       the 40px gap made sense as breathing room between two columns,
+       but between two stacked rows it's just extra distance to the
+       Download button below the preview. */
+    gap: 24px;
   }
 
   .detail-sidebar {

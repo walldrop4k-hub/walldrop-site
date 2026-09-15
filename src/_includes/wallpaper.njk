@@ -26,7 +26,12 @@ layout: base.njk
       <div class="wallpaper-detail{{ detailModifier }}">
 
         <div class="preview-panel">
-          {{ mediaOrFallback(image, title, "preview-media " + ratio, gradientClass) }}
+          {# Mobile-format (9:16) wallpapers get object-fit: contain — the
+             box is height-capped on small screens, and a real photo rarely
+             matches the 9:16 box exactly, so "cover" would crop it.
+             Desktop (16:9) previews are unaffected — they already fit
+             fine and stay "cover" as before. #}
+          {{ mediaOrFallback(image, title, "preview-media " + ratio, gradientClass, "contain" if category == "mobile" else "cover") }}
         </div>
 
         <aside class="detail-sidebar">

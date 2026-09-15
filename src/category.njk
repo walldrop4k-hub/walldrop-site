@@ -30,36 +30,29 @@
   <section class="section" style="padding-top: 0;">
     <div class="section-inner">
 
-      <div class="filter-bar">
-        <div class="chip-row">
+      <div class="filter-bar" id="filter-bar">
+        <div class="chip-row" id="chip-row">
           {% for chip in chips %}
-          <button class="chip{{ ' is-active' if loop.first }}">{{ chip }}</button>
+          <button class="chip{{ ' is-active' if loop.first }}" data-chip="{{ chip | lower }}">{{ chip }}</button>
           {% endfor %}
         </div>
-        <select class="sort-select">
-          <option>Latest</option>
-          <option>Most downloaded</option>
-          <option>Random</option>
+        <select class="sort-select" id="sort-select">
+          <option value="latest">Latest</option>
+          <option value="oldest">Oldest first</option>
+          <option value="random">Random</option>
         </select>
       </div>
 
       <!-- ============ WALLPAPER GRID ============ -->
       {% set matches = collections.allWallpapers | byCategory(cat.type, cat.slug) %}
-      <div class="{{ gridClass }}">
+      <div class="{{ gridClass }}" id="wallpaper-grid">
         {% for w in matches %}
         {{ wallpaperCard(w) }}
         {% else %}
         <p class="page-desc">No wallpapers in this category yet — add one from the CMS and it'll show up here automatically.</p>
         {% endfor %}
       </div>
-
-      <!-- ============ PAGINATION ============ -->
-      <nav class="pagination" aria-label="Pagination">
-        <a href="#" class="page-btn is-active">1</a>
-        <a href="#" class="page-btn">2</a>
-        <a href="#" class="page-btn">3</a>
-        <a href="#" class="page-btn page-next">Next</a>
-      </nav>
+      <p class="page-desc" id="chip-empty" hidden style="margin-top: 24px;">No wallpapers match this filter yet — try "All" or a different tag.</p>
 
     </div>
   </section>

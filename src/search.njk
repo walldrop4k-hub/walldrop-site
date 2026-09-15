@@ -1,0 +1,46 @@
+---
+layout: base.njk
+title: Search
+permalink: /search/index.html
+---
+
+  <!-- ============ SEARCH ============ -->
+  <section class="search-hero">
+    <div class="section-inner">
+      <h1 class="search-hero-title" id="search-heading">Search wallpapers</h1>
+      <p class="search-hero-desc" id="search-subheading">Search by title, category, or tag.</p>
+
+      <form class="search-bar glass" action="/search/" method="get" id="search-page-form">
+        <svg class="search-bar-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" class="search-bar-input" name="q" id="search-page-input" placeholder="Search wallpapers, categories, or tags...">
+        <button type="submit" class="search-bar-btn">Search</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner">
+
+      <div id="search-empty" hidden style="text-align: center; padding: 40px 0;">
+        <p class="page-desc" id="search-empty-text"></p>
+        <a href="/category/desktop/4k/" class="btn btn-primary" style="margin-top: 20px; display: inline-flex;">Browse all wallpapers</a>
+      </div>
+
+      <div id="search-wallpapers-section" hidden>
+        <h2 class="section-title" style="margin-bottom: 20px;">Wallpapers</h2>
+        <div class="wallpaper-grid-desktop" id="search-results-wallpapers"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="search-articles-section" hidden>
+    <div class="section-inner">
+      <h2 class="section-title">Articles</h2>
+      <div class="article-grid" id="search-results-articles"></div>
+    </div>
+  </section>

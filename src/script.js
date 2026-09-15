@@ -102,6 +102,15 @@ function setActivePanel(group, key, format) {
     btn.classList.toggle('is-active', btn.dataset.format === format);
   });
 
+  // If this tab group has a "View all" link sitting next to it, point it
+  // at whichever format is now active instead of always the desktop page.
+  const titleActions = group.closest('.section-title-actions');
+  const viewAllLink = titleActions ? titleActions.querySelector('[data-view-all]') : null;
+  if (viewAllLink) {
+    const href = format === 'desktop' ? viewAllLink.dataset.hrefDesktop : viewAllLink.dataset.hrefMobile;
+    if (href) viewAllLink.setAttribute('href', href);
+  }
+
   document.querySelectorAll(`[data-panel-group="${key}"]`).forEach((panel) => {
     const isMatch = panel.dataset.panel === `${key}-${format}`;
     if (isMatch) {
@@ -142,3 +151,229 @@ tabGroups.forEach((group) => {
     });
   });
 });
+
+// ==========================================================
+// Category page — filter chips + sort dropdown (real filtering,
+// not decorative). Selection is written to the URL as ?chip=&sort=
+// so it's shareable and survives the back button.
+// ==========================================================
+const chipRow = document.getElementById('chip-row');
+const wallpaperGrid = document.getElementById('wallpaper-grid');
+
+if (chipRow && wallpaperGrid) {
+  const sortSelect = document.getElementById('sort-select');
+  const chipEmpty = document.getElementById('chip-empty');
+  const chips = Array.from(chipRow.querySelectorAll('.chip'));
+  const cards = Array.from(wallpaperGrid.querySelectorAll('.wallpaper-card'));
+
+  function readFilterState() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      chip: params.get('chip') || 'all',
+      sort: params.get('sort') || 'latest',
+    };
+  }
+
+  function writeFilterState(state, push) {
+    const params = new URLSearchParams(window.location.search);
+    if (state.chip && state.chip !== 'all') params.set('chip', state.chip);
+    else params.delete('chip');
+    if (state.sort && state.sort !== 'latest') params.set('sort', state.sort);
+    else params.delete('sort');
+    const query = params.toString();
+    const url = window.location.pathname + (query ? `?${query}` : '');
+    if (push) window.history.pushState(state, '', url);
+    else window.history.replaceState(state, '', url);
+  }
+
+  function applyFilterState(state) {
+    chips.forEach((chip) => {
+      chip.classList.toggle('is-active', chip.dataset.chip === state.chip);
+    });
+
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const tags = (card.dataset.tags || '').split(',').map((t) => t.trim()).filter(Boolean);
+      const matches = state.chip === 'all' || card.dataset.subcategory === state.chip || tags.includes(state.chip);
+      card.hidden = !matches;
+      if (matches) visibleCount += 1;
+    });
+    if (chipEmpty) chipEmpty.hidden = visibleCount !== 0;
+
+    // Sort by re-appending cards in the desired order — CSS grid follows
+    // DOM order, so this is enough without touching layout markup.
+    const ordered = cards.slice();
+    if (state.sort === 'oldest') {
+      ordered.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+    } else if (state.sort === 'random') {
+      for (let i = ordered.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [ordered[i], ordered[j]] = [ordered[j], ordered[i]];
+      }
+    } else {
+      ordered.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+    }
+    ordered.forEach((card) => wallpaperGrid.appendChild(card));
+  }
+
+  const initialFilterState = readFilterState();
+  if (sortSelect) sortSelect.value = initialFilterState.sort;
+  applyFilterState(initialFilterState);
+  writeFilterState(initialFilterState, false);
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const state = readFilterState();
+      state.chip = chip.dataset.chip;
+      applyFilterState(state);
+      writeFilterState(state, true);
+    });
+  });
+
+  if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
+      const state = readFilterState();
+      state.sort = sortSelect.value;
+      applyFilterState(state);
+      writeFilterState(state, true);
+    });
+  }
+
+  window.addEventListener('popstate', () => {
+    const state = readFilterState();
+    if (sortSelect) sortSelect.value = state.sort;
+    applyFilterState(state);
+  });
+}
+
+// ==========================================================
+// Search page — fetches the build-time /search-index.json and
+// matches title / tags / category / subcategory for wallpapers,
+// title / category / excerpt for articles. Cards are rendered
+// client-side using the same classes as wallpaperCard/articleCard
+// in macros.njk, so results look identical to every other grid.
+// ==========================================================
+const searchWallpapersEl = document.getElementById('search-results-wallpapers');
+
+if (searchWallpapersEl) {
+  const searchArticlesEl = document.getElementById('search-results-articles');
+  const wallpapersSection = document.getElementById('search-wallpapers-section');
+  const articlesSection = document.getElementById('search-articles-section');
+  const emptyEl = document.getElementById('search-empty');
+  const emptyTextEl = document.getElementById('search-empty-text');
+  const heading = document.getElementById('search-heading');
+  const subheading = document.getElementById('search-subheading');
+  const pageInput = document.getElementById('search-page-input');
+
+  const downloadIconSvg =
+    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M4 19h16"></path></svg>';
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    }[c]));
+  }
+
+  function mediaMarkup(item, cssClass) {
+    if (item.image) {
+      return `<img class="${cssClass}" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="${cssClass} ${item.gradientClass || 'grad-1'}" style="display:none;"></div>`;
+    }
+    return `<div class="${cssClass} ${item.gradientClass || 'grad-1'}"></div>`;
+  }
+
+  function renderWallpaperCard(item) {
+    const ratio = item.category === 'desktop' ? 'ratio-16-9' : 'ratio-9-16';
+    const tagLabel = item.subcategory ? item.subcategory.charAt(0).toUpperCase() + item.subcategory.slice(1) : '';
+    return `<a href="${item.url}" class="wallpaper-card">
+      <div class="thumb ${ratio}">
+        ${mediaMarkup(item, 'thumb-bg')}
+        <span class="tag">${escapeHtml(tagLabel)}</span>
+        <span class="download-btn" aria-hidden="true">${downloadIconSvg}</span>
+      </div>
+      <div class="card-info">
+        <h3 class="card-title">${escapeHtml(item.title)}</h3>
+        <p class="card-res">${escapeHtml(item.resolution || '')}</p>
+      </div>
+    </a>`;
+  }
+
+  function renderArticleCard(item) {
+    return `<a href="${item.url}" class="article-card">
+      <div class="thumb">${mediaMarkup(item, 'thumb-bg')}</div>
+      <div class="card-info">
+        <p class="card-eyebrow">${escapeHtml(item.category)}</p>
+        <h3 class="card-title">${escapeHtml(item.title)}</h3>
+        <p class="card-excerpt">${escapeHtml(item.excerpt || '')}</p>
+      </div>
+    </a>`;
+  }
+
+  function matchItem(item, needle) {
+    const haystack = [item.title, item.category, item.subcategory, item.excerpt, ...(item.tags || [])]
+      .filter(Boolean)
+      .join(' ')
+      .toLowerCase();
+    return haystack.includes(needle);
+  }
+
+  function runSearch(query) {
+    const trimmed = (query || '').trim();
+    if (pageInput) pageInput.value = trimmed;
+
+    if (!trimmed) {
+      if (heading) heading.textContent = 'Search wallpapers';
+      if (subheading) subheading.textContent = 'Search by title, category, or tag.';
+      wallpapersSection.hidden = true;
+      articlesSection.hidden = true;
+      emptyEl.hidden = true;
+      return;
+    }
+
+    if (heading) heading.textContent = `Results for "${trimmed}"`;
+
+    fetch('/search-index.json')
+      .then((res) => res.json())
+      .then((index) => {
+        const needle = trimmed.toLowerCase();
+        const matches = index.filter((item) => matchItem(item, needle));
+        const wallpapers = matches.filter((item) => item.type === 'wallpaper');
+        const articles = matches.filter((item) => item.type === 'article');
+
+        if (matches.length === 0) {
+          wallpapersSection.hidden = true;
+          articlesSection.hidden = true;
+          if (subheading) subheading.textContent = '';
+          if (emptyTextEl) emptyTextEl.textContent = `No wallpapers found for "${trimmed}".`;
+          emptyEl.hidden = false;
+          return;
+        }
+
+        emptyEl.hidden = true;
+        if (subheading) {
+          const wallpaperCount = `${wallpapers.length} wallpaper${wallpapers.length === 1 ? '' : 's'}`;
+          const articleCount = articles.length ? `, ${articles.length} article${articles.length === 1 ? '' : 's'}` : '';
+          subheading.textContent = `${wallpaperCount}${articleCount} found.`;
+        }
+
+        if (wallpapers.length) {
+          searchWallpapersEl.innerHTML = wallpapers.map(renderWallpaperCard).join('');
+          wallpapersSection.hidden = false;
+        } else {
+          wallpapersSection.hidden = true;
+        }
+
+        if (articles.length) {
+          searchArticlesEl.innerHTML = articles.map(renderArticleCard).join('');
+          articlesSection.hidden = false;
+        } else {
+          articlesSection.hidden = true;
+        }
+      });
+  }
+
+  runSearch(new URLSearchParams(window.location.search).get('q'));
+}

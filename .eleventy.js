@@ -121,6 +121,45 @@ module.exports = function (eleventyConfig) {
     api.getFilteredByGlob("src/articles/*.md").sort(byNewestFirst)
   );
 
+  // Flat, plain-object index consumed by /search-index.json — the data
+  // behind the site's real client-side search (title/category/tags for
+  // wallpapers, title/category/excerpt for articles).
+  eleventyConfig.addCollection("searchIndex", (api) => {
+    const wallpapers = api
+      .getFilteredByGlob("src/wallpapers/*.md")
+      .sort(byNewestFirst)
+      .map((item) => ({
+        type: "wallpaper",
+        title: item.data.title,
+        category: item.data.category,
+        subcategory: item.data.subcategory,
+        tags: item.data.tags || [],
+        url: item.url,
+        image: item.data.image || null,
+        gradientClass: item.data.gradientClass || null,
+        resolution:
+          item.data.resolutions && item.data.resolutions.length
+            ? item.data.resolutions[0].dimensions
+            : "",
+      }));
+
+    const articles = api
+      .getFilteredByGlob("src/articles/*.md")
+      .sort(byNewestFirst)
+      .map((item) => ({
+        type: "article",
+        title: item.data.title,
+        category: item.data.category,
+        excerpt: item.data.excerpt || "",
+        tags: [],
+        url: item.url,
+        image: item.data.image || null,
+        gradientClass: item.data.gradientClass || null,
+      }));
+
+    return wallpapers.concat(articles);
+  });
+
   return {
     dir: {
       input: "src",
