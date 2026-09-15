@@ -2,7 +2,7 @@
 title: Suppressed Pistol
 slug: tactical-suppressed-pistol-desk-4k-wallpaper
 category: desktop
-subcategory: gaming
+subcategory: 4k
 image: /assets/wallpapers/556.png
 gradientClass: null
 resolutions:
