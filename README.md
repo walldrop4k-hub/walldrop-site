@@ -99,9 +99,10 @@ it's fine to get help with it if you're not comfortable with Workers.
    commands after creating a GitHub OAuth App for this repository.
 2. Once it's deployed, you'll have a Worker URL like
    `https://walldrop4k-cms-auth.<your-subdomain>.workers.dev`.
-3. Open `src/admin/config.yml` and replace
-   `REPLACE-WITH-YOUR-CLOUDFLARE-WORKER-URL` in the `base_url` line with
-   that Worker URL. Commit and push — the next deploy picks it up.
+3. Set `base_url` in `src/admin/config.yml` to that Worker URL. (This is
+   already done for this site — it points at
+   `https://walldrop4k-cms-auth.walldrop4k.workers.dev`. Only change it if
+   you redeploy the OAuth Worker somewhere else.)
 4. Go to `https://<your-site>.pages.dev/admin/` and log in with your
    GitHub account. Only people with write access to this repository can
    actually save changes.
@@ -148,43 +149,39 @@ will pick it up automatically the next time the site builds.
 
 ## 5. Turning on Google Analytics
 
-Open `src/_data/site.json` and replace `"G-XXXXXXXXXX"` with your real GA4
-measurement ID (it looks like `G-` followed by letters and numbers, found in
-your Google Analytics property settings). That's the only change needed —
-every page already has the tracking code in place.
+**Still a placeholder — not done yet.** Open `src/_data/site.json` and
+replace `"G-XXXXXXXXXX"` with your real GA4 measurement ID (it looks like
+`G-` followed by letters and numbers, found in your Google Analytics
+property settings). That's the only change needed — every page already has
+the tracking code in place.
 
 ---
 
 ## 6. Connecting your own domain, and the `url` field
 
-**Connecting the domain**, in Cloudflare: open your Pages project →
-**Custom domains → Set up a custom domain**, and follow the prompts. If the
-domain is already on Cloudflare (DNS-wise), this is basically instant; if
-not, Cloudflare walks you through pointing it there first.
+`src/_data/site.json` currently has `"url": "https://walldrop-site.pages.dev"`
+— the real `*.pages.dev` address this site deploys to. Every URL the site
+generates — canonical links, `sitemap.xml`, `robots.txt`, the Open Graph
+preview image/link used when a page is shared, the structured data on
+wallpaper/article pages, and the contact form's post-submit redirect — is
+built from this one field.
 
-**Then update `src/_data/site.json`.** Right now it has a placeholder —
-`"url": "https://REPLACE-WITH-YOUR-CLOUDFLARE-PAGES-URL.pages.dev"`.
-Change that one value to:
-- your `*.pages.dev` address, as soon as the first deploy is live (so the
-  site isn't pointing at a fake placeholder), and then
-- your real domain, once it's connected.
-
-Every URL the site generates — canonical links, `sitemap.xml`,
-`robots.txt`, the Open Graph preview image/link used when a page is
-shared, the structured data on wallpaper/article pages, and the contact
-form's post-submit redirect — is built from this one field. Changing it
-updates all of them on the next build; nothing else needs editing.
+If you later connect a custom domain (in Cloudflare: open your Pages
+project → **Custom domains → Set up a custom domain**, and follow the
+prompts), update this one field to the new domain and everything above
+updates on the next build — nothing else needs editing.
 
 (The `site_url` / `display_url` lines near the top of
 `src/admin/config.yml` are a separate, smaller thing — they only affect
-the CMS's own "view live" links, and should just be kept matching the
-same URL.)
+the CMS's own "view live" links, and are already kept matching the same
+URL. Update them too if you switch domains.)
 
 ---
 
 ## 7. The contact form (Formspree)
 
-The contact page's form posts to **Formspree** — a free service that
+**Still a placeholder — not done yet.** The contact page's form posts to
+**Formspree** — a free service that
 emails you form submissions without needing any backend code of your own.
 To turn it on:
 

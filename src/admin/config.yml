@@ -28,8 +28,8 @@ public_folder: /assets/wallpapers
 # Keep these two in sync with the "url" field in src/_data/site.json —
 # that field drives the real site, this just points the CMS's own
 # preview/link-back at the same place.
-site_url: https://REPLACE-WITH-YOUR-CLOUDFLARE-PAGES-URL.pages.dev
-display_url: https://REPLACE-WITH-YOUR-CLOUDFLARE-PAGES-URL.pages.dev
+site_url: https://walldrop-site.pages.dev
+display_url: https://walldrop-site.pages.dev
 logo_url: /favicon.svg
 
 collections:
