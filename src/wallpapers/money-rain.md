@@ -3,8 +3,8 @@ title: Money Rain
 slug: money-rain-4k-pc-desktop-wallpaper
 category: desktop
 subcategory: gaming
-image: ""
-thumbnail: /assets/wallpapers/1377738.png
+image: /assets/wallpapers/1377738.png
+thumbnail: ""
 gradientClass: null
 resolutions:
   - label: 4K
