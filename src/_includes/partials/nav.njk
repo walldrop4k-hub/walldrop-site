@@ -29,7 +29,9 @@
           <div class="dropdown-menu glass-solid">
             <div class="mega-columns">
               {% for cat in categories.desktop %}
+              {% if occupiedCategories["desktop/" + cat.slug] %}
               <a href="/category/desktop/{{ cat.slug }}/" class="mega-link">{{ cat.name }}</a>
+              {% endif %}
               {% endfor %}
             </div>
           </div>
@@ -39,7 +41,9 @@
           <div class="dropdown-menu glass-solid">
             <div class="mega-columns">
               {% for cat in categories.mobile %}
+              {% if occupiedCategories["mobile/" + cat.slug] %}
               <a href="/category/mobile/{{ cat.slug }}/" class="mega-link">{{ cat.name }}</a>
+              {% endif %}
               {% endfor %}
             </div>
           </div>
@@ -88,7 +92,9 @@
         </button>
         <div class="mobile-accordion-panel" id="mnav-desktop">
           {% for cat in categories.desktop %}
+          {% if occupiedCategories["desktop/" + cat.slug] %}
           <a href="/category/desktop/{{ cat.slug }}/" class="mobile-accordion-link">{{ cat.name }}</a>
+          {% endif %}
           {% endfor %}
         </div>
       </div>
@@ -99,7 +105,9 @@
         </button>
         <div class="mobile-accordion-panel" id="mnav-mobile">
           {% for cat in categories.mobile %}
+          {% if occupiedCategories["mobile/" + cat.slug] %}
           <a href="/category/mobile/{{ cat.slug }}/" class="mobile-accordion-link">{{ cat.name }}</a>
+          {% endif %}
           {% endfor %}
         </div>
       </div>

@@ -1,6 +1,7 @@
 ---
 layout: base.njk
 permalink: /index.html
+metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile — free, curated, and updated with new drops every week."
 ---
 {% from "partials/macros.njk" import wallpaperCard, trendingCard, articleCard with context %}
 
@@ -21,17 +22,18 @@ permalink: /index.html
 
       <div class="search-popular">
         <span class="search-popular-label">Popular:</span>
-        <a href="/category/desktop/4k/" class="pill glass">4K</a>
-        <a href="/category/desktop/dark/" class="pill glass">Dark</a>
-        <a href="/category/desktop/nature/" class="pill glass">Nature</a>
-        <a href="/category/desktop/gaming/" class="pill glass">Gaming</a>
-        <a href="/category/desktop/minimal/" class="pill glass">Minimal</a>
-        <a href="/category/mobile/iphone/" class="pill glass">iPhone</a>
+        {% if occupiedCategories["desktop/4k"] %}<a href="/category/desktop/4k/" class="pill glass">4K</a>{% endif %}
+        {% if occupiedCategories["desktop/dark"] %}<a href="/category/desktop/dark/" class="pill glass">Dark</a>{% endif %}
+        {% if occupiedCategories["desktop/nature"] %}<a href="/category/desktop/nature/" class="pill glass">Nature</a>{% endif %}
+        {% if occupiedCategories["desktop/gaming"] %}<a href="/category/desktop/gaming/" class="pill glass">Gaming</a>{% endif %}
+        {% if occupiedCategories["desktop/minimal"] %}<a href="/category/desktop/minimal/" class="pill glass">Minimal</a>{% endif %}
+        {% if occupiedCategories["mobile/iphone"] %}<a href="/category/mobile/iphone/" class="pill glass">iPhone</a>{% endif %}
       </div>
     </div>
   </section>
 
   <!-- ============ TRENDING NOW ============ -->
+  {% if collections.trendingDesktop.length >= 3 or collections.trendingMobile.length >= 3 %}
   <section class="section trending-section reveal">
     <div class="section-inner">
       <div class="section-title-row">
@@ -58,6 +60,7 @@ permalink: /index.html
       </div>
     </div>
   </section>
+  {% endif %}
 
   <!-- ============ LATEST DROPS ============ -->
   <section class="section reveal" id="latest-drops">
@@ -72,13 +75,13 @@ permalink: /index.html
 
       <div class="tab-panel" data-panel-group="latest" data-panel="latest-desktop">
         <div class="wallpaper-grid-desktop">
-          {% for w in collections.desktopWallpapers %}{{ wallpaperCard(w, "fade-item") }}{% endfor %}
+          {% for w in collections.latestDropsDesktop %}{{ wallpaperCard(w, "fade-item", "lazy") }}{% endfor %}
         </div>
       </div>
 
       <div class="tab-panel" data-panel-group="latest" data-panel="latest-mobile">
         <div class="wallpaper-grid-mobile">
-          {% for w in collections.mobileWallpapers %}{{ wallpaperCard(w, "fade-item") }}{% endfor %}
+          {% for w in collections.latestDropsMobile %}{{ wallpaperCard(w, "fade-item", "lazy") }}{% endfor %}
         </div>
       </div>
     </div>
@@ -89,7 +92,7 @@ permalink: /index.html
     <div class="section-inner">
       <h2 class="section-title">From the journal</h2>
       <div class="article-grid">
-        {% for a in collections.allArticles.slice(0, 3) %}{{ articleCard(a, false) }}{% endfor %}
+        {% for a in collections.allArticles.slice(0, 3) %}{{ articleCard(a, false, "lazy") }}{% endfor %}
       </div>
     </div>
   </section>

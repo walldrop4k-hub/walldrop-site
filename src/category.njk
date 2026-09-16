@@ -4,11 +4,21 @@
   pagination: {
     data: "categoryPages",
     size: 1,
-    alias: "cat"
+    alias: "cat",
+    // Eleventy only adds a paginated template's FIRST output page to
+    // collections by default — without this, collections.all (used by
+    // sitemap.njk) only ever saw one category page total, regardless of
+    // how many actually exist.
+    addAllPagesToCollections: true
   },
   eleventyComputed: {
     title: (data) => `${data.cat.type === "desktop" ? "Desktop" : "Mobile"} ${data.cat.name} Wallpapers`,
-    permalink: (data) => `/category/${data.cat.type}/${data.cat.slug}/index.html`
+    permalink: (data) => `/category/${data.cat.type}/${data.cat.slug}/index.html`,
+    metaDescription: (data) => data.cat.description,
+    // Empty categories stay reachable (a friendly page, not a dead link)
+    // but shouldn't be indexed as thin/duplicate content until they have
+    // real wallpapers in them.
+    noindex: (data) => !data.occupiedCategories[`${data.cat.type}/${data.cat.slug}`]
   }
 }
 ---
@@ -49,7 +59,7 @@
         {% for w in matches %}
         {{ wallpaperCard(w) }}
         {% else %}
-        <p class="page-desc">No wallpapers in this category yet — add one from the CMS and it'll show up here automatically.</p>
+        <p class="page-desc">No wallpapers here yet — check back soon, or browse another category in the meantime.</p>
         {% endfor %}
       </div>
       <p class="page-desc" id="chip-empty" hidden style="margin-top: 24px;">No wallpapers match this filter yet — try "All" or a different tag.</p>

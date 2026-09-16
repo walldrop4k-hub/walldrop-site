@@ -109,6 +109,16 @@ collections:
       - { label: Featured, name: featured, widget: boolean, default: false }
       - { label: Trending, name: trending, widget: boolean, default: false }
 
+      - label: "SEO (optional — leave blank to auto-generate)"
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: "SEO Title (overrides the page title)", name: title, widget: string, required: false }
+          - { label: "Meta Description (overrides the auto-generated one)", name: description, widget: text, required: false }
+          - { label: "Social Share Image (overrides the wallpaper image)", name: ogImage, widget: image, required: false }
+
   - name: articles
     label: Articles
     label_singular: Article
@@ -139,6 +149,16 @@ collections:
       - { label: Read Time, name: readTime, widget: string, hint: "e.g. 5 min read" }
 
       - { label: Body, name: body, widget: markdown }
+
+      - label: "SEO (optional — leave blank to auto-generate)"
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: "SEO Title (overrides the page title)", name: title, widget: string, required: false }
+          - { label: "Meta Description (overrides the excerpt)", name: description, widget: text, required: false }
+          - { label: "Social Share Image (overrides the article image)", name: ogImage, widget: image, required: false }
 
   - name: settings
     label: Site Settings

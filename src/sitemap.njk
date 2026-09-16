@@ -5,7 +5,15 @@ eleventyExcludeFromCollections: true
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 {%- for entry in collections.all %}
-{%- if not entry.url.startsWith("/admin") %}
+{%- set urlParts = entry.url.split("/") %}
+{%- set isCategoryPage = urlParts.length == 5 and urlParts[1] == "category" %}
+{# entry.data.noindex isn't reliably individualized here for paginated
+   category pages (Eleventy collections snapshot computed data ahead of
+   each pagination instance's own render) — the category page itself
+   still renders its own noindex meta tag correctly; for the sitemap,
+   re-derive occupancy straight from the URL + occupiedCategories instead. #}
+{%- set skip = isCategoryPage and not occupiedCategories[urlParts[2] + "/" + urlParts[3]] %}
+{%- if not entry.url.startsWith("/admin") and not skip %}
   <url>
     <loc>{{ site.url }}{{ entry.url }}</loc>
     {%- if entry.date %}

@@ -39,8 +39,10 @@
         <h4 class="footer-col-title">Desktop</h4>
         <ul>
           {% for slug in categories.footerDesktop %}
+          {% if occupiedCategories["desktop/" + slug] %}
           {% set cat = categories.desktop | findBySlug(slug) %}
           <li><a href="/category/desktop/{{ slug }}/">{{ cat.name }}</a></li>
+          {% endif %}
           {% endfor %}
         </ul>
       </div>
@@ -48,8 +50,10 @@
         <h4 class="footer-col-title">Mobile</h4>
         <ul>
           {% for slug in categories.footerMobile %}
+          {% if occupiedCategories["mobile/" + slug] %}
           {% set cat = categories.mobile | findBySlug(slug) %}
           <li><a href="/category/mobile/{{ slug }}/">{{ cat.name }}</a></li>
+          {% endif %}
           {% endfor %}
         </ul>
       </div>
@@ -65,21 +69,28 @@
       </div>
     </div>
 
+    {% set footerTagList = [
+      {type:"desktop", slug:"nature", name:"Nature"},
+      {type:"desktop", slug:"gaming", name:"Gaming"},
+      {type:"desktop", slug:"dark", name:"Dark"},
+      {type:"desktop", slug:"anime", name:"Anime"},
+      {type:"desktop", slug:"minimal", name:"Minimal"},
+      {type:"desktop", slug:"abstract", name:"Abstract"},
+      {type:"desktop", slug:"4k", name:"4K"},
+      {type:"desktop", slug:"8k", name:"8K"},
+      {type:"mobile", slug:"iphone", name:"iPhone"},
+      {type:"mobile", slug:"samsung", name:"Samsung"},
+      {type:"desktop", slug:"space", name:"Space"},
+      {type:"desktop", slug:"city", name:"City"},
+      {type:"desktop", slug:"cars", name:"Cars"},
+      {type:"mobile", slug:"amoled", name:"AMOLED"}
+    ] %}
     <div class="footer-tags">
-      <a href="/category/desktop/nature/" class="pill">Nature</a>
-      <a href="/category/desktop/gaming/" class="pill">Gaming</a>
-      <a href="/category/desktop/dark/" class="pill">Dark</a>
-      <a href="/category/desktop/anime/" class="pill">Anime</a>
-      <a href="/category/desktop/minimal/" class="pill">Minimal</a>
-      <a href="/category/desktop/abstract/" class="pill">Abstract</a>
-      <a href="/category/desktop/4k/" class="pill">4K</a>
-      <a href="/category/desktop/8k/" class="pill">8K</a>
-      <a href="/category/mobile/iphone/" class="pill">iPhone</a>
-      <a href="/category/mobile/samsung/" class="pill">Samsung</a>
-      <a href="/category/desktop/space/" class="pill">Space</a>
-      <a href="/category/desktop/city/" class="pill">City</a>
-      <a href="/category/desktop/cars/" class="pill">Cars</a>
-      <a href="/category/mobile/amoled/" class="pill">AMOLED</a>
+      {% for tag in footerTagList %}
+      {% if occupiedCategories[tag.type + "/" + tag.slug] %}
+      <a href="/category/{{ tag.type }}/{{ tag.slug }}/" class="pill">{{ tag.name }}</a>
+      {% endif %}
+      {% endfor %}
     </div>
 
     <div class="footer-bottom">

@@ -1,3 +1,5 @@
+const { plainText } = require("./src/_11ty/text-helpers.js");
+
 module.exports = function (eleventyConfig) {
   // ============ Passthrough copy — static files ship to _site untouched ============
   eleventyConfig.addPassthroughCopy("src/style.css");
@@ -41,16 +43,10 @@ module.exports = function (eleventyConfig) {
     return d.toISOString().split("T")[0];
   });
 
-  // Strip markdown/HTML down to a plain-text excerpt for meta descriptions
-  // and JSON-LD, capped at `length` characters.
-  eleventyConfig.addFilter("plainText", (content, length = 160) => {
-    const text = String(content || "")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/[#*_>`]/g, "")
-      .replace(/\s+/g, " ")
-      .trim();
-    return text.length > length ? text.slice(0, length).trim() + "…" : text;
-  });
+  // Strip markdown/HTML down to a plain-text excerpt for JSON-LD, capped
+  // at `length` characters. Shared with wallpapers.11tydata.js's
+  // auto-generated meta description — see src/_11ty/text-helpers.js.
+  eleventyConfig.addFilter("plainText", plainText);
 
   // Pull the leading number out of a "3840 × 2160" style string, for
   // JSON-LD ImageObject width/height.
@@ -123,6 +119,30 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addCollection("allWallpapers", (api) =>
     api.getFilteredByGlob("src/wallpapers/*.md").sort(byNewestFirst)
+  );
+
+  // Homepage "Latest drops" — recent, non-trending wallpapers only, so it
+  // doesn't just mirror "Trending now" above it. Capped at 6 so the
+  // section doesn't grow unbounded as the library does. (Deliberately
+  // separate from desktopWallpapers/mobileWallpapers, which stay
+  // untouched — wallpaper.njk's "Related wallpapers" still needs the
+  // full, unfiltered set.)
+  const LATEST_DROPS_COUNT = 6;
+
+  eleventyConfig.addCollection("latestDropsDesktop", (api) =>
+    api
+      .getFilteredByGlob("src/wallpapers/*.md")
+      .filter((item) => item.data.category === "desktop" && !item.data.trending)
+      .sort(byNewestFirst)
+      .slice(0, LATEST_DROPS_COUNT)
+  );
+
+  eleventyConfig.addCollection("latestDropsMobile", (api) =>
+    api
+      .getFilteredByGlob("src/wallpapers/*.md")
+      .filter((item) => item.data.category === "mobile" && !item.data.trending)
+      .sort(byNewestFirst)
+      .slice(0, LATEST_DROPS_COUNT)
   );
 
   eleventyConfig.addCollection("allArticles", (api) =>

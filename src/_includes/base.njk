@@ -3,12 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{% set pageTitle = (title + " — " + settings.title) if title else (settings.title + " — " + settings.tagline) %}
+{% set baseTitle = seoTitle or title %}
+{% set pageTitle = (baseTitle + " — " + settings.title) if baseTitle else (settings.title + " — " + settings.tagline) %}
 {% set pageDescription = metaDescription or settings.description %}
-{% set pageImage = site.url + (image if image else "/favicon.svg") %}
+{% set pageImage = site.url + (ogImage or defaultOgImage or "/favicon.svg") %}
 <title>{{ pageTitle }}</title>
 <meta name="description" content="{{ pageDescription }}">
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+{% if noindex %}<meta name="robots" content="noindex">{% endif %}
 
 <!-- Open Graph / Twitter — every value comes from src/_data/site.json's
      "url" field, so nothing here needs editing when the real domain
