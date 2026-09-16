@@ -10,6 +10,9 @@ resolutions:
     dimensions: 1920 × 1080
 fileSize: 1.0 MB
 format: PNG
+tags:
+  - Tactical
+  - Dark
 date: 2026-09-15T11:38:00.000+03:00
 featured: false
 trending: true
