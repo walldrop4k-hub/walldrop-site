@@ -70,6 +70,19 @@ accordionToggles.forEach((toggle) => {
   });
 });
 
+// Floating header — stays the plain transparent pill look at the very
+// top of the page, but gets a full-width backdrop (see .is-scrolled in
+// style.css) once the page has actually scrolled, so content passing
+// underneath doesn't show through the empty space around the pill.
+const siteHeader = document.querySelector('.site-header');
+
+function updateHeaderScrolled() {
+  siteHeader.classList.toggle('is-scrolled', window.scrollY > 0);
+}
+
+updateHeaderScrolled();
+window.addEventListener('scroll', updateHeaderScrolled, { passive: true });
+
 // Fade sections (and the cards inside them) in as they scroll into view.
 const revealEls = document.querySelectorAll('.reveal');
 

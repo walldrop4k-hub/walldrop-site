@@ -143,6 +143,18 @@ img {
   top: 0;
   z-index: 100;
   padding: 18px 24px 0;
+  background: transparent;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* Only once the page has actually scrolled (toggled in script.js) does
+   the full top strip get a backdrop — at scroll 0 the header stays the
+   plain floating pill look it already has. Reuses the same glass tokens
+   as .header-inner's own pill so it reads as one consistent surface. */
+.site-header.is-scrolled {
+  background: var(--glass-float-bg);
+  backdrop-filter: blur(var(--glass-float-blur));
+  -webkit-backdrop-filter: blur(var(--glass-float-blur));
 }
 
 /* Even though the header is sticky (so it already reserves its own
