@@ -607,6 +607,7 @@ main {
 .search-hero {
   padding: 36px 0 54px;
   text-align: center;
+  background: linear-gradient(180deg, rgba(232, 163, 61, 0.13) 0%, rgba(232, 163, 61, 0.06) 38%, rgba(20, 20, 26, 0) 100%);
 }
 
 .search-hero-title {
