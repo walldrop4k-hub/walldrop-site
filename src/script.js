@@ -278,19 +278,23 @@ if (searchWallpapersEl) {
     }[c]));
   }
 
-  function mediaMarkup(item, cssClass) {
-    if (item.image) {
-      return `<img class="${cssClass}" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="${cssClass} ${item.gradientClass || 'grad-1'}" style="display:none;"></div>`;
+  function mediaMarkup(src, alt, gradientClass, cssClass) {
+    if (src) {
+      return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
     }
-    return `<div class="${cssClass} ${item.gradientClass || 'grad-1'}"></div>`;
+    return `<div class="${cssClass} ${gradientClass || 'grad-1'}"></div>`;
   }
 
   function renderWallpaperCard(item) {
     const ratio = item.category === 'desktop' ? 'ratio-16-9' : 'ratio-9-16';
     const tagLabel = item.subcategory ? item.subcategory.charAt(0).toUpperCase() + item.subcategory.slice(1) : '';
+    // Cards show the thumbnail (falls back to the full image) — the full
+    // image itself is only ever linked from the wallpaper's own download
+    // button, not loaded into a grid tile.
+    const cardSrc = item.thumbnail || item.image;
     return `<a href="${item.url}" class="wallpaper-card">
       <div class="thumb ${ratio}">
-        ${mediaMarkup(item, 'thumb-bg')}
+        ${mediaMarkup(cardSrc, item.title, item.gradientClass, 'thumb-bg')}
         <span class="tag">${escapeHtml(tagLabel)}</span>
         <span class="download-btn" aria-hidden="true">${downloadIconSvg}</span>
       </div>
@@ -303,7 +307,7 @@ if (searchWallpapersEl) {
 
   function renderArticleCard(item) {
     return `<a href="${item.url}" class="article-card">
-      <div class="thumb">${mediaMarkup(item, 'thumb-bg')}</div>
+      <div class="thumb">${mediaMarkup(item.image, item.title, item.gradientClass, 'thumb-bg')}</div>
       <div class="card-info">
         <p class="card-eyebrow">${escapeHtml(item.category)}</p>
         <h3 class="card-title">${escapeHtml(item.title)}</h3>
