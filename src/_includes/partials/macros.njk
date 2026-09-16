@@ -24,10 +24,11 @@
    for the category-page chip filter/sort (see .chip-row / .sort-select). #}
 <a href="{{ w.url }}" class="wallpaper-card {{ extraClass }}" data-category="{{ w.data.category }}" data-subcategory="{{ (w.data.subcategory or '') | lower }}" data-tags="{{ ((w.data.tags or []) | join(',')) | lower }}" data-date="{{ w.data.date | isoDate }}">
   <div class="thumb {{ ratio }}">
-    {# Grid tiles load the lighter "thumbnail" field, falling back to the
-       full image if no thumbnail was uploaded — the full image is only
-       ever linked from the wallpaper's own download button (wallpaper.njk). #}
-    {{ mediaOrFallback(w.data.thumbnail or w.data.image, w.data.title, "thumb-bg", w.data.gradientClass) }}
+    {# cardImage (see wallpapers.11tydata.js) is a manual CMS thumbnail if
+       one was set, otherwise an auto-generated compressed WebP built from
+       the full image — the full image itself is only ever linked from the
+       wallpaper's own download button (wallpaper.njk). #}
+    {{ mediaOrFallback(w.data.cardImage, w.data.title, "thumb-bg", w.data.gradientClass) }}
     <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
     {# Decorative only — not a real control, so it can't be the thing a
        tap lands on. The whole card is the one click target; the actual
@@ -45,7 +46,7 @@
 {% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
 {% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
 <a href="{{ w.url }}" class="trending-card {{ ratio }} fade-item">
-  {{ mediaOrFallback(w.data.thumbnail or w.data.image, w.data.title, "trending-bg", w.data.gradientClass) }}
+  {{ mediaOrFallback(w.data.cardImage, w.data.title, "trending-bg", w.data.gradientClass) }}
   <div class="trending-overlay"></div>
   <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
   <div class="trending-info">

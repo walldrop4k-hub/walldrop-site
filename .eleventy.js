@@ -144,7 +144,7 @@ module.exports = function (eleventyConfig) {
         tags: item.data.tags || [],
         url: item.url,
         image: item.data.image || null,
-        thumbnail: item.data.thumbnail || null,
+        thumbnail: item.data.cardImage || null,
         gradientClass: item.data.gradientClass || null,
         resolution:
           item.data.resolutions && item.data.resolutions.length
