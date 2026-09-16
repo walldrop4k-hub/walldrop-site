@@ -38,16 +38,16 @@ layout: base.njk
           <span class="tag" style="position: static; display: inline-flex; background: rgba(232,163,61,0.12); border-color: rgba(232,163,61,0.3); color: var(--accent);">{{ catName }}</span>
           <h1 class="detail-title">{{ title }}</h1>
 
-          {% set downloadLabel = "Download" + (" — " + resolutions[0].label + " (" + resolutions[0].dimensions + ")" if resolutions.length else "") %}
+          {% set downloadLabel = "Download" + (" — " + resolutions[0].label + " (" + resolutions[0].dimensions + ")" if resolutions and resolutions.length else "") %}
           {% if image %}
-          <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ format | lower }}" class="btn btn-primary btn-large btn-block">{{ downloadLabel }}</a>
+          <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ (format or 'jpg') | lower }}" class="btn btn-primary btn-large btn-block">{{ downloadLabel }}</a>
           {% else %}
           <button class="btn btn-primary btn-large btn-block" disabled style="opacity: 0.5; cursor: not-allowed;">{{ downloadLabel }}</button>
           {% endif %}
           <p class="download-meta">{{ fileSize }}</p>
 
           <div class="info-rows">
-            <div class="info-row"><span>Resolution</span><span>{{ resolutions[0].dimensions }}</span></div>
+            <div class="info-row"><span>Resolution</span><span>{{ resolutions[0].dimensions if resolutions and resolutions.length else "" }}</span></div>
             <div class="info-row"><span>File size</span><span>{{ fileSize }}</span></div>
             <div class="info-row"><span>Format</span><span>{{ format }}</span></div>
             <div class="info-row"><span>Category</span><span>{{ typeLabel }} · {{ catName }}</span></div>
@@ -55,7 +55,7 @@ layout: base.njk
           </div>
 
           <div class="tag-pills">
-            {% for t in tags %}<span class="pill">{{ t }}</span>{% endfor %}
+            {% for t in tags or [] %}<span class="pill">{{ t }}</span>{% endfor %}
           </div>
         </aside>
 
@@ -88,8 +88,8 @@ layout: base.njk
   "description": {{ content | plainText(200) | jsonify | safe }},
   "contentUrl": {{ (site.url + (image if image else "/favicon.svg")) | jsonify | safe }},
   "datePublished": {{ date | isoDate | jsonify | safe }},
-  "keywords": {{ (tags | join(", ")) | jsonify | safe }},
-  "width": {{ resolutions[0].dimensions | dimension("width") | jsonify | safe }},
-  "height": {{ resolutions[0].dimensions | dimension("height") | jsonify | safe }}
+  "keywords": {{ ((tags or []) | join(", ")) | jsonify | safe }},
+  "width": {{ (resolutions[0].dimensions if resolutions and resolutions.length else "") | dimension("width") | jsonify | safe }},
+  "height": {{ (resolutions[0].dimensions if resolutions and resolutions.length else "") | dimension("height") | jsonify | safe }}
 }
 </script>

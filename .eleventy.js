@@ -23,14 +23,22 @@ module.exports = function (eleventyConfig) {
   });
 
   // "Sep 3, 2026" — used for the "Added" row on wallpaper/article pages.
+  // A missing/unparsable date (e.g. a CMS entry saved without one) falls
+  // back to "" instead of rendering "Invalid Date" to a visitor.
   eleventyConfig.addFilter("readableDate", (dateObj) => {
     const d = new Date(dateObj);
+    if (Number.isNaN(d.getTime())) return "";
     return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
   });
 
   // "2026-09-03" — used in sitemap.xml and JSON-LD, where dates must be ISO.
+  // new Date(undefined).toISOString() throws (RangeError: Invalid time
+  // value), which would otherwise take down the whole build over one
+  // wallpaper/article missing its date — fall back to "" instead.
   eleventyConfig.addFilter("isoDate", (dateObj) => {
-    return new Date(dateObj).toISOString().split("T")[0];
+    const d = new Date(dateObj);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toISOString().split("T")[0];
   });
 
   // Strip markdown/HTML down to a plain-text excerpt for meta descriptions

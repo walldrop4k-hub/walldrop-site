@@ -22,7 +22,7 @@
 {% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
 {# data-* attributes carry no visual effect — they're read by script.js
    for the category-page chip filter/sort (see .chip-row / .sort-select). #}
-<a href="{{ w.url }}" class="wallpaper-card {{ extraClass }}" data-category="{{ w.data.category }}" data-subcategory="{{ w.data.subcategory | lower }}" data-tags="{{ (w.data.tags | join(',')) | lower }}" data-date="{{ w.data.date | isoDate }}">
+<a href="{{ w.url }}" class="wallpaper-card {{ extraClass }}" data-category="{{ w.data.category }}" data-subcategory="{{ (w.data.subcategory or '') | lower }}" data-tags="{{ ((w.data.tags or []) | join(',')) | lower }}" data-date="{{ w.data.date | isoDate }}">
   <div class="thumb {{ ratio }}">
     {{ mediaOrFallback(w.data.image, w.data.title, "thumb-bg", w.data.gradientClass) }}
     <span class="tag">{{ cat.name if cat else w.data.subcategory }}</span>
