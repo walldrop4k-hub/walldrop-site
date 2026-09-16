@@ -82,7 +82,13 @@ const revealObserver = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.15 }
+  // threshold: 0 — a .reveal section wraps its whole card grid, so it can
+  // be hundreds/thousands of px tall. A ratio threshold (e.g. 0.15) needs
+  // that much of the WHOLE section visible before firing, which the first
+  // on-screen row of cards never satisfies on short mobile viewports —
+  // they'd sit stuck at opacity 0 until scrolled well past the fold.
+  // threshold 0 fires as soon as any part of the section is on screen.
+  { threshold: 0 }
 );
 
 revealEls.forEach((el) => revealObserver.observe(el));
