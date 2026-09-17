@@ -7,7 +7,7 @@ image: /assets/wallpapers/556.png
 gradientClass: null
 resolutions:
   - label: Full HD
-    dimensions: 1920 × 1080
+    dimensions: 1280 × 720
 fileSize: 1.0 MB
 format: PNG
 tags:
