@@ -8,7 +8,7 @@ gradientClass: null
 resolutions:
   - label: "4k "
     dimensions: 5120 × 3413
-fileSize: 2.2 MB
+fileSize: 8.7 MB
 format: JPG
 tags:
   - Mountains
