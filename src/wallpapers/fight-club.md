@@ -7,8 +7,8 @@ image: /assets/wallpapers/movie-fight-club.jpg
 gradientClass: null
 resolutions:
   - label: Full HD
-    dimensions: 1920 × 1080
-fileSize: 898 KB
+    dimensions: 400 × 2250
+fileSize: 851 KB
 format: JPG
 tags:
   - Desktop
