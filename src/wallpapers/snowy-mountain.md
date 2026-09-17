@@ -7,7 +7,7 @@ image: /assets/wallpapers/snow-mountains-5120x3413-26362.jpg
 gradientClass: null
 resolutions:
   - label: "4k "
-    dimensions: 1920 × 1080
+    dimensions: 5120 × 3413
 fileSize: 2.2 MB
 format: JPG
 tags:
