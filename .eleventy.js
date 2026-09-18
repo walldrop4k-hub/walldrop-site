@@ -121,18 +121,18 @@ module.exports = function (eleventyConfig) {
     api.getFilteredByGlob("src/wallpapers/*.md").sort(byNewestFirst)
   );
 
-  // Homepage "Latest drops" — recent, non-trending wallpapers only, so it
-  // doesn't just mirror "Trending now" above it. Capped at 6 so the
-  // section doesn't grow unbounded as the library does. (Deliberately
-  // separate from desktopWallpapers/mobileWallpapers, which stay
-  // untouched — wallpaper.njk's "Related wallpapers" still needs the
-  // full, unfiltered set.)
+  // Homepage "Latest drops" — every wallpaper of that format, newest
+  // first, capped at 6. Deliberately does NOT exclude featured/trending
+  // items — those are independent flags and can freely overlap with
+  // "latest". (Kept as its own collection rather than reusing
+  // desktopWallpapers/mobileWallpapers directly just so the slice count
+  // lives in one place — no filtering differs between them.)
   const LATEST_DROPS_COUNT = 6;
 
   eleventyConfig.addCollection("latestDropsDesktop", (api) =>
     api
       .getFilteredByGlob("src/wallpapers/*.md")
-      .filter((item) => item.data.category === "desktop" && !item.data.trending)
+      .filter((item) => item.data.category === "desktop")
       .sort(byNewestFirst)
       .slice(0, LATEST_DROPS_COUNT)
   );
@@ -140,7 +140,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("latestDropsMobile", (api) =>
     api
       .getFilteredByGlob("src/wallpapers/*.md")
-      .filter((item) => item.data.category === "mobile" && !item.data.trending)
+      .filter((item) => item.data.category === "mobile")
       .sort(byNewestFirst)
       .slice(0, LATEST_DROPS_COUNT)
   );

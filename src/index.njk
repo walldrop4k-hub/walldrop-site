@@ -32,6 +32,31 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
     </div>
   </section>
 
+  <!-- ============ LATEST DROPS ============ -->
+  <section class="section reveal" id="latest-drops">
+    <div class="section-inner">
+      <div class="section-title-row">
+        <h2 class="section-title">Latest drops</h2>
+        <div class="format-tabs glass" data-tabs="latest">
+          <button class="format-tab" data-format="desktop">Desktop</button>
+          <button class="format-tab" data-format="mobile">Mobile</button>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel-group="latest" data-panel="latest-desktop">
+        <div class="wallpaper-grid-desktop">
+          {% for w in collections.latestDropsDesktop %}{{ wallpaperCard(w, "fade-item") }}{% endfor %}
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel-group="latest" data-panel="latest-mobile">
+        <div class="wallpaper-grid-mobile">
+          {% for w in collections.latestDropsMobile %}{{ wallpaperCard(w, "fade-item") }}{% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ TRENDING NOW ============ -->
   {% if collections.trendingDesktop.length >= 3 or collections.trendingMobile.length >= 3 %}
   <section class="section trending-section reveal">
@@ -49,43 +74,18 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
 
       <div class="tab-panel" data-panel-group="trending" data-panel="trending-desktop">
         <div class="trending-grid-desktop">
-          {% for w in collections.trendingDesktop %}{{ trendingCard(w) }}{% endfor %}
+          {% for w in collections.trendingDesktop %}{{ trendingCard(w, "lazy") }}{% endfor %}
         </div>
       </div>
 
       <div class="tab-panel" data-panel-group="trending" data-panel="trending-mobile">
         <div class="trending-grid-mobile">
-          {% for w in collections.trendingMobile %}{{ trendingCard(w) }}{% endfor %}
+          {% for w in collections.trendingMobile %}{{ trendingCard(w, "lazy") }}{% endfor %}
         </div>
       </div>
     </div>
   </section>
   {% endif %}
-
-  <!-- ============ LATEST DROPS ============ -->
-  <section class="section reveal" id="latest-drops">
-    <div class="section-inner">
-      <div class="section-title-row">
-        <h2 class="section-title">Latest drops</h2>
-        <div class="format-tabs glass" data-tabs="latest">
-          <button class="format-tab" data-format="desktop">Desktop</button>
-          <button class="format-tab" data-format="mobile">Mobile</button>
-        </div>
-      </div>
-
-      <div class="tab-panel" data-panel-group="latest" data-panel="latest-desktop">
-        <div class="wallpaper-grid-desktop">
-          {% for w in collections.latestDropsDesktop %}{{ wallpaperCard(w, "fade-item", "lazy") }}{% endfor %}
-        </div>
-      </div>
-
-      <div class="tab-panel" data-panel-group="latest" data-panel="latest-mobile">
-        <div class="wallpaper-grid-mobile">
-          {% for w in collections.latestDropsMobile %}{{ wallpaperCard(w, "fade-item", "lazy") }}{% endfor %}
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ============ FROM THE JOURNAL ============ -->
   <section class="section reveal">
