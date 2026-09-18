@@ -149,6 +149,30 @@ module.exports = function (eleventyConfig) {
     api.getFilteredByGlob("src/articles/*.md").sort(byNewestFirst)
   );
 
+  // Every wallpaper, in the exact shape the /favorites/ page needs to
+  // cross-reference localStorage-saved slugs against and render cards
+  // from — see src/wallpapers-index.njk (recomputed fresh on every
+  // build, same as searchIndex below).
+  eleventyConfig.addCollection("wallpaperIndex", (api) =>
+    api
+      .getFilteredByGlob("src/wallpapers/*.md")
+      .sort(byNewestFirst)
+      .map((item) => ({
+        slug: item.fileSlug,
+        title: item.data.title,
+        category: item.data.category,
+        subcategory: item.data.subcategory,
+        url: item.url,
+        image: item.data.image || null,
+        thumbnail: item.data.cardImage || null,
+        gradientClass: item.data.gradientClass || null,
+        resolution:
+          item.data.resolutions && item.data.resolutions.length
+            ? item.data.resolutions[0].dimensions
+            : "",
+      }))
+  );
+
   // Flat, plain-object index consumed by /search-index.json — the data
   // behind the site's real client-side search (title/category/tags for
   // wallpapers, title/category/excerpt for articles).

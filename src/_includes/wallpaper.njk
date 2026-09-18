@@ -39,11 +39,23 @@ layout: base.njk
           <h1 class="detail-title">{{ title }}</h1>
 
           {% set downloadLabel = "Download" + (" — " + resolutions[0].label + " (" + resolutions[0].dimensions + ")" if resolutions and resolutions.length else "") %}
-          {% if image %}
-          <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ (format or 'jpg') | lower }}" class="btn btn-primary btn-large btn-block">{{ downloadLabel }}</a>
-          {% else %}
-          <button class="btn btn-primary btn-large btn-block" disabled style="opacity: 0.5; cursor: not-allowed;">{{ downloadLabel }}</button>
-          {% endif %}
+          <div class="download-row">
+            {% if image %}
+            <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ (format or 'jpg') | lower }}" class="btn btn-primary btn-large">{{ downloadLabel }}</a>
+            {% else %}
+            <button class="btn btn-primary btn-large" disabled style="opacity: 0.5; cursor: not-allowed;">{{ downloadLabel }}</button>
+            {% endif %}
+            {# data-wallpaper-id uses page.fileSlug (also what the URL and
+               wallpapers-index.json are built from) rather than the
+               front-matter "slug" field, so favorites always resolves
+               correctly even if that field is ever out of sync with the
+               filename. Toggle logic lives in script.js. #}
+            <button type="button" class="save-btn" id="save-btn" data-wallpaper-id="{{ page.fileSlug }}" aria-label="Save to favorites" aria-pressed="false">
+              <svg class="save-btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"></path>
+              </svg>
+            </button>
+          </div>
           <p class="download-meta">{{ fileSize }}</p>
 
           <div class="info-rows">

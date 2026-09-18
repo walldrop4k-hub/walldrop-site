@@ -266,52 +266,40 @@ if (chipRow && wallpaperGrid) {
 }
 
 // ==========================================================
-// Search page — fetches the build-time /search-index.json and
-// matches title / tags / category / subcategory for wallpapers,
-// title / category / excerpt for articles. Cards are rendered
-// client-side using the same classes as wallpaperCard/articleCard
-// in macros.njk, so results look identical to every other grid.
+// Shared card rendering — used by both the /search/ results page and
+// the /favorites/ page (both render wallpaper cards client-side from a
+// build-time JSON index) so there's one implementation of "wallpaper
+// data object -> the same markup/classes as wallpaperCard in
+// macros.njk" instead of two copies drifting apart.
 // ==========================================================
-const searchWallpapersEl = document.getElementById('search-results-wallpapers');
+const downloadIconSvg =
+  '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M4 19h16"></path></svg>';
 
-if (searchWallpapersEl) {
-  const searchArticlesEl = document.getElementById('search-results-articles');
-  const wallpapersSection = document.getElementById('search-wallpapers-section');
-  const articlesSection = document.getElementById('search-articles-section');
-  const emptyEl = document.getElementById('search-empty');
-  const emptyTextEl = document.getElementById('search-empty-text');
-  const heading = document.getElementById('search-heading');
-  const subheading = document.getElementById('search-subheading');
-  const pageInput = document.getElementById('search-page-input');
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }[c]));
+}
 
-  const downloadIconSvg =
-    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M4 19h16"></path></svg>';
-
-  function escapeHtml(str) {
-    return String(str || '').replace(/[&<>"']/g, (c) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;',
-    }[c]));
+function mediaMarkup(src, alt, gradientClass, cssClass) {
+  if (src) {
+    return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
   }
+  return `<div class="${cssClass} ${gradientClass || 'grad-1'}"></div>`;
+}
 
-  function mediaMarkup(src, alt, gradientClass, cssClass) {
-    if (src) {
-      return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
-    }
-    return `<div class="${cssClass} ${gradientClass || 'grad-1'}"></div>`;
-  }
-
-  function renderWallpaperCard(item) {
-    const ratio = item.category === 'desktop' ? 'ratio-16-9' : 'ratio-9-16';
-    const tagLabel = item.subcategory ? item.subcategory.charAt(0).toUpperCase() + item.subcategory.slice(1) : '';
-    // Cards show the thumbnail (falls back to the full image) — the full
-    // image itself is only ever linked from the wallpaper's own download
-    // button, not loaded into a grid tile.
-    const cardSrc = item.thumbnail || item.image;
-    return `<a href="${item.url}" class="wallpaper-card">
+function renderWallpaperCard(item) {
+  const ratio = item.category === 'desktop' ? 'ratio-16-9' : 'ratio-9-16';
+  const tagLabel = item.subcategory ? item.subcategory.charAt(0).toUpperCase() + item.subcategory.slice(1) : '';
+  // Cards show the thumbnail (falls back to the full image) — the full
+  // image itself is only ever linked from the wallpaper's own download
+  // button, not loaded into a grid tile.
+  const cardSrc = item.thumbnail || item.image;
+  return `<a href="${item.url}" class="wallpaper-card">
       <div class="thumb ${ratio}">
         ${mediaMarkup(cardSrc, item.title, item.gradientClass, 'thumb-bg')}
         <span class="tag">${escapeHtml(tagLabel)}</span>
@@ -324,8 +312,8 @@ if (searchWallpapersEl) {
     </a>`;
   }
 
-  function renderArticleCard(item) {
-    return `<a href="${item.url}" class="article-card">
+function renderArticleCard(item) {
+  return `<a href="${item.url}" class="article-card">
       <div class="thumb">${mediaMarkup(item.image, item.title, item.gradientClass, 'thumb-bg')}</div>
       <div class="card-info">
         <p class="card-eyebrow">${escapeHtml(item.category)}</p>
@@ -333,7 +321,24 @@ if (searchWallpapersEl) {
         <p class="card-excerpt">${escapeHtml(item.excerpt || '')}</p>
       </div>
     </a>`;
-  }
+}
+
+// ==========================================================
+// Search page — fetches the build-time /search-index.json and
+// matches title / tags / category / subcategory for wallpapers,
+// title / category / excerpt for articles.
+// ==========================================================
+const searchWallpapersEl = document.getElementById('search-results-wallpapers');
+
+if (searchWallpapersEl) {
+  const searchArticlesEl = document.getElementById('search-results-articles');
+  const wallpapersSection = document.getElementById('search-wallpapers-section');
+  const articlesSection = document.getElementById('search-articles-section');
+  const emptyEl = document.getElementById('search-empty');
+  const emptyTextEl = document.getElementById('search-empty-text');
+  const heading = document.getElementById('search-heading');
+  const subheading = document.getElementById('search-subheading');
+  const pageInput = document.getElementById('search-page-input');
 
   function matchItem(item, needle) {
     const haystack = [item.title, item.category, item.subcategory, item.excerpt, ...(item.tags || [])]
@@ -399,4 +404,91 @@ if (searchWallpapersEl) {
   }
 
   runSearch(new URLSearchParams(window.location.search).get('q'));
+}
+
+// ==========================================================
+// Favorites — localStorage-only, no account (matches the site's
+// "no signup" positioning). The heart button on wallpaper.njk toggles
+// ids in this same key; the /favorites/ page cross-references those
+// ids against the build-time /wallpapers-index.json and renders
+// matches with the same renderWallpaperCard used above, so results
+// look identical to every other wallpaper grid on the site.
+// ==========================================================
+const FAVORITES_KEY = 'walldrop_favorites';
+
+function getFavorites() {
+  try {
+    const raw = localStorage.getItem(FAVORITES_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (err) {
+    // localStorage disabled/unavailable — treat as "nothing saved" rather
+    // than let the button or page break.
+    return [];
+  }
+}
+
+function setFavorites(ids) {
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(ids));
+  } catch (err) {
+    // Same as above — fail silently, the heart just won't persist.
+  }
+}
+
+// Heart/save button on the wallpaper detail page.
+const saveBtn = document.getElementById('save-btn');
+
+if (saveBtn) {
+  const wallpaperId = saveBtn.dataset.wallpaperId;
+
+  function applySavedState(isSaved) {
+    saveBtn.classList.toggle('is-saved', isSaved);
+    saveBtn.setAttribute('aria-pressed', String(isSaved));
+    saveBtn.setAttribute('aria-label', isSaved ? 'Remove from favorites' : 'Save to favorites');
+  }
+
+  applySavedState(getFavorites().includes(wallpaperId));
+
+  saveBtn.addEventListener('click', () => {
+    const favorites = getFavorites();
+    const existingIndex = favorites.indexOf(wallpaperId);
+    if (existingIndex === -1) {
+      favorites.push(wallpaperId);
+    } else {
+      favorites.splice(existingIndex, 1);
+    }
+    setFavorites(favorites);
+    applySavedState(existingIndex === -1);
+  });
+}
+
+// The /favorites/ listing page itself.
+const favoritesGrid = document.getElementById('favorites-grid');
+
+if (favoritesGrid) {
+  const favoritesEmpty = document.getElementById('favorites-empty');
+  const savedIds = getFavorites();
+
+  if (savedIds.length === 0) {
+    favoritesEmpty.hidden = false;
+  } else {
+    fetch('/wallpapers-index.json')
+      .then((res) => res.json())
+      .then((index) => {
+        const bySlug = new Map(index.map((w) => [w.slug, w]));
+        // A saved id that no longer exists (e.g. deleted from the CMS
+        // since it was saved) is skipped silently rather than rendering
+        // a broken card.
+        const matches = savedIds.map((id) => bySlug.get(id)).filter(Boolean);
+        if (matches.length === 0) {
+          favoritesEmpty.hidden = false;
+          return;
+        }
+        favoritesGrid.innerHTML = matches.map(renderWallpaperCard).join('');
+      })
+      .catch(() => {
+        favoritesEmpty.hidden = false;
+      });
+  }
 }

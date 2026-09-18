@@ -1,0 +1,28 @@
+---
+layout: base.njk
+title: Favorites
+permalink: /favorites/index.html
+metaDescription: "Wallpapers you've saved on this device — stored locally in your browser, no account needed."
+---
+
+  <!-- ============ FAVORITES ============ -->
+  <section class="page-intro-section">
+    <div class="section-inner">
+      <p class="eyebrow">Favorites</p>
+      <h1 class="page-title">Your saved wallpapers</h1>
+      <p class="page-desc">Saved locally on this device — no account needed. Tap the heart on any wallpaper's page to add or remove it here.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="section-inner">
+
+      <div id="favorites-empty" hidden style="text-align: center; padding: 40px 0;">
+        <p class="page-desc">You haven't saved any wallpapers yet — open a wallpaper and tap the heart to add it here.</p>
+        <a href="/category/desktop/4k/" class="btn btn-primary" style="margin-top: 20px; display: inline-flex;">Browse wallpapers</a>
+      </div>
+
+      <div class="wallpaper-grid-desktop" id="favorites-grid"></div>
+
+    </div>
+  </section>
