@@ -7,7 +7,7 @@ image: /assets/wallpapers/black-car-japan.png
 gradientClass: null
 resolutions:
   - label: " Full HD"
-    dimensions: 1920 × 1080
+    dimensions: 2944 × 1648
 fileSize: 1.18 MB
 format: JPG
 tags:

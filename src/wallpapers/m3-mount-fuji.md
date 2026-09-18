@@ -7,7 +7,7 @@ image: /assets/wallpapers/far-from-away-any-road-at.jpg
 gradientClass: null
 resolutions:
   - label: Full HD
-    dimensions: 1920 × 1080
+    dimensions: 3840 × 2160
 fileSize: 4.9 MB
 format: JPG
 tags:

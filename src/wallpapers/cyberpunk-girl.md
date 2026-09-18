@@ -7,7 +7,7 @@ image: /assets/wallpapers/都市夜色中的霓虹女郎.jpg
 gradientClass: null
 resolutions:
   - label: FULL HD
-    dimensions: 1920 × 1080
+    dimensions: 880 × 4950
 fileSize: 2.2 MB
 format: JPG
 tags:

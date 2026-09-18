@@ -6,9 +6,9 @@ subcategory: 4k
 image: /assets/wallpapers/loki-god-of-mischief-marvel-desktop-wallpaper.jpg
 gradientClass: null
 resolutions:
-  - label: FULL HD
-    dimensions: 1920 x 1080
-fileSize: 450KB
+  - label: HD
+    dimensions: 3179 × 2061
+fileSize: 147 KB
 format: JPG
 tags:
   - Marvel

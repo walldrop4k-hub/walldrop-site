@@ -7,8 +7,8 @@ image: /assets/wallpapers/starry-eyed-portrait-01.png
 gradientClass: null
 resolutions:
   - label: " Full HD"
-    dimensions: 1920 × 1080
-fileSize: 933 KB
+    dimensions: 2208 × 1242
+fileSize: 911 KB
 format: PNG
 tags:
   - Desktop
