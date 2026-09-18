@@ -152,21 +152,31 @@ function setActivePanel(group, key, format) {
 
 const tabGroups = document.querySelectorAll('[data-tabs]');
 
-// Initial default: desktop screens start on the Desktop tab, phones
-// and narrow tablets start on the Mobile tab.
-const initialFormat = window.innerWidth >= 900 ? 'desktop' : 'mobile';
-tabGroups.forEach((group) => {
-  setActivePanel(group, group.dataset.tabs, initialFormat);
-});
+// "Trending now" and "Latest drops" have their own Desktop/Mobile toggle
+// each, but they're meant to read as one shared "which format am I
+// browsing" choice, not two independent ones — so instead of each group
+// tracking its own state, there's a single shared value here that every
+// group's buttons both read from and write to. Clicking Mobile on either
+// section's toggle flips homepageDeviceView, and every group (not just
+// the one clicked) re-applies that same value to its own buttons/panels.
+let homepageDeviceView = window.innerWidth >= 900 ? 'desktop' : 'mobile';
+
+function applyHomepageDeviceView() {
+  tabGroups.forEach((group) => {
+    setActivePanel(group, group.dataset.tabs, homepageDeviceView);
+  });
+}
+
+applyHomepageDeviceView();
 
 // After that, tabs only ever respond to clicks — no resize listener,
 // so a visitor's manual choice is never overridden mid-session.
 tabGroups.forEach((group) => {
-  const key = group.dataset.tabs;
   group.querySelectorAll('.format-tab').forEach((btn) => {
     btn.addEventListener('click', () => {
-      if (btn.classList.contains('is-active')) return;
-      setActivePanel(group, key, btn.dataset.format);
+      if (btn.dataset.format === homepageDeviceView) return;
+      homepageDeviceView = btn.dataset.format;
+      applyHomepageDeviceView();
     });
   });
 });
