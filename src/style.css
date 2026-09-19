@@ -1378,12 +1378,21 @@ main {
 
 .download-row {
   display: flex;
+  align-items: center;
   gap: 8px;
   margin-bottom: 8px;
 }
 
 .download-row .btn {
   flex: 1;
+  /* A flex item's default min-width is "auto" — the intrinsic content
+     size, not 0 — so even with flex:1 this refused to shrink below the
+     width of its own nowrap label ("Download — Full HD (2944 × 1656)"),
+     overflowing the row on narrow viewports and pushing .save-btn outside
+     the card. min-width:0 lets it actually shrink to fit; white-space:
+     normal lets a label that's still too long wrap instead of overflow. */
+  min-width: 0;
+  white-space: normal;
   margin-bottom: 0;
 }
 
@@ -1391,7 +1400,8 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
+  width: 48px;
+  height: 48px;
   flex-shrink: 0;
   border-radius: 10px;
   background: none;
