@@ -55,7 +55,11 @@ layout: base.njk
           <span class="tag" style="position: static; display: inline-flex; background: rgba(232,163,61,0.12); border-color: rgba(232,163,61,0.3); color: var(--accent);">{{ catName }}</span>
           <h1 class="detail-title">{{ title }}</h1>
 
-          {% set downloadLabel = "Download" + (" — " + resolutions[0].label + " (" + resolutions[0].dimensions + ")" if resolutions and resolutions.length else "") %}
+          {# Just the short CMS label ("4K", "Full HD", "iPhone"…) — the pixel
+             dimensions already have their own "Resolution" row below, so
+             they're not repeated in the button. trim because CMS entries
+             occasionally carry stray leading/trailing spaces. #}
+          {% set downloadLabel = "Download" + (" " + (resolutions[0].label | trim) if resolutions and resolutions.length and resolutions[0].label else "") %}
           <div class="download-row">
             {% if image %}
             <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ (format or 'jpg') | lower }}" class="btn btn-primary btn-large">{{ downloadLabel }}</a>

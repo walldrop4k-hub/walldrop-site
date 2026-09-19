@@ -1444,6 +1444,24 @@ main {
   margin-bottom: 0;
 }
 
+/* Narrow phones: the label is now just "Download <short name>", so keep
+   it on one line by trimming the button's side padding (the row shares
+   its width with the 48px save button) and nudging the font down at the
+   very smallest widths. */
+@media (max-width: 480px) {
+  .download-row .btn {
+    padding-left: 10px;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 360px) {
+  .download-row .btn {
+    font-size: 0.9rem;
+  }
+}
+
 .save-btn {
   display: inline-flex;
   align-items: center;
