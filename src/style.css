@@ -1325,6 +1325,7 @@ main {
 }
 
 .preview-panel {
+  position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -1335,6 +1336,53 @@ main {
      horizontally-scrollable page. min-width: 0 lets it actually
      shrink to fit its grid track like normal block content would. */
   min-width: 0;
+}
+
+/* Prev/Next overlay controls — same glass recipe as the floating nav,
+   so they read as part of the site's UI rather than a random overlay.
+   44px meets the minimum touch target on mobile; on desktop they sit
+   as ordinary hover buttons on the image's left/right edges. Hidden by
+   default in the HTML — script.js only reveals whichever of these has
+   a real adjacent wallpaper to link to. */
+.detail-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--glass-float-bg);
+  backdrop-filter: blur(var(--glass-float-blur));
+  -webkit-backdrop-filter: blur(var(--glass-float-blur));
+  border: 1px solid var(--glass-float-border);
+  color: var(--text);
+  z-index: 2;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.detail-nav-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* .detail-nav-btn's own "display: inline-flex" above has the same
+   specificity as the browser's built-in "[hidden] { display: none }"
+   rule, and author styles win ties over the UA stylesheet — without
+   this, a hidden prev/next button (first/last item in the set) would
+   stay visibly rendered despite script.js correctly setting hidden=true. */
+.detail-nav-btn[hidden] {
+  display: none;
+}
+
+.detail-nav-prev {
+  left: 12px;
+}
+
+.detail-nav-next {
+  right: 12px;
 }
 
 .preview-media {
@@ -1950,6 +1998,28 @@ main {
 
   .detail-sidebar {
     position: static;
+  }
+}
+
+/* Narrow phones: the full "WallDrop4K" wordmark plus 4 header icon
+   buttons (search, shuffle, favorites, hamburger) no longer fit side by
+   side — shrink the logo to just its icon mark (aria-label on .logo
+   keeps its accessible name once the text is visually hidden) and give
+   the icon row a bit less gap, which comfortably fits all 4 buttons at
+   a full 44x44 touch target down to 320px wide. */
+@media (max-width: 480px) {
+  .logo-text {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .icon-btn,
+  .hamburger {
+    width: 44px;
+    height: 44px;
   }
 }
 

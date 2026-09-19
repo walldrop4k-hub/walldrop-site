@@ -149,10 +149,11 @@ module.exports = function (eleventyConfig) {
     api.getFilteredByGlob("src/articles/*.md").sort(byNewestFirst)
   );
 
-  // Every wallpaper, in the exact shape the /favorites/ page needs to
-  // cross-reference localStorage-saved slugs against and render cards
-  // from — see src/wallpapers-index.njk (recomputed fresh on every
-  // build, same as searchIndex below).
+  // Every wallpaper, in the exact shape the /favorites/ page, the header's
+  // "Surprise me" shuffle, and the detail page's Prev/Next controls all
+  // need — see src/wallpapers-index.njk (recomputed fresh on every build,
+  // same as searchIndex below). tags is included so Prev/Next can match
+  // the same chip filter a visitor had active on a category page.
   eleventyConfig.addCollection("wallpaperIndex", (api) =>
     api
       .getFilteredByGlob("src/wallpapers/*.md")
@@ -162,6 +163,7 @@ module.exports = function (eleventyConfig) {
         title: item.data.title,
         category: item.data.category,
         subcategory: item.data.subcategory,
+        tags: (item.data.tags || []).map((t) => String(t).trim().toLowerCase()),
         url: item.url,
         image: item.data.image || null,
         thumbnail: item.data.cardImage || null,

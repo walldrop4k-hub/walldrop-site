@@ -322,6 +322,21 @@ function renderWallpaperCard(item) {
     </a>`;
   }
 
+// Fetches /wallpapers-index.json once and caches the promise — the
+// Favorites page, the header's "Surprise me" shuffle, and the detail
+// page's Prev/Next controls all need the same full wallpaper list, so
+// whichever of them runs first on a given page fetches it and the rest
+// reuse that same in-flight/resolved request instead of each firing
+// their own.
+let wallpaperIndexPromise = null;
+
+function getWallpaperIndex() {
+  if (!wallpaperIndexPromise) {
+    wallpaperIndexPromise = fetch('/wallpapers-index.json').then((res) => res.json());
+  }
+  return wallpaperIndexPromise;
+}
+
 function renderArticleCard(item) {
   return `<a href="${item.url}" class="article-card">
       <div class="thumb">${mediaMarkup(item.image, item.title, item.gradientClass, 'thumb-bg')}</div>
@@ -483,8 +498,7 @@ if (favoritesGrid) {
   if (savedIds.length === 0) {
     favoritesEmpty.hidden = false;
   } else {
-    fetch('/wallpapers-index.json')
-      .then((res) => res.json())
+    getWallpaperIndex()
       .then((index) => {
         const bySlug = new Map(index.map((w) => [w.slug, w]));
         // A saved id that no longer exists (e.g. deleted from the CMS
@@ -501,4 +515,146 @@ if (favoritesGrid) {
         favoritesEmpty.hidden = false;
       });
   }
+}
+
+// ==========================================================
+// "Surprise me" — header shuffle button. Picks a random wallpaper from
+// wallpapers-index.json and navigates straight to its detail page. If
+// the pick happens to be the wallpaper already on screen, it re-rolls
+// once (not in a loop — a single re-roll is enough to make repeats rare
+// without any risk of getting stuck). The link's real href is a safe
+// browse-all page, used if the index fails to load.
+// ==========================================================
+const surpriseBtn = document.getElementById('surprise-btn');
+
+if (surpriseBtn) {
+  const surpriseFallbackHref = surpriseBtn.getAttribute('href');
+
+  surpriseBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    const detailEl = document.querySelector('.wallpaper-detail');
+    const currentSlug = detailEl ? detailEl.dataset.currentSlug : null;
+
+    getWallpaperIndex()
+      .then((index) => {
+        if (!index.length) {
+          window.location.href = surpriseFallbackHref;
+          return;
+        }
+        let pick = index[Math.floor(Math.random() * index.length)];
+        if (pick.slug === currentSlug && index.length > 1) {
+          pick = index[Math.floor(Math.random() * index.length)];
+        }
+        window.location.href = pick.url;
+      })
+      .catch(() => {
+        window.location.href = surpriseFallbackHref;
+      });
+  });
+}
+
+// ==========================================================
+// Prev/Next on the wallpaper detail page. "Adjacent" means: within
+// whatever category/subcategory (+ chip, if any) the visitor arrived
+// from — recovered either from this page's own ?ctx= query param (set
+// by a previous Prev/Next click, so context survives a chain of them)
+// or, failing that, from document.referrer if it's a same-origin
+// category page URL. With no usable context (direct link, search
+// result, homepage, related-wallpapers, favorites, …) it falls back to
+// the full wallpapers-index.json order.
+// ==========================================================
+const detailEl = document.querySelector('.wallpaper-detail');
+
+if (detailEl) {
+  const currentSlug = detailEl.dataset.currentSlug;
+  const prevLink = document.getElementById('detail-prev-btn');
+  const nextLink = document.getElementById('detail-next-btn');
+
+  function matchesChip(item, chip) {
+    if (!chip || chip === 'all') return true;
+    return item.subcategory === chip || item.tags.includes(chip);
+  }
+
+  function resolveContext() {
+    const params = new URLSearchParams(window.location.search);
+    const fromParam = params.get('ctx');
+    if (fromParam) {
+      const [category, subcategory, chip] = fromParam.split('/');
+      if (category && subcategory) return { category, subcategory, chip: chip || 'all' };
+    }
+
+    try {
+      if (document.referrer) {
+        const ref = new URL(document.referrer);
+        if (ref.origin === window.location.origin) {
+          const match = ref.pathname.match(/^\/category\/(desktop|mobile)\/([a-z0-9-]+)\/$/);
+          if (match) {
+            return { category: match[1], subcategory: match[2], chip: ref.searchParams.get('chip') || 'all' };
+          }
+        }
+      }
+    } catch (err) {
+      // Malformed/unreadable referrer — fall through to "no context".
+    }
+
+    return null;
+  }
+
+  function ctxSuffix(context) {
+    if (!context) return '';
+    return `?ctx=${encodeURIComponent(`${context.category}/${context.subcategory}/${context.chip}`)}`;
+  }
+
+  getWallpaperIndex().then((index) => {
+    const context = resolveContext();
+    const set = context
+      ? index.filter((item) => item.category === context.category && item.subcategory === context.subcategory && matchesChip(item, context.chip))
+      : index;
+
+    const currentIndex = set.findIndex((item) => item.slug === currentSlug);
+    // The current wallpaper isn't in its own resolved set (e.g. a stale
+    // ?ctx= after the CMS content changed) — nothing sensible to link to.
+    if (currentIndex === -1) return;
+
+    const prev = currentIndex > 0 ? set[currentIndex - 1] : null;
+    const next = currentIndex < set.length - 1 ? set[currentIndex + 1] : null;
+    const suffix = ctxSuffix(context);
+
+    if (prev && prevLink) {
+      prevLink.href = prev.url + suffix;
+      prevLink.hidden = false;
+    }
+    if (next && nextLink) {
+      nextLink.href = next.url + suffix;
+      nextLink.hidden = false;
+    }
+
+    // Swipe left/right on the preview image — natural on mobile, and
+    // harmless to wire up unconditionally since touch events simply
+    // never fire on non-touch devices. Only treats it as a swipe once
+    // the gesture is clearly more horizontal than vertical, so it
+    // doesn't fight normal vertical page scrolling.
+    const previewPanel = document.querySelector('.preview-panel');
+    if (previewPanel) {
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      previewPanel.addEventListener('touchstart', (event) => {
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+      }, { passive: true });
+
+      previewPanel.addEventListener('touchend', (event) => {
+        const deltaX = event.changedTouches[0].clientX - touchStartX;
+        const deltaY = event.changedTouches[0].clientY - touchStartY;
+        const SWIPE_THRESHOLD = 50;
+        if (Math.abs(deltaX) < SWIPE_THRESHOLD || Math.abs(deltaX) < Math.abs(deltaY)) return;
+        if (deltaX < 0 && next) {
+          window.location.href = next.url + suffix;
+        } else if (deltaX > 0 && prev) {
+          window.location.href = prev.url + suffix;
+        }
+      }, { passive: true });
+    }
+  });
 }

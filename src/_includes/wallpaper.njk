@@ -23,7 +23,11 @@ layout: base.njk
       </nav>
 
       <!-- ============ DETAIL LAYOUT ============ -->
-      <div class="wallpaper-detail{{ detailModifier }}">
+      {# data-current-slug is what script.js's Prev/Next and "Surprise me"
+         logic uses to identify this wallpaper — page.fileSlug, same as
+         the save button and wallpapers-index.json, so it can never drift
+         out of sync with a separate front-matter field. #}
+      <div class="wallpaper-detail{{ detailModifier }}" data-current-slug="{{ page.fileSlug }}">
 
         <div class="preview-panel">
           {# Mobile-format (9:16) wallpapers get object-fit: contain — the
@@ -32,6 +36,19 @@ layout: base.njk
              Desktop (16:9) previews are unaffected — they already fit
              fine and stay "cover" as before. #}
           {{ mediaOrFallback(image, title, "preview-media " + ratio, gradientClass, "contain" if category == "mobile" else "cover") }}
+          {# Hidden until script.js resolves a prev/next target (or finds
+             none, e.g. first/last item — left hidden rather than wrapping
+             around silently) so there's never a dead/broken link. #}
+          <a href="#" class="detail-nav-btn detail-nav-prev" id="detail-prev-btn" aria-label="Previous wallpaper" hidden>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </a>
+          <a href="#" class="detail-nav-btn detail-nav-next" id="detail-next-btn" aria-label="Next wallpaper" hidden>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
         </div>
 
         <aside class="detail-sidebar">
