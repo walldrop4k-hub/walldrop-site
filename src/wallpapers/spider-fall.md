@@ -3,6 +3,7 @@ title: Spider Fall
 slug: spider-fall-4k-mobile-wallpaper
 category: mobile
 subcategory: android
+image: /assets/wallpapers/spider-man-falling-city.png
 gradientClass: null
 resolutions:
   - label: 4K
