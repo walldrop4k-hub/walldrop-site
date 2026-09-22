@@ -8,5 +8,5 @@ compatibility_date = "2024-09-23"
 [vars]
 # Update this once you know your real Cloudflare Pages URL (and again if
 # you later connect a custom domain), then run `npx wrangler deploy` again.
-SITE_URL = "https://walldrop-site.pages.dev"
+SITE_URL = "https://walldrop4k.site"
 GITHUB_REPO = "walldrop4k-hub/walldrop-site"

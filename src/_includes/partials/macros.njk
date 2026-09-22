@@ -70,7 +70,7 @@
     <p class="card-eyebrow">{{ a.data.category }}</p>
     <h3 class="card-title">{{ a.data.title }}</h3>
     {% if showExcerpt %}
-    <p class="card-excerpt">{{ a.data.excerpt }}</p>
+    <p class="card-excerpt">{{ a.data.excerpt | plainText(300) }}</p>
     <p class="card-meta">{{ a.data.readTime }}</p>
     {% endif %}
   </div>

@@ -205,7 +205,10 @@ module.exports = function (eleventyConfig) {
         type: "article",
         title: item.data.title,
         category: item.data.category,
-        excerpt: item.data.excerpt || "",
+        // Stripped of markdown syntax here at the source — this feeds the
+        // client-side search-result card in script.js, which just escapes
+        // HTML entities and doesn't render/strip markdown on its own.
+        excerpt: plainText(item.data.excerpt || "", 300),
         tags: [],
         url: item.url,
         image: item.data.image || null,

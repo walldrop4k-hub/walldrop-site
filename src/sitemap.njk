@@ -12,8 +12,8 @@ eleventyExcludeFromCollections: true
    each pagination instance's own render) — the category page itself
    still renders its own noindex meta tag correctly; for the sitemap,
    re-derive occupancy straight from the URL + occupiedCategories instead. #}
-{%- set skip = isCategoryPage and not occupiedCategories[urlParts[2] + "/" + urlParts[3]] %}
-{%- if not entry.url.startsWith("/admin") and not skip %}
+{%- set skip = (isCategoryPage and not occupiedCategories[urlParts[2] + "/" + urlParts[3]]) or entry.data.noindex %}
+{%- if not entry.url.startsWith("/admin") and entry.url != "/404.html" and not skip %}
   <url>
     <loc>{{ site.url }}{{ entry.url }}</loc>
     {%- if entry.date %}
