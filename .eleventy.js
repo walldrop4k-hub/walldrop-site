@@ -127,7 +127,7 @@ module.exports = function (eleventyConfig) {
   // "latest". (Kept as its own collection rather than reusing
   // desktopWallpapers/mobileWallpapers directly just so the slice count
   // lives in one place — no filtering differs between them.)
-  const LATEST_DROPS_COUNT = 6;
+  const LATEST_DROPS_COUNT = 10;
 
   eleventyConfig.addCollection("latestDropsDesktop", (api) =>
     api
