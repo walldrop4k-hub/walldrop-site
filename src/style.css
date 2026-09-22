@@ -617,9 +617,89 @@ main {
    ========================================================== */
 
 .search-hero {
+  position: relative;
   padding: 36px 0 54px;
   text-align: center;
+  overflow: hidden;
 }
+
+/* Fine grain over the whole hero so the flat black doesn't read as cheap
+   — a tiled feTurbulence SVG data-URI, no image request, effectively
+   free to render. Sits above the glow/thumbs layers but still well
+   below the actual content. Barely perceptible by design (5% opacity). */
+.search-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.05;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+.search-hero .section-inner {
+  position: relative;
+  z-index: 2;
+}
+
+/* Large soft blurred color blobs behind the hero content — pure CSS, no
+   image. Sized/positioned to stay clear of the centered search bar and
+   heading at every width the hero actually renders at (including the
+   reduced sizes/positions set for narrower screens further down). */
+.hero-glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.hero-glow-1 {
+  width: 460px;
+  height: 460px;
+  top: -180px;
+  left: 6%;
+  background: radial-gradient(circle, rgba(232, 163, 61, 0.28) 0%, rgba(232, 163, 61, 0) 70%);
+}
+
+.hero-glow-2 {
+  width: 420px;
+  height: 420px;
+  bottom: -200px;
+  right: 8%;
+  background: radial-gradient(circle, rgba(126, 108, 199, 0.22) 0%, rgba(126, 108, 199, 0) 70%);
+}
+
+/* Scattered background wallpaper thumbnails — populated client-side
+   (script.js) from wallpapers-index.json. Fixed slots below position/
+   rotate each one; JS just fills in which image goes where. Kept out of
+   the horizontal-center band the heading/search bar occupy. */
+.hero-thumbs {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-thumb {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0.16;
+  filter: blur(1.5px);
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-thumb-1 { top: 6%; left: 5%; transform: rotate(-9deg); }
+.hero-thumb-2 { top: 12%; right: 6%; width: 80px; height: 80px; transform: rotate(7deg); }
+.hero-thumb-3 { top: 58%; left: 3%; width: 76px; height: 76px; transform: rotate(11deg); }
+.hero-thumb-4 { top: 55%; right: 4%; transform: rotate(-6deg); }
+.hero-thumb-5 { bottom: 4%; left: 16%; width: 66px; height: 66px; transform: rotate(5deg); }
+.hero-thumb-6 { bottom: 6%; right: 17%; width: 66px; height: 66px; transform: rotate(-11deg); }
 
 .search-hero-title {
   font-size: clamp(1.6rem, 3vw, 2rem);
@@ -781,22 +861,13 @@ main {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.trending-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .trending-bg {
   position: absolute;
   inset: 0;
-  transition: transform 0.5s ease;
-}
-
-.trending-card:hover .trending-bg {
-  transform: scale(1.08);
+  transition: transform 0.25s ease;
 }
 
 .trending-overlay {
@@ -817,11 +888,7 @@ main {
   bottom: 20px;
   z-index: 2;
   transform: translateY(6px);
-  transition: transform 0.3s ease;
-}
-
-.trending-card:hover .trending-info {
-  transform: translateY(-6px);
+  transition: transform 0.25s ease;
 }
 
 .trending-info .card-title {
@@ -845,12 +912,7 @@ main {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.wallpaper-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .thumb {
@@ -859,15 +921,33 @@ main {
   overflow: hidden;
 }
 
+/* Skeleton shimmer — only on .has-image (added by the template only when
+   there's a real image to wait for; a card with no image at all goes
+   straight to its static gradient placeholder and never needs this).
+   The shimmer lives on the CARD/thumb itself, behind the <img>; the
+   <img> starts at opacity:0 (see mediaOrFallback in macros.njk) so the
+   shimmer shows through until it loads, then fades in over it and the
+   animation is turned off via the same onload handler. */
+.thumb.has-image,
+.trending-card.has-image {
+  background: linear-gradient(105deg, var(--panel) 35%, rgba(255, 255, 255, 0.06) 50%, var(--panel) 65%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 150% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
+}
+
 .thumb-bg {
   position: absolute;
   inset: 0;
-  transition: transform 0.3s ease;
-}
-
-.wallpaper-card:hover .thumb-bg,
-.article-card:hover .thumb-bg {
-  transform: scale(1.05);
+  transition: transform 0.25s ease;
 }
 
 .tag {
@@ -888,6 +968,96 @@ main {
   pointer-events: none;
 }
 
+/* ==========================================================
+   Per-category tag colors — same base .tag shape/position above,
+   just a distinct muted background/border/text tint per subcategory
+   so a card reads its category at a glance. Kept desaturated (background
+   ~16-20% alpha, text a lighter tint of the same hue rather than pure
+   white) to stay inside the site's dark, quiet palette — none of these
+   are meant to compete with the amber accent, which stays reserved for
+   "premium"/resolution tags and active-state UI (chips, buttons).
+   Applies everywhere a .tag renders: grid cards, trending cards, the
+   detail-page pill, and the JS-rendered search/favorites cards (all of
+   them now carry the same data-subcategory attribute). */
+.tag[data-subcategory="4k"],
+.tag[data-subcategory="8k"],
+.tag[data-subcategory="ultra-hd"] {
+  background: rgba(232, 163, 61, 0.16);
+  border-color: rgba(232, 163, 61, 0.4);
+  color: var(--accent);
+}
+
+.tag[data-subcategory="gaming"] {
+  background: rgba(205, 92, 92, 0.18);
+  border-color: rgba(205, 92, 92, 0.45);
+  color: rgb(235, 168, 168);
+}
+
+.tag[data-subcategory="anime"] {
+  background: rgba(198, 95, 165, 0.18);
+  border-color: rgba(198, 95, 165, 0.45);
+  color: rgb(232, 172, 212);
+}
+
+.tag[data-subcategory="cars"] {
+  background: rgba(90, 135, 205, 0.18);
+  border-color: rgba(90, 135, 205, 0.45);
+  color: rgb(165, 195, 235);
+}
+
+.tag[data-subcategory="nature"] {
+  background: rgba(90, 165, 125, 0.18);
+  border-color: rgba(90, 165, 125, 0.45);
+  color: rgb(160, 215, 180);
+}
+
+.tag[data-subcategory="amoled"] {
+  /* True black + a bright thin border — the one tag that intentionally
+     breaks from the "tinted glass" recipe, since AMOLED's whole selling
+     point is true black. */
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #f5f5f7;
+}
+
+.tag[data-subcategory="iphone"],
+.tag[data-subcategory="samsung"],
+.tag[data-subcategory="android"] {
+  background: rgba(140, 150, 172, 0.18);
+  border-color: rgba(140, 150, 172, 0.42);
+  color: rgb(198, 206, 222);
+}
+
+.tag[data-subcategory="minimal"] {
+  background: rgba(148, 148, 162, 0.16);
+  border-color: rgba(148, 148, 162, 0.4);
+  color: rgb(202, 202, 214);
+}
+
+.tag[data-subcategory="dark"] {
+  background: rgba(128, 108, 188, 0.18);
+  border-color: rgba(128, 108, 188, 0.45);
+  color: rgb(192, 178, 228);
+}
+
+.tag[data-subcategory="abstract"] {
+  background: rgba(90, 172, 168, 0.18);
+  border-color: rgba(90, 172, 168, 0.45);
+  color: rgb(160, 216, 212);
+}
+
+.tag[data-subcategory="space"] {
+  background: rgba(102, 112, 196, 0.18);
+  border-color: rgba(102, 112, 196, 0.45);
+  color: rgb(172, 178, 232);
+}
+
+.tag[data-subcategory="city"] {
+  background: rgba(172, 148, 112, 0.18);
+  border-color: rgba(172, 148, 112, 0.42);
+  color: rgb(220, 202, 174);
+}
+
 /* Purely decorative now — the whole card is the single click target
    (see .wallpaper-card), so this can't intercept a tap/click. */
 .download-btn {
@@ -906,13 +1076,8 @@ main {
   color: var(--text);
   opacity: 0;
   transform: translateY(-4px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none;
-}
-
-.wallpaper-card:hover .download-btn {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .card-info {
@@ -978,12 +1143,7 @@ main {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.article-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-4px);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .article-card .thumb {
@@ -995,6 +1155,47 @@ main {
   font-size: 1.05rem;
   font-weight: 500;
   line-height: 1.35;
+}
+
+/* ==========================================================
+   Card hover motion — pointer devices only. @media (hover: hover) and
+   (pointer: fine) is deliberate over a max-width breakpoint: a touch tap
+   can trigger :hover on plenty of mobile browsers and then leave it
+   "stuck" until the visitor taps elsewhere, since there's no mouse to
+   ever fire the matching :hover-off. Gating on real hover capability
+   means touch devices never enter this state in the first place — a tap
+   just navigates, with no lingering scale/shadow/zoom.
+   ========================================================== */
+@media (hover: hover) and (pointer: fine) {
+  /* Selector repeated (.wallpaper-card.wallpaper-card) purely to win
+     specificity over .reveal.is-visible .fade-item { transform: ... },
+     which every card can carry (the scroll-reveal fade-up effect) — at
+     plain specificity this rule would otherwise lose the transform
+     property to that one once a card has faded in, even though :hover
+     is clearly matching (border-color/box-shadow below aren't fought
+     over the same way, since fade-item never sets those). */
+  .wallpaper-card.wallpaper-card:hover,
+  .trending-card.trending-card:hover,
+  .article-card.article-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.55);
+  }
+
+  .wallpaper-card:hover .thumb-bg,
+  .trending-card:hover .trending-bg,
+  .article-card:hover .thumb-bg {
+    transform: scale(1.05);
+  }
+
+  .wallpaper-card:hover .download-btn {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .trending-card:hover .trending-info {
+    transform: translateY(-6px);
+  }
 }
 
 /* ==========================================================
@@ -2063,6 +2264,25 @@ main {
 
   .search-hero {
     padding: 24px 0 40px;
+  }
+
+  /* Smaller, fewer glow blobs on mobile — full desktop size would
+     overwhelm a 390px-wide hero. hero-glow-2 also repositioned so
+     neither blob's brightest point sits behind the search bar. */
+  .hero-glow-1 {
+    width: 260px;
+    height: 260px;
+    top: -110px;
+    left: -40px;
+    filter: blur(50px);
+  }
+
+  .hero-glow-2 {
+    width: 220px;
+    height: 220px;
+    bottom: -110px;
+    right: -30px;
+    filter: blur(50px);
   }
 
   .search-bar {

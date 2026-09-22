@@ -295,9 +295,13 @@ function escapeHtml(str) {
   }[c]));
 }
 
+// Mirrors mediaOrFallback in macros.njk — same opacity-0-then-fade-in
+// onload and onerror both stopping the parent's skeleton-shimmer
+// animation (see .has-image in style.css), so search/favorites results
+// match every server-rendered grid.
 function mediaMarkup(src, alt, gradientClass, cssClass) {
   if (src) {
-    return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.nextElementSibling.style.display='block';"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
+    return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" style="width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.2s ease;" onload="this.style.opacity='1';this.parentElement.style.animation='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.style.animation='none';"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
   }
   return `<div class="${cssClass} ${gradientClass || 'grad-1'}"></div>`;
 }
@@ -309,10 +313,11 @@ function renderWallpaperCard(item) {
   // image itself is only ever linked from the wallpaper's own download
   // button, not loaded into a grid tile.
   const cardSrc = item.thumbnail || item.image;
+  const hasImage = cardSrc ? ' has-image' : '';
   return `<a href="${item.url}" class="wallpaper-card">
-      <div class="thumb ${ratio}">
+      <div class="thumb ${ratio}${hasImage}">
         ${mediaMarkup(cardSrc, item.title, item.gradientClass, 'thumb-bg')}
-        <span class="tag">${escapeHtml(tagLabel)}</span>
+        <span class="tag" data-subcategory="${escapeHtml((item.subcategory || '').toLowerCase())}">${escapeHtml(tagLabel)}</span>
         <span class="download-btn" aria-hidden="true">${downloadIconSvg}</span>
       </div>
       <div class="card-info">
@@ -338,8 +343,9 @@ function getWallpaperIndex() {
 }
 
 function renderArticleCard(item) {
+  const hasImage = item.image ? ' has-image' : '';
   return `<a href="${item.url}" class="article-card">
-      <div class="thumb">${mediaMarkup(item.image, item.title, item.gradientClass, 'thumb-bg')}</div>
+      <div class="thumb${hasImage}">${mediaMarkup(item.image, item.title, item.gradientClass, 'thumb-bg')}</div>
       <div class="card-info">
         <p class="card-eyebrow">${escapeHtml(item.category)}</p>
         <h3 class="card-title">${escapeHtml(item.title)}</h3>
@@ -656,5 +662,47 @@ if (detailEl) {
         }
       }, { passive: true });
     }
+  });
+}
+
+// ==========================================================
+// Hero background thumbnails — a handful of real wallpaper thumbnails
+// scattered behind the search hero as texture (see .hero-thumb-N slots
+// in style.css, which fix each one's position/rotation/size — this just
+// picks which images fill them). Re-picked at random on every load.
+// Hidden entirely below 480px: tested both a reduced (2-slot) version and
+// none at all at 390px/320px side by side — even 2 small corner thumbs
+// sat close enough to the heading/description to feel slightly busy on
+// a screen this narrow, while the glow blobs alone (still active, just
+// smaller — see the same breakpoint in style.css) already read as
+// "intentional and premium" on their own, so none won out.
+// ==========================================================
+const heroThumbsEl = document.getElementById('hero-thumbs');
+
+if (heroThumbsEl) {
+  const slotCount = window.innerWidth <= 480 ? 0 : 6;
+
+  getWallpaperIndex().then((index) => {
+    if (!index.length) return;
+    // A gradient-only entry (no real image) wouldn't read as "texture"
+    // here, so prefer ones that actually have a thumbnail/image.
+    const withImages = index.filter((w) => w.thumbnail || w.image);
+    const pool = withImages.length >= slotCount ? withImages : index;
+
+    const picks = [];
+    const used = new Set();
+    while (picks.length < slotCount && used.size < pool.length) {
+      const candidate = pool[Math.floor(Math.random() * pool.length)];
+      if (used.has(candidate.slug)) continue;
+      used.add(candidate.slug);
+      picks.push(candidate);
+    }
+
+    heroThumbsEl.innerHTML = picks
+      .map((w, i) => {
+        const src = (w.thumbnail || w.image || '').replace(/'/g, '%27');
+        return `<div class="hero-thumb hero-thumb-${i + 1}" style="background-image:url('${src}')"></div>`;
+      })
+      .join('');
   });
 }

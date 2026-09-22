@@ -7,6 +7,12 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
 
   <!-- ============ SEARCH ============ -->
   <section class="search-hero">
+    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
+    {# Populated client-side from wallpapers-index.json — see script.js.
+       Empty div here so there's nothing to show before JS runs rather
+       than a flash of unstyled/misplaced markup. #}
+    <div class="hero-thumbs" id="hero-thumbs" aria-hidden="true"></div>
     <div class="section-inner">
       <h1 class="search-hero-title">Find your next wallpaper</h1>
       <p class="search-hero-desc">Hand-picked 4K and 8K wallpapers for desktop and mobile. Free, no signup.</p>

@@ -40,19 +40,24 @@ layout: base.njk
              none, e.g. first/last item — left hidden rather than wrapping
              around silently) so there's never a dead/broken link. #}
           <a href="#" class="detail-nav-btn detail-nav-prev" id="detail-prev-btn" aria-label="Previous wallpaper" hidden>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="15 18 9 12 15 6"></polyline>
             </svg>
           </a>
           <a href="#" class="detail-nav-btn detail-nav-next" id="detail-next-btn" aria-label="Next wallpaper" hidden>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
           </a>
         </div>
 
         <aside class="detail-sidebar">
-          <span class="tag" style="position: static; display: inline-flex; background: rgba(232,163,61,0.12); border-color: rgba(232,163,61,0.3); color: var(--accent);">{{ catName }}</span>
+          {# data-subcategory drives the per-category tag color (see
+             .tag[data-subcategory] rules in style.css) — position:static
+             is the one override that still needs to live here since this
+             pill sits inline in the sidebar, not absolutely positioned
+             over a thumbnail like every other .tag. #}
+          <span class="tag" data-subcategory="{{ (subcategory or '') | lower }}" style="position: static; display: inline-flex;">{{ catName }}</span>
           <h1 class="detail-title">{{ title }}</h1>
 
           {# Just the short CMS label ("4K", "Full HD", "iPhone"…) — the pixel
