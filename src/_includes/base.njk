@@ -43,7 +43,12 @@
   gtag('config', '{{ site.GA_ID }}');
 </script>
 </head>
-<body>
+{# is-home flags the one page that already has its own hero background
+   treatment (glow + grain + thumbnails, in index.njk) — used below only
+   to keep the new sitewide grain layer from also applying there and
+   stacking on top of what already exists. Doesn't change index.njk's
+   own markup or rendering at all. #}
+<body{{ ' class="is-home"' | safe if page.url == "/" }}>
 
 {% include "partials/nav.njk" %}
 

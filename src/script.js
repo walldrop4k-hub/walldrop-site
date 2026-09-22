@@ -227,7 +227,11 @@ if (chipRow && wallpaperGrid) {
       card.hidden = !matches;
       if (matches) visibleCount += 1;
     });
-    if (chipEmpty) chipEmpty.hidden = visibleCount !== 0;
+    // Only for "this category has wallpapers, but none match the current
+    // chip" — a category with zero wallpapers at all (cards.length === 0)
+    // already has its own server-rendered message in the grid itself, so
+    // this stays hidden then rather than showing two empty-states at once.
+    if (chipEmpty) chipEmpty.hidden = visibleCount !== 0 || cards.length === 0;
 
     // Sort by re-appending cards in the desired order — CSS grid follows
     // DOM order, so this is enough without touching layout markup.
@@ -258,6 +262,16 @@ if (chipRow && wallpaperGrid) {
       writeFilterState(state, true);
     });
   });
+
+  const chipEmptyReset = document.getElementById('chip-empty-reset');
+  if (chipEmptyReset) {
+    chipEmptyReset.addEventListener('click', () => {
+      const state = readFilterState();
+      state.chip = 'all';
+      applyFilterState(state);
+      writeFilterState(state, true);
+    });
+  }
 
   if (sortSelect) {
     sortSelect.addEventListener('change', () => {

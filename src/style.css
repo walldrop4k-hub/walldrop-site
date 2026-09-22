@@ -643,6 +643,56 @@ main {
   z-index: 2;
 }
 
+/* ==========================================================
+   Sitewide ambient background — the same grain recipe as the Home
+   hero's own .search-hero::after above, just applied once as a
+   viewport-fixed layer so every OTHER page gets the same quiet texture
+   without needing it re-declared per template. Skipped on the homepage
+   (.is-home, set in base.njk) since it already has its own hero-scoped
+   grain — this avoids stacking two grain layers there and leaves the
+   Home page's own rendering untouched.
+   ========================================================== */
+body:not(.is-home)::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.045;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Subtler glow blobs for hero-style top sections on other pages (Search,
+   Category). Noticeably lower opacity than the Home hero's own
+   .hero-glow — these pages have a grid/preview below, so the glow should
+   read as ambience, not compete with it. Reuses the same shape/blur
+   recipe as .hero-glow, just its own class so the Home page's glow is
+   never affected by tuning this one. */
+.ambient-glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.ambient-glow-1 {
+  width: 420px;
+  height: 420px;
+  top: -170px;
+  left: 4%;
+  background: radial-gradient(circle, rgba(232, 163, 61, 0.13) 0%, rgba(232, 163, 61, 0) 70%);
+}
+
+.ambient-glow-2 {
+  width: 380px;
+  height: 380px;
+  top: -120px;
+  right: 6%;
+  background: radial-gradient(circle, rgba(126, 108, 199, 0.1) 0%, rgba(126, 108, 199, 0) 70%);
+}
+
 /* Large soft blurred color blobs behind the hero content — pure CSS, no
    image. Sized/positioned to stay clear of the centered search bar and
    heading at every width the hero actually renders at (including the
@@ -1167,25 +1217,23 @@ main {
    just navigates, with no lingering scale/shadow/zoom.
    ========================================================== */
 @media (hover: hover) and (pointer: fine) {
-  /* Selector repeated (.wallpaper-card.wallpaper-card) purely to win
-     specificity over .reveal.is-visible .fade-item { transform: ... },
-     which every card can carry (the scroll-reveal fade-up effect) — at
-     plain specificity this rule would otherwise lose the transform
-     property to that one once a card has faded in, even though :hover
-     is clearly matching (border-color/box-shadow below aren't fought
-     over the same way, since fade-item never sets those). */
-  .wallpaper-card.wallpaper-card:hover,
-  .trending-card.trending-card:hover,
-  .article-card.article-card:hover {
+  /* Reverted from an earlier "card scales + lifts + gains a shadow"
+     treatment — felt janky/heavy. Back to the simple version: the card
+     itself never moves or gains a shadow on hover, only the image inside
+     it zooms, clipped to the card's own rounded corners (.thumb/
+     .trending-card both already have overflow:hidden). Border-color is
+     the one card-level change kept, since it's a color transition, not
+     motion. */
+  .wallpaper-card:hover,
+  .trending-card:hover,
+  .article-card:hover {
     border-color: var(--accent);
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.55);
   }
 
   .wallpaper-card:hover .thumb-bg,
   .trending-card:hover .trending-bg,
   .article-card:hover .thumb-bg {
-    transform: scale(1.05);
+    transform: scale(1.06);
   }
 
   .wallpaper-card:hover .download-btn {
@@ -1353,7 +1401,14 @@ main {
 }
 
 .page-intro-section {
+  position: relative;
+  overflow: hidden;
   padding: 8px 0 40px;
+}
+
+.page-intro-section .section-inner {
+  position: relative;
+  z-index: 2;
 }
 
 .page-title {
@@ -2283,6 +2338,24 @@ main {
     bottom: -110px;
     right: -30px;
     filter: blur(50px);
+  }
+
+  /* Same reasoning as .hero-glow-1/2 above, scaled for the already-more-
+     subtle ambient version used on Search/Category pages. */
+  .ambient-glow-1 {
+    width: 220px;
+    height: 220px;
+    top: -90px;
+    left: -30px;
+    filter: blur(45px);
+  }
+
+  .ambient-glow-2 {
+    width: 190px;
+    height: 190px;
+    top: -70px;
+    right: -25px;
+    filter: blur(45px);
   }
 
   .search-bar {

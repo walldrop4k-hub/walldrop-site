@@ -29,6 +29,11 @@
 
   <!-- ============ CATEGORY HEADER ============ -->
   <section class="page-intro-section">
+    {# Same subtle ambient glow as the Search page's hero — see the
+       comment there (search.njk) for why it's the quieter .ambient-glow
+       version rather than the Home page's own .hero-glow. #}
+    <div class="ambient-glow ambient-glow-1" aria-hidden="true"></div>
+    <div class="ambient-glow ambient-glow-2" aria-hidden="true"></div>
     <div class="section-inner">
       <p class="eyebrow">{{ typeLabel }} Wallpapers</p>
       <h1 class="page-title">{{ cat.name }}</h1>
@@ -62,7 +67,16 @@
         <p class="page-desc">No wallpapers here yet — check back soon, or browse another category in the meantime.</p>
         {% endfor %}
       </div>
-      <p class="page-desc" id="chip-empty" hidden style="margin-top: 24px;">No wallpapers match this filter yet — try "All" or a different tag.</p>
+      {# Was a bare, unstyled <p> before — easy to miss and gave no way
+         back except manually re-clicking "All". Now matches the
+         Favorites page's empty-state pattern (centered block + message
+         + a real CTA), and the button actively resets the filter
+         instead of just describing what to do. script.js wires the
+         click. #}
+      <div id="chip-empty" hidden style="text-align: center; padding: 40px 0;">
+        <p class="page-desc">No wallpapers match this filter yet — check back soon, or view everything in this category.</p>
+        <button type="button" class="btn btn-primary" id="chip-empty-reset" style="margin-top: 20px; display: inline-flex;">View all in this category</button>
+      </div>
 
     </div>
   </section>
