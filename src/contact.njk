@@ -18,28 +18,25 @@ metaDescription: "Category requests, licensing questions, or just feedback on th
       <div class="contact-layout">
 
         <!--
-          Formspree setup (free tier, no backend needed):
-            1. Go to https://formspree.io and create a free account.
-            2. Create a new form there — it gives you an endpoint that
-               looks like https://formspree.io/f/xxxxxxxx.
-            3. Paste that into the action= below, replacing the
-               placeholder.
-          _next tells Formspree where to send people after a successful
-          submit — it's already pointed at this site's own thank-you page.
+          Web3Forms (free tier, no backend needed) — access_key below is
+          the public site key Web3Forms expects embedded in the page
+          (not a secret like an API secret key, this is how their submit
+          flow is designed to work). "redirect" sends people to this
+          site's own thank-you page instead of Web3Forms' own default
+          success page.
         -->
-        <form class="contact-form" method="POST" action="https://formspree.io/f/REPLACE-WITH-YOUR-FORMSPREE-ID">
-          <input type="hidden" name="_next" value="{{ site.url }}/thank-you/">
-          <p style="position: absolute; left: -9999px;" aria-hidden="true">
-            <label>Leave this field blank if you're human: <input name="_gotcha" tabindex="-1" autocomplete="off"></label>
-          </p>
+        <form class="contact-form" method="POST" action="https://api.web3forms.com/submit">
+          <input type="hidden" name="access_key" value="b45489b7-dfb6-417e-bdf0-2034ace052a9">
+          <input type="hidden" name="redirect" value="{{ site.url }}/thank-you/">
+          <input type="checkbox" name="botcheck" style="display: none;" aria-hidden="true" tabindex="-1" autocomplete="off">
 
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name">
+            <input type="text" id="name" name="name" placeholder="Your name" required>
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="you@example.com">
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
           </div>
           <div class="form-group">
             <label for="subject">Subject</label>
@@ -53,7 +50,7 @@ metaDescription: "Category requests, licensing questions, or just feedback on th
           </div>
           <div class="form-group">
             <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="What's on your mind?"></textarea>
+            <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-large">Send message</button>
         </form>
