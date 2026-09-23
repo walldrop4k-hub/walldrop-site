@@ -26,10 +26,17 @@
 <meta name="twitter:description" content="{{ pageDescription }}">
 <meta name="twitter:image" content="{{ pageImage }}">
 
-<!-- Google Fonts: Fraunces (headings) + Sora (body/UI) -->
+<!-- Google Fonts: Fraunces (headings) + Sora (body/UI) — loaded
+     non-blocking (the media="print" swapped to "all" onload trick) since
+     a synchronous font stylesheet here was found to delay first paint by
+     ~950ms on mobile. &display=swap in the URL means text still renders
+     immediately in a fallback font and swaps once these load, so nothing
+     is invisible while waiting either way. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Sora:wght@400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
