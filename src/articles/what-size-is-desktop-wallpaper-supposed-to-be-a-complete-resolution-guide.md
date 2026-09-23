@@ -25,11 +25,11 @@ If you've ever downloaded a wallpaper that looked crisp on a website and then tu
 
 If you just want a number and don't care about the "why" yet, here it is.
 
-For most people on a standard laptop or monitor, \*\*1920×1080\*\* is the size you need. This is Full HD, and it covers a huge share of monitors sold in the last decade.
+For most people on a standard laptop or monitor, 1920×1080 is the size you need. This is Full HD, and it covers a huge share of monitors sold in the last decade.
 
-If you've got a newer, sharper monitor, you're probably looking at \*\*2560×1440\*\* (often called QHD or 1440p), which is common on mid-range gaming monitors and higher-end laptops.
+If you've got a newer, sharper monitor, you're probably looking at 2560×1440 (often called QHD or 1440p), which is common on mid-range gaming monitors and higher-end laptops.
 
-And if you've invested in a genuinely high-end display, you'll want \*\*3840×2160\*\*, which is 4K UHD. That's exactly four times the pixel count of 1080p.
+And if you've invested in a genuinely high-end display, you'll want 3840×2160, which is 4K UHD. That's exactly four times the pixel count of 1080p.
 
 The mistake almost everyone makes is grabbing whatever wallpaper looks nice without checking which of these three buckets their own screen actually falls into. That five-second check saves you from 90% of blurry-wallpaper problems.
 
@@ -41,7 +41,7 @@ On Windows 11: Right-click anywhere on your desktop, choose Display Settings, an
 
 On Windows 10:Same starting point — right-click the desktop, hit Display Settings — but the resolution dropdown sits a bit further down the page under "Resolution." It'll show something like 1920 x 1080 with a recommended tag beside it.
 
-\*\*On macOS:Go to System Settings, then Displays. You'll see a row of resolution options with names instead of raw numbers half the time (like "Default" or "More Space"). Click "Show all resolutions" or hover over the options to see the actual pixel dimensions. Macs with Retina displays are a special case worth knowing about — the screen might report as 1440×900 in software terms while the physical panel is pushing way more actual pixels, because of how Apple handles scaling. If you want the wallpaper to look genuinely sharp on a Retina Mac, sizing for the physical pixel count (not the "logical" resolution shown by default) makes a real difference.
+On macOS:Go to System Settings, then Displays. You'll see a row of resolution options with names instead of raw numbers half the time (like "Default" or "More Space"). Click "Show all resolutions" or hover over the options to see the actual pixel dimensions. Macs with Retina displays are a special case worth knowing about — the screen might report as 1440×900 in software terms while the physical panel is pushing way more actual pixels, because of how Apple handles scaling. If you want the wallpaper to look genuinely sharp on a Retina Mac, sizing for the physical pixel count (not the "logical" resolution shown by default) makes a real difference.
 
 Once you know your number, you're picking wallpapers, not gambling on them.
 
@@ -53,11 +53,11 @@ Once you know your number, you're picking wallpapers, not gambling on them.
 
 Here's the part most guides skip over, and it's the part that actually matters for your wallet and your download choices: full HD vs 4K only looks meaningfully different if your screen and your eyes can actually resolve that extra detail. On a 24-inch monitor sitting two feet from your face, you'll notice a real jump from 1080p to 1440p. Going from 1440p to 4K on that same small screen, at that same distance? Honestly, most people can't reliably tell the difference in a blind test. The pixels are just too small and too close together for your eye to separate them at that size.
 
-Where 4K genuinely earns its keep is on larger displays — 27 inches and up — or when you're sitting close to a big screen, or when you're going to zoom into detail (which, admittedly, almost nobody does with a wallpaper). If you've got a 27-inch or larger 4K monitor, grabbing wallpapers built for that resolution is worth it. My own \[collection of desktop 4K wallpapers](https://walldrop-site.pages.dev/category/desktop/4k/) is specifically curated with monitors like that in mind, so the detail actually holds up instead of being wasted pixels.
+Where 4K genuinely earns its keep is on larger displays — 27 inches and up — or when you're sitting close to a big screen, or when you're going to zoom into detail (which, admittedly, almost nobody does with a wallpaper). If you've got a 27-inch or larger 4K monitor, grabbing wallpapers built for that resolution is worth it. My own \[collection of desktop 4K wallpapers](https://walldrop4k.site) is specifically curated with monitors like that in mind, so the detail actually holds up instead of being wasted pixels.
 
 I'm not going to tell you 4K "changes everything" on a budget 22-inch office monitor, because it doesn't. Be honest with yourself about your setup before you go hunting for the biggest file you can find.
 
-One thing I've noticed testing wallpapers on large panels: darker, moodier images tend to hide compression artifacts and minor imperfections better than bright, busy ones, simply because the eye reads uniform dark tones more forgivingly than fine detail in bright areas. If you're working with a big screen and want something that still looks clean at full size, it's worth browsing \[darker wallpaper options built for larger displays](https://walldrop-site.pages.dev/category/desktop/dark/).
+One thing I've noticed testing wallpapers on large panels: darker, moodier images tend to hide compression artifacts and minor imperfections better than bright, busy ones, simply because the eye reads uniform dark tones more forgivingly than fine detail in bright areas. If you're working with a big screen and want something that still looks clean at full size, it's worth browsing \[darker wallpaper options built for larger displays](https://walldrop4k.site).
 
 ## Aspect Ratio: Why the Right Pixel Count Can Still Look Wrong
 
@@ -75,7 +75,7 @@ Drop a normal 16:9 wallpaper onto a 21:9 ultrawide and Windows will either stret
 
 If you want one continuous image spanning across two or three monitors, the trick is to add up your total horizontal resolution. Two 1920×1080 monitors side by side means you need a single image that's 3840×1080 — double the width, same height. Three of them means 5760×1080. The image gets split across your monitors by Windows, so each screen shows its "slice" of the whole picture.
 
-The catch: this only looks good with wallpapers that were actually composed for spanning, where the important visual elements aren't sitting right on the seam between monitors (nobody wants a mountain peak split exactly down the middle by their monitor bezel). Wide, minimal compositions — simple gradients, abstract patterns, wide landscapes with the horizon low in frame — tend to handle the seam much better than busy, detailed photos. I lean on wallpapers from my \[minimal category](https://walldrop-site.pages.dev/category/desktop/minimal/) for exactly this reason when I'm setting up a spanned dual-monitor background; the simpler the composition scales cleanly whether it's on one screen or split across three, and it's more forgiving when it gets sliced in half at the bezel.
+The catch: this only looks good with wallpapers that were actually composed for spanning, where the important visual elements aren't sitting right on the seam between monitors (nobody wants a mountain peak split exactly down the middle by their monitor bezel). Wide, minimal compositions — simple gradients, abstract patterns, wide landscapes with the horizon low in frame — tend to handle the seam much better than busy, detailed photos. I lean on wallpapers from my \[minimal category](https://walldrop4k.site) for exactly this reason when I'm setting up a spanned dual-monitor background; the simpler the composition scales cleanly whether it's on one screen or split across three, and it's more forgiving when it gets sliced in half at the bezel.
 
 Honestly though, for most people, running a separate, individually-sized wallpaper on each monitor looks cleaner than one giant spanned image. It's more setup work, but you avoid the "why does this tree only have half a trunk" problem entirely.
 
@@ -89,7 +89,7 @@ Heavy JPG compression. Not all "1920×1080" files are equal. A heavily compresse
 
 OS-level scaling on high-DPI displays. This is the sneaky one. If you've set your display scaling to 150% or 200% in Windows (common on high-resolution laptops), the OS is rendering everything, wallpaper included, at an effective lower resolution before scaling it back up. Your wallpaper file might be perfectly sized and still look slightly soft because of this setting, not because of the file itself.
 
-Using a phone screenshot as a wallpaper. This one's really common and really avoidable. Phone screens are tall and narrow — portrait orientation — while desktop monitors are wide. When you take a photo on your phone and try to use it directly as a desktop background, you're forcing a portrait image into a landscape frame, which means either heavy cropping or ugly stretching. It's a completely different shape problem than resolution. If you love a shot from your phone's wallpaper collection, it's worth checking whether there's a proper landscape version made for desktop use rather than fighting the crop tool. The same orientation mismatch shows up in reverse, too — a wallpaper built for desktop won't sit right if you drop it straight onto a phone. Our \[iPhone wallpaper collection](https://walldrop-site.pages.dev/category/mobile/iphone/) is framed specifically for portrait screens for exactly this reason; the orientation is the real issue here, not the pixel count.
+Using a phone screenshot as a wallpaper. This one's really common and really avoidable. Phone screens are tall and narrow — portrait orientation — while desktop monitors are wide. When you take a photo on your phone and try to use it directly as a desktop background, you're forcing a portrait image into a landscape frame, which means either heavy cropping or ugly stretching. It's a completely different shape problem than resolution. If you love a shot from your phone's wallpaper collection, it's worth checking whether there's a proper landscape version made for desktop use rather than fighting the crop tool. The same orientation mismatch shows up in reverse, too — a wallpaper built for desktop won't sit right if you drop it straight onto a phone. Our \[iPhone wallpaper collection](https://walldrop4k.site) is framed specifically for portrait screens for exactly this reason; the orientation is the real issue here, not the pixel count.
 
 ```
 
