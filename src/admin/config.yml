@@ -76,6 +76,7 @@ collections:
           - { label: "AMOLED (mobile)", value: "amoled" }
 
       - { label: "Full image (optional — upload later when you have it)", name: image, widget: image, required: false }
+      - { label: "Alt text (for the main image)", name: imageAlt, widget: string, required: true, hint: "Describe the image for accessibility and SEO — e.g. \"Dark anime character wallpaper with red lighting\"." }
       - { label: "Thumbnail (optional, falls back to the full image)", name: thumbnail, widget: image, required: false }
 
       - label: "Placeholder color (used until you upload a real image)"
@@ -137,6 +138,7 @@ collections:
         options: [Guides, Trends, Tips]
 
       - { label: "Featured image (optional)", name: image, widget: image, required: false }
+      - { label: "Alt text (for the featured image)", name: imageAlt, widget: string, required: true, hint: "Describe the image for accessibility and SEO — e.g. \"Dark anime character wallpaper with red lighting\"." }
       - label: "Placeholder color (used until you upload a real image)"
         name: gradientClass
         widget: select

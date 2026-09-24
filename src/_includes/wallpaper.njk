@@ -35,7 +35,7 @@ layout: base.njk
              matches the 9:16 box exactly, so "cover" would crop it.
              Desktop (16:9) previews are unaffected — they already fit
              fine and stay "cover" as before. #}
-          {{ mediaOrFallback(image, title, "preview-media " + ratio, gradientClass, "contain" if category == "mobile" else "cover") }}
+          {{ mediaOrFallback(image, imageAlt, "preview-media " + ratio, gradientClass, "contain" if category == "mobile" else "cover") }}
           {# Hidden until script.js resolves a prev/next target (or finds
              none, e.g. first/last item — left hidden rather than wrapping
              around silently) so there's never a dead/broken link. #}

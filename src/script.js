@@ -330,7 +330,7 @@ function renderWallpaperCard(item) {
   const hasImage = cardSrc ? ' has-image' : '';
   return `<a href="${item.url}" class="wallpaper-card">
       <div class="thumb ${ratio}${hasImage}">
-        ${mediaMarkup(cardSrc, item.title, item.gradientClass, 'thumb-bg')}
+        ${mediaMarkup(cardSrc, item.imageAlt, item.gradientClass, 'thumb-bg')}
         <span class="tag" data-subcategory="${escapeHtml((item.subcategory || '').toLowerCase())}">${escapeHtml(tagLabel)}</span>
         <span class="download-btn" aria-hidden="true">${downloadIconSvg}</span>
       </div>
@@ -359,7 +359,7 @@ function getWallpaperIndex() {
 function renderArticleCard(item) {
   const hasImage = item.image ? ' has-image' : '';
   return `<a href="${item.url}" class="article-card">
-      <div class="thumb${hasImage}">${mediaMarkup(item.image, item.title, item.gradientClass, 'thumb-bg')}</div>
+      <div class="thumb${hasImage}">${mediaMarkup(item.image, item.imageAlt, item.gradientClass, 'thumb-bg')}</div>
       <div class="card-info">
         <p class="card-eyebrow">${escapeHtml(item.category)}</p>
         <h3 class="card-title">${escapeHtml(item.title)}</h3>

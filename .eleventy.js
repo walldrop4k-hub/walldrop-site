@@ -166,6 +166,7 @@ module.exports = function (eleventyConfig) {
         tags: (item.data.tags || []).map((t) => String(t).trim().toLowerCase()),
         url: item.url,
         image: item.data.image || null,
+        imageAlt: item.data.imageAlt || "",
         thumbnail: item.data.cardImage || null,
         gradientClass: item.data.gradientClass || null,
         resolution:
@@ -190,6 +191,7 @@ module.exports = function (eleventyConfig) {
         tags: item.data.tags || [],
         url: item.url,
         image: item.data.image || null,
+        imageAlt: item.data.imageAlt || "",
         thumbnail: item.data.cardImage || null,
         gradientClass: item.data.gradientClass || null,
         resolution:
@@ -212,6 +214,7 @@ module.exports = function (eleventyConfig) {
         tags: [],
         url: item.url,
         image: item.data.image || null,
+        imageAlt: item.data.imageAlt || "",
         gradientClass: item.data.gradientClass || null,
       }));
 

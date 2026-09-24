@@ -33,7 +33,7 @@
        one was set, otherwise an auto-generated compressed WebP built from
        the full image — the full image itself is only ever linked from the
        wallpaper's own download button (wallpaper.njk). #}
-    {{ mediaOrFallback(w.data.cardImage, w.data.title, "thumb-bg", w.data.gradientClass, "cover", loading) }}
+    {{ mediaOrFallback(w.data.cardImage, w.data.imageAlt, "thumb-bg", w.data.gradientClass, "cover", loading) }}
     <span class="tag" data-subcategory="{{ (w.data.subcategory or '') | lower }}">{{ cat.name if cat else w.data.subcategory }}</span>
     {# Decorative only — not a real control, so it can't be the thing a
        tap lands on. The whole card is the one click target; the actual
@@ -51,7 +51,7 @@
 {% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
 {% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
 <a href="{{ w.url }}" class="trending-card {{ ratio }} fade-item{{ ' has-image' if w.data.cardImage }}">
-  {{ mediaOrFallback(w.data.cardImage, w.data.title, "trending-bg", w.data.gradientClass, "cover", loading) }}
+  {{ mediaOrFallback(w.data.cardImage, w.data.imageAlt, "trending-bg", w.data.gradientClass, "cover", loading) }}
   <div class="trending-overlay"></div>
   <span class="tag" data-subcategory="{{ (w.data.subcategory or '') | lower }}">{{ cat.name if cat else w.data.subcategory }}</span>
   <div class="trending-info">
@@ -64,7 +64,7 @@
 {% macro articleCard(a, showExcerpt=true, loading="eager") %}
 <a href="{{ a.url }}" class="article-card fade-item">
   <div class="thumb{{ ' has-image' if a.data.image }}">
-    {{ mediaOrFallback(a.data.image, a.data.title, "thumb-bg", a.data.gradientClass, "cover", loading) }}
+    {{ mediaOrFallback(a.data.image, a.data.imageAlt, "thumb-bg", a.data.gradientClass, "cover", loading) }}
   </div>
   <div class="card-info">
     <p class="card-eyebrow">{{ a.data.category }}</p>
