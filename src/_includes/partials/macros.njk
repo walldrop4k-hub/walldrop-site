@@ -64,7 +64,7 @@
 {% macro articleCard(a, showExcerpt=true, loading="eager") %}
 <a href="{{ a.url }}" class="article-card fade-item">
   <div class="thumb{{ ' has-image' if a.data.image }}">
-    {{ mediaOrFallback(a.data.image, a.data.imageAlt, "thumb-bg", a.data.gradientClass, "cover", loading) }}
+    {{ mediaOrFallback(a.data.featuredImage, a.data.imageAlt, "thumb-bg", a.data.gradientClass, "cover", loading) }}
   </div>
   <div class="card-info">
     <p class="card-eyebrow">{{ a.data.category }}</p>

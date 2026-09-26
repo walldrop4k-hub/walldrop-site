@@ -1981,7 +1981,7 @@ body:not(.is-home)::after {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
-  aspect-ratio: 21 / 9;
+  aspect-ratio: 16 / 9;
   margin-bottom: 48px;
 }
 
@@ -2380,10 +2380,6 @@ body:not(.is-home)::after {
 
   .article-grid {
     grid-template-columns: 1fr;
-  }
-
-  .featured-image {
-    aspect-ratio: 4 / 3;
   }
 
   .footer-columns {

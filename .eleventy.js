@@ -213,7 +213,7 @@ module.exports = function (eleventyConfig) {
         excerpt: plainText(item.data.excerpt || "", 300),
         tags: [],
         url: item.url,
-        image: item.data.image || null,
+        image: item.data.featuredImage || null,
         imageAlt: item.data.imageAlt || "",
         gradientClass: item.data.gradientClass || null,
       }));
