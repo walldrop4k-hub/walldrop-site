@@ -1000,6 +1000,18 @@ body:not(.is-home)::after {
   transition: transform 0.3s ease;
 }
 
+/* Wallpaper cards only — the 1.05 zoom felt too fast at the shared 0.3s
+   duration, so it gets its own slower timing here rather than changing
+   .thumb-bg's base duration, which article-card also relies on.
+   !important is required: the actual <img> element carries an inline
+   transition:opacity style (mediaOrFallback's fade-in-on-load), which
+   otherwise fully shadows this external rule for the whole transition
+   property, not just opacity — replicating that opacity part here keeps
+   the fade-in working alongside the new transform timing. */
+.wallpaper-card .thumb-bg {
+  transition: opacity 0.2s ease, transform 0.45s ease !important;
+}
+
 .tag {
   position: absolute;
   top: 10px;
