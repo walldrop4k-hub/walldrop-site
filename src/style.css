@@ -962,7 +962,7 @@ body:not(.is-home)::after {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease;
 }
 
 .thumb {
@@ -997,7 +997,7 @@ body:not(.is-home)::after {
 .thumb-bg {
   position: absolute;
   inset: 0;
-  transition: transform 0.25s ease;
+  transition: transform 0.3s ease;
 }
 
 .tag {
@@ -1217,20 +1217,30 @@ body:not(.is-home)::after {
    just navigates, with no lingering scale/shadow/zoom.
    ========================================================== */
 @media (hover: hover) and (pointer: fine) {
-  /* Reverted from an earlier "card scales + lifts + gains a shadow"
-     treatment — felt janky/heavy. Back to the simple version: the card
-     itself never moves or gains a shadow on hover, only the image inside
-     it zooms, clipped to the card's own rounded corners (.thumb/
-     .trending-card both already have overflow:hidden). Border-color is
-     the one card-level change kept, since it's a color transition, not
-     motion. */
-  .wallpaper-card:hover,
+  /* .wallpaper-card's lift + image zoom here match the site's original
+     hover treatment (see the very first commit) — no scale on the card
+     itself, no box-shadow, just a border-color change and a translateY
+     lift, with the image inside zooming slightly. trending-card/
+     article-card keep their own separate (undisturbed) hover values
+     below rather than sharing wallpaper-card's exact numbers. */
+  /* Repeated class boosts specificity above .reveal.is-visible .fade-item
+     (which also sets transform, to translateY(0)) — homepage wallpaper
+     cards carry .fade-item too, and without this the fade-item rule wins
+     the transform property and the hover lift silently never applies. */
+  .wallpaper-card.wallpaper-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+
   .trending-card:hover,
   .article-card:hover {
     border-color: var(--accent);
   }
 
-  .wallpaper-card:hover .thumb-bg,
+  .wallpaper-card:hover .thumb-bg {
+    transform: scale(1.05);
+  }
+
   .trending-card:hover .trending-bg,
   .article-card:hover .thumb-bg {
     transform: scale(1.06);
