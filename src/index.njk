@@ -146,6 +146,22 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
   </section>
   {% endif %}
 
+  <!-- ============ TRENDING THIS WEEK ============ -->
+  {# Desktop-only (not combined with trendingMobile) — mixing 16:9 and
+     9:16 cards in one undifferentiated row (no format tabs here, unlike
+     Trending Now above) made for a visibly uneven grid, one tall card
+     next to three short wide ones. #}
+  {% if collections.trendingDesktop.length >= 4 %}
+  <section class="section reveal">
+    <div class="section-inner">
+      <h2 class="section-title">Trending this week</h2>
+      <div class="trending-week-grid">
+        {% for w in collections.trendingDesktop.slice(0, 4) %}{{ wallpaperCard(w, "fade-item", "lazy") }}{% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
   <!-- ============ FROM THE JOURNAL ============ -->
   <section class="section reveal">
     <div class="section-inner">

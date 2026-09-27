@@ -939,6 +939,15 @@ body:not(.is-home)::after {
   grid-template-columns: repeat(5, 1fr);
 }
 
+/* "Trending this week" row — reuses .wallpaper-card itself (same macro,
+   same styling/hover as every other wallpaper grid), just its own 4-up
+   layout since it always holds exactly 4 cards. */
+.trending-week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
 .trending-card {
   position: relative;
   display: block;
@@ -2343,6 +2352,10 @@ body:not(.is-home)::after {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .trending-week-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .footer-columns {
     grid-template-columns: 1fr 1fr;
   }
@@ -2506,7 +2519,8 @@ body:not(.is-home)::after {
   }
 
   .wallpaper-grid-desktop,
-  .trending-grid-desktop {
+  .trending-grid-desktop,
+  .trending-week-grid {
     grid-template-columns: 1fr;
     gap: 14px;
   }
