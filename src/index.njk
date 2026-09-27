@@ -13,6 +13,16 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
        Empty div here so there's nothing to show before JS runs rather
        than a flash of unstyled/misplaced markup. #}
     <div class="hero-thumbs" id="hero-thumbs" aria-hidden="true"></div>
+    {# Rendered server-side (not client-side like .hero-thumbs above) since
+       these are a few large, sharp, load-bearing visuals rather than many
+       small blurred ones — no reason to wait on a client-side fetch for
+       something this prominent. Picks straight from latestDropsDesktop,
+       already available to this template and guaranteed non-empty. #}
+    <div class="hero-cards" aria-hidden="true">
+      {% for w in collections.latestDropsDesktop.slice(0, 3) %}
+      <div class="hero-card hero-card-{{ loop.index }}" style="background-image:url('{{ w.data.cardImage }}')"></div>
+      {% endfor %}
+    </div>
     <div class="section-inner">
       <h1 class="search-hero-title">Find your next wallpaper</h1>
       <p class="search-hero-desc">Hand-picked 4K and 8K wallpapers for desktop and mobile. Free, no signup.</p>

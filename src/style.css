@@ -751,6 +751,40 @@ body:not(.is-home)::after {
 .hero-thumb-5 { bottom: 4%; left: 16%; width: 66px; height: 66px; transform: rotate(5deg); }
 .hero-thumb-6 { bottom: 6%; right: 17%; width: 66px; height: 66px; transform: rotate(-11deg); }
 
+/* Layered wallpaper card visuals, right side of the hero — sharp and at
+   real card opacity (unlike the blurred/faint .hero-thumbs above), for a
+   sense of depth behind the headline. Sits in the hero's own right-side
+   margin outside .section-inner's 1240px column, so it never competes
+   with the centered heading/search bar for space. Hidden below 1180px,
+   where that margin gets too narrow to hold it cleanly (see media query
+   further down) rather than shrinking it into something cramped. */
+.hero-cards {
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 220px;
+  height: 260px;
+  pointer-events: none;
+}
+
+.hero-card {
+  position: absolute;
+  width: 168px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.65);
+}
+
+.hero-card-1 { top: 0; right: 30px; transform: rotate(-7deg); z-index: 3; }
+.hero-card-2 { top: 70px; right: 0; transform: rotate(5deg); z-index: 2; }
+.hero-card-3 { top: 140px; right: 46px; transform: rotate(-3deg); z-index: 1; }
+
 .search-hero-title {
   font-size: clamp(1.6rem, 3vw, 2rem);
   font-weight: 600;
@@ -2216,6 +2250,14 @@ body:not(.is-home)::after {
 
 /* Tablet: 2-col desktop-format grids, 3-col mobile-format grids */
 @media (max-width: 1024px) {
+  /* The hero's right-side margin (outside .section-inner's 1240px column)
+     is what gives these room without overlapping the centered heading/
+     search bar — that margin is gone by this width, so hide rather than
+     shrink into something cramped or overlapping. */
+  .hero-cards {
+    display: none;
+  }
+
   .wallpaper-grid-desktop,
   .trending-grid-desktop {
     grid-template-columns: repeat(2, 1fr);
