@@ -2,16 +2,6 @@
 <footer class="site-footer">
   <div class="footer-inner">
 
-    <div class="footer-stats glass">
-      <span class="footer-stat-item">4K to 8K resolutions</span>
-      <span class="footer-stat-sep">&middot;</span>
-      <span class="footer-stat-item">Desktop &amp; Mobile</span>
-      <span class="footer-stat-sep">&middot;</span>
-      <span class="footer-stat-item">No signup required</span>
-      <span class="footer-stat-sep">&middot;</span>
-      <span class="footer-stat-item">Free forever</span>
-    </div>
-
     <div class="footer-columns">
       <div class="footer-col footer-brand">
         <div class="footer-logo">
@@ -34,22 +24,36 @@
           <span class="logo-text">WallDrop<span class="logo-accent">4K</span></span>
         </div>
         <p class="footer-desc">{{ settings.description }}</p>
+        {% if settings.social and (settings.social.twitter or settings.social.instagram or settings.social.pinterest) %}
+        <div class="footer-social">
+          {% if settings.social.twitter %}
+          <a href="{{ settings.social.twitter }}" class="footer-social-icon" aria-label="Twitter / X" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16"></path><path d="M20 4L4 20"></path></svg>
+          </a>
+          {% endif %}
+          {% if settings.social.instagram %}
+          <a href="{{ settings.social.instagram }}" class="footer-social-icon" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"></circle></svg>
+          </a>
+          {% endif %}
+          {% if settings.social.pinterest %}
+          <a href="{{ settings.social.pinterest }}" class="footer-social-icon" aria-label="Pinterest" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9 19c1-3 2-8 2-10a2.5 2.5 0 0 1 5 0c0 1.5-1 4-3 4"></path></svg>
+          </a>
+          {% endif %}
+        </div>
+        {% endif %}
       </div>
       <div class="footer-col">
-        <h4 class="footer-col-title">Desktop</h4>
+        <h4 class="footer-col-title">Explore</h4>
         <ul>
-          {% for slug in categories.footerDesktop %}
+          {% for slug in categories.footerDesktop.slice(0, 3) %}
           {% if occupiedCategories["desktop/" + slug] %}
           {% set cat = categories.desktop | findBySlug(slug) %}
           <li><a href="/category/desktop/{{ slug }}/">{{ cat.name }}</a></li>
           {% endif %}
           {% endfor %}
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4 class="footer-col-title">Mobile</h4>
-        <ul>
-          {% for slug in categories.footerMobile %}
+          {% for slug in categories.footerMobile.slice(0, 3) %}
           {% if occupiedCategories["mobile/" + slug] %}
           {% set cat = categories.mobile | findBySlug(slug) %}
           <li><a href="/category/mobile/{{ slug }}/">{{ cat.name }}</a></li>
@@ -58,10 +62,18 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4 class="footer-col-title">Company</h4>
+        <h4 class="footer-col-title">Resources</h4>
         <ul>
+          <li><a href="/articles/">Articles</a></li>
+          <li><a href="/favorites/">Favorites</a></li>
+          <li><a href="/search/">Search</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-col-title">Legal</h4>
+        <ul>
           <li><a href="/privacy/">Privacy Policy</a></li>
           <li><a href="/dmca/">DMCA</a></li>
           <li><a href="/terms/">Terms</a></li>
@@ -91,6 +103,16 @@
       <a href="/category/{{ tag.type }}/{{ tag.slug }}/" class="pill">{{ tag.name }}</a>
       {% endif %}
       {% endfor %}
+    </div>
+
+    <div class="footer-stats glass">
+      <span class="footer-stat-item">4K to 8K resolutions</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">Desktop &amp; Mobile</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">No signup required</span>
+      <span class="footer-stat-sep">&middot;</span>
+      <span class="footer-stat-item">Free forever</span>
     </div>
 
     <div class="footer-bottom">

@@ -173,3 +173,12 @@ collections:
           - { label: Tagline, name: tagline, widget: string }
           - { label: Description, name: description, widget: text }
           - { label: Contact Email, name: contactEmail, widget: string }
+          - label: "Social Links (optional — leave blank to hide that icon in the footer)"
+            name: social
+            widget: object
+            required: false
+            collapsed: true
+            fields:
+              - { label: "Twitter / X URL", name: twitter, widget: string, required: false }
+              - { label: "Instagram URL", name: instagram, widget: string, required: false }
+              - { label: "Pinterest URL", name: pinterest, widget: string, required: false }

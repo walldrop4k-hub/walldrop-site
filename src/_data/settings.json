@@ -2,5 +2,10 @@
   "title": "WallDrop4K",
   "tagline": "Wallpapers worth waiting for",
   "description": "A small, hand-curated wallpaper library for desktop and mobile. New drops every week — no signup, no limits.",
-  "contactEmail": "walldrop4k@gmail.com"
+  "contactEmail": "walldrop4k@gmail.com",
+  "social": {
+    "twitter": "",
+    "instagram": "",
+    "pinterest": ""
+  }
 }
