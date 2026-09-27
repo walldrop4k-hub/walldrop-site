@@ -1243,6 +1243,57 @@ body:not(.is-home)::after {
 }
 
 /* ==========================================================
+   Newsletter band — homepage
+   ========================================================== */
+.newsletter-band {
+  text-align: center;
+}
+
+.newsletter-inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.newsletter-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+/* Same glass-pill input+button recipe as .search-bar, just its own class
+   so tuning one never risks the other. */
+.newsletter-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px auto 0;
+  padding: 6px 6px 6px 22px;
+  border-radius: 999px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.newsletter-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 10px 0;
+}
+
+.newsletter-input::placeholder {
+  color: var(--text-muted);
+}
+
+.newsletter-form:focus-within {
+  border-color: rgba(232, 163, 61, 0.55);
+  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 0 0 4px rgba(232, 163, 61, 0.14);
+}
+
+/* ==========================================================
    Explore by category — homepage grid
    ========================================================== */
 .category-grid {

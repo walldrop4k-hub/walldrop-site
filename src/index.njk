@@ -171,3 +171,22 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
       </div>
     </div>
   </section>
+
+  <!-- ============ NEWSLETTER ============ -->
+  {# Presentation only, no submission endpoint wired up yet — same
+     starting point src/contact.njk shipped with before it was pointed at
+     a real Web3Forms form in a separate task. Point action= at wherever
+     these signups should go (Web3Forms works fine for this too) when
+     ready. #}
+  <section class="section reveal newsletter-band">
+    <div class="section-inner">
+      <div class="newsletter-inner">
+        <h2 class="section-title">Never miss a drop</h2>
+        <p class="newsletter-desc">New wallpapers and curated picks straight to your inbox — no spam, unsubscribe anytime.</p>
+        <form class="newsletter-form glass">
+          <input type="email" class="newsletter-input" name="email" placeholder="you@example.com" required>
+          <button type="submit" class="search-bar-btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
