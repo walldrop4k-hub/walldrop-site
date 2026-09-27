@@ -73,6 +73,49 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
     </div>
   </section>
 
+  <!-- ============ EXPLORE BY CATEGORY ============ -->
+  <section class="section reveal">
+    <div class="section-inner">
+      <h2 class="section-title">Explore by category</h2>
+      <div class="category-grid">
+        {% set exploreCats = [
+          { name: "4K", type: "desktop", slug: "4k" },
+          { name: "Gaming", type: "desktop", slug: "gaming" },
+          { name: "Nature", type: "desktop", slug: "nature" },
+          { name: "Abstract", type: "desktop", slug: "abstract" },
+          { name: "Dark", type: "desktop", slug: "dark" }
+        ] %}
+        {% for c in exploreCats %}
+          {% set matches = collections.desktopWallpapers | byCategory(c.type, c.slug) %}
+          {% if matches.length %}
+          <a href="/category/{{ c.type }}/{{ c.slug }}/" class="category-card">
+            <div class="category-card-bg" style="background-image:url('{{ matches[0].data.cardImage }}')"></div>
+            <div class="category-card-scrim" aria-hidden="true"></div>
+            <div class="category-card-info">
+              <span class="category-card-name">{{ c.name }}</span>
+              <span class="category-card-count">{{ matches.length }} wallpaper{{ "s" if matches.length != 1 }}</span>
+            </div>
+          </a>
+          {% endif %}
+        {% endfor %}
+        {# "Mobile" spans every mobile subcategory rather than one specific
+           slug (unlike the 5 desktop cards above) — links to iPhone, the
+           same default the Trending/Latest "View all" links already use
+           for mobile, since there's no single all-mobile browse page. #}
+        {% if collections.mobileWallpapers.length %}
+        <a href="/category/mobile/iphone/" class="category-card">
+          <div class="category-card-bg" style="background-image:url('{{ collections.mobileWallpapers[0].data.cardImage }}')"></div>
+          <div class="category-card-scrim" aria-hidden="true"></div>
+          <div class="category-card-info">
+            <span class="category-card-name">Mobile</span>
+            <span class="category-card-count">{{ collections.mobileWallpapers.length }} wallpapers</span>
+          </div>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
   <!-- ============ TRENDING NOW ============ -->
   {% if collections.trendingDesktop.length >= 3 or collections.trendingMobile.length >= 3 %}
   <section class="section trending-section reveal">

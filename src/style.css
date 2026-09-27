@@ -1233,6 +1233,73 @@ body:not(.is-home)::after {
   gap: 20px;
 }
 
+/* ==========================================================
+   Explore by category — homepage grid
+   ========================================================== */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.category-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color 0.3s ease;
+}
+
+.category-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.45s ease;
+}
+
+.category-card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 10, 14, 0.92) 0%, rgba(10, 10, 14, 0.25) 55%, transparent 100%);
+}
+
+.category-card-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14px;
+  z-index: 1;
+}
+
+.category-card-name {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.category-card-count {
+  display: block;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .category-card:hover {
+    border-color: var(--accent);
+  }
+
+  .category-card:hover .category-card-bg {
+    transform: scale(1.06);
+  }
+}
+
 .article-card {
   display: block;
   background: var(--panel);
@@ -2272,6 +2339,10 @@ body:not(.is-home)::after {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .footer-columns {
     grid-template-columns: 1fr 1fr;
   }
@@ -2379,6 +2450,10 @@ body:not(.is-home)::after {
 
   .section {
     padding: 64px 0;
+  }
+
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .search-hero {
