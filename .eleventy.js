@@ -125,12 +125,13 @@ module.exports = function (eleventyConfig) {
   );
 
   // Homepage "Latest drops" — every wallpaper of that format, newest
-  // first, capped at 6. Deliberately does NOT exclude featured/trending
-  // items — those are independent flags and can freely overlap with
-  // "latest". (Kept as its own collection rather than reusing
-  // desktopWallpapers/mobileWallpapers directly just so the slice count
-  // lives in one place — no filtering differs between them.)
-  const LATEST_DROPS_COUNT = 10;
+  // first, capped at 12 (a multiple of the desktop-tab grid's 4 columns,
+  // so the last row is never left half-empty). Deliberately does NOT
+  // exclude featured/trending items — those are independent flags and
+  // can freely overlap with "latest". (Kept as its own collection rather
+  // than reusing desktopWallpapers/mobileWallpapers directly just so the
+  // slice count lives in one place — no filtering differs between them.)
+  const LATEST_DROPS_COUNT = 12;
 
   eleventyConfig.addCollection("latestDropsDesktop", (api) =>
     api

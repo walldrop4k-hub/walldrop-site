@@ -1241,11 +1241,17 @@ body:not(.is-home)::after {
 }
 
 .wallpaper-grid-desktop {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
+/* 4, not 5 — with Latest Drops now at 12 items (a multiple of 4, not 5),
+   5 columns left a ragged last row of 2 with 3 empty slots on the
+   homepage's Mobile tab. This is the same shared grid category pages and
+   wallpaper.njk's related-wallpapers section use too, so it changes
+   there as well — a plain 4-up grid works fine generally, not just for
+   this one count. */
 .wallpaper-grid-mobile {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
 }
 
 /* ==========================================================
@@ -2425,7 +2431,10 @@ body:not(.is-home)::after {
     display: none;
   }
 
-  .wallpaper-grid-desktop,
+  .wallpaper-grid-desktop {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .trending-grid-desktop {
     grid-template-columns: repeat(2, 1fr);
   }
