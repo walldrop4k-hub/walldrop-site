@@ -954,13 +954,29 @@ body:not(.is-home)::after {
   border-radius: var(--radius-lg);
   overflow: hidden;
   border: 1px solid var(--border);
-  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  /* transform/box-shadow dropped — hover here only ever changes
+     border-color (see the hover block below), so transitioning them was
+     dead weight left over from an earlier treatment. Duration matches
+     .wallpaper-card/.category-card's own border-color transition. */
+  transition: border-color 0.3s ease;
 }
 
 .trending-bg {
   position: absolute;
   inset: 0;
   transition: transform 0.25s ease;
+}
+
+/* Same issue and same fix as .wallpaper-card .thumb-bg: this is an <img>
+   (via mediaOrFallback), which carries its own inline
+   transition:opacity style for the fade-in-on-load effect — that inline
+   style fully shadows this rule's transform transition otherwise, so the
+   hover zoom below was silently snapping instantly with no animation at
+   all. !important plus replicating the opacity part keeps the fade-in
+   working while actually animating the zoom, matching
+   .wallpaper-card .thumb-bg's duration exactly. */
+.trending-card .trending-bg {
+  transition: opacity 0.2s ease, transform 0.45s ease !important;
 }
 
 .trending-overlay {
