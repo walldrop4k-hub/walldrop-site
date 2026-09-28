@@ -1,0 +1,30 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+<title>{{ settings.title }}</title>
+<link>{{ site.url }}/</link>
+<atom:link href="{{ site.url }}/feed.xml" rel="self" type="application/rss+xml"/>
+<description>{{ settings.description }}</description>
+<language>en-us</language>
+<lastBuildDate>{{ collections.allWallpapers | getNewestCollectionItemDate | dateToRfc822 }}</lastBuildDate>
+{%- for w in collections.allWallpapers.slice(0, 50) %}
+{%- if w.data.image %}
+{%- set imgFormat = (w.data.format or "jpg") | lower %}
+{%- set imgType = "image/png" if imgFormat == "png" else ("image/webp" if imgFormat == "webp" else "image/jpeg") %}
+<item>
+<title>{{ w.data.title }}</title>
+<link>{{ site.url }}{{ w.url }}</link>
+<guid isPermaLink="true">{{ site.url }}{{ w.url }}</guid>
+<description>{{ w.data.metaDescription }}</description>
+<pubDate>{{ w.date | dateToRfc822 }}</pubDate>
+<enclosure url="{{ site.url }}{{ w.data.image }}" type="{{ imgType }}" length="0"/>
+<media:content url="{{ site.url }}{{ w.data.image }}" medium="image" type="{{ imgType }}"/>
+</item>
+{%- endif %}
+{%- endfor %}
+</channel>
+</rss>

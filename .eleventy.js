@@ -1,6 +1,9 @@
 const { plainText } = require("./src/_11ty/text-helpers.js");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function (eleventyConfig) {
+  eleventyConfig.addPlugin(pluginRss);
+
   // ============ Passthrough copy — static files ship to _site untouched ============
   eleventyConfig.addPassthroughCopy("src/style.css");
   eleventyConfig.addPassthroughCopy("src/script.js");
