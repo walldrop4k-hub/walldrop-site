@@ -19,3 +19,4 @@ featured: true
 trending: true
 ---
 Channel legendary strength and gothic beauty with this Dark Angel Warrior 4K Wallpaper. Featuring a muscular classical angel sculpture with dramatic feathered wings outspread and a sharp longsword held at his side, this high-definition vertical wallpaper highlights detailed stone carving textures and dramatic chiaroscuro lighting. Set against a pure pitch-black background, the intense monochromatic contrast creates a striking, powerful atmosphere perfect for dark theme enthusiasts, gothic art fans, and minimalist OLED display customizers.
+imageAlt: "Muscular black-and-white angel with spread wings and a sword, emerging from a deep black background."

@@ -20,3 +20,4 @@ featured: false
 trending: false
 ---
 Experience the breathtaking harmony of wild power and gentle grace! Upgrade your smartphone screen with this stunning 4K Tiger Butterfly mobile wallpaper. Featuring a detailed Bengal tiger gazing in peaceful wonder at a glowing orange Monarch butterfly perched near its nose, this pitch-black AMOLED background brings tranquil wildlife aesthetics straight to your phone!
+imageAlt: "Bengal tiger gazing at an orange monarch butterfly perched near its nose against a pitch-black background."

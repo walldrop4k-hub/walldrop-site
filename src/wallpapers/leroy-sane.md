@@ -19,3 +19,4 @@ featured: true
 trending: true
 ---
 Bring ultimate football drip to your smartphone screen! Upgrade your lock screen with this breathtaking 4K Leroy Sané Bayern Munich wallpaper. Featuring the German winger showing off silver diamond grillz, futuristic shield sunglasses, and a championship medal against a deep pitch-black AMOLED backdrop, this sports aesthetic background brings modern football culture straight to your iPhone or Android display!
+imageAlt: "Footballer in a Bayern Munich red shirt with silver grillz and shield sunglasses on a black background."

@@ -20,3 +20,4 @@ featured: false
 trending: false
 ---
 Elevate your desktop setup with dark moody anime aesthetics! Upgrade your screen with this captivating 4K Anime Eyes desktop wallpaper. Featuring intense brown anime eyes peering through a torn crimson paper slit against a pitch-black void, this OLED-friendly background brings mystery, drama, and sleek minimalist vibes straight to your PC display!
+imageAlt: "Brown anime eyes peering through a slit in torn crimson paper against a pitch-black background."

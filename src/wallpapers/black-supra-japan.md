@@ -19,3 +19,4 @@ featured: true
 trending: false
 ---
 Experience ultimate JDM culture and cinematic Japanese landscape beauty on your desktop display! Upgrade your PC battle station with this breathtaking 4K Black Supra Japan Sunset wallpaper. Featuring a glossy black Toyota Supra GR parked under cherry blossom trees with Mount Fuji and a red Torii gate in the background, this vibrant anime landscape brings pure automotive aesthetic energy straight to your widescreen monitor!
+imageAlt: "Matte black Toyota Supra in front of Mount Fuji, with a red torii gate and pink cherry trees in anime style."

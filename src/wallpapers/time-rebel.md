@@ -20,3 +20,4 @@ featured: false
 trending: false
 ---
 Declare your financial independence and reframe your daily hustle with this Time Rebel 4K Ultra HD Desktop Wallpaper. Designed specifically for entrepreneurs, creators, digital nomads, and modern luxury art collectors, this high-resolution artwork combines high-end horology aesthetics with rebellious urban pop art.
+imageAlt: "Painted man whose watch face reads 'F*CK 9-5' in red, with his head blurred in beige brushstrokes."

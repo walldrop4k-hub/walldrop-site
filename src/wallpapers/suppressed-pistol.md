@@ -18,3 +18,4 @@ featured: false
 trending: true
 ---
 Give your workstation a sharp tactical edge with this Tactical Suppressed Pistol Desk 4K Wallpaper. Featuring a striking black-and-white monochrome composition, this high-definition desktop artwork shows a tactical handgun equipped with a silencer suppressor and flashlight attachment resting quietly inside a sliding desk drawer shelf beneath a slim wireless keyboard and mouse. Designed for fans of stealth aesthetics, dark minimalist setups, and tactical gear photography, this widescreen background delivers a clean, secretive atmosphere for your display.
+imageAlt: "Black-and-white photo of a suppressed pistol resting in a desk drawer beside a keyboard and mouse."

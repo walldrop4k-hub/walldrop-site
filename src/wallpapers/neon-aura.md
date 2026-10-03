@@ -19,3 +19,4 @@ featured: false
 trending: true
 ---
 Ethereal Anime Artistry & High-Contrast Shadow FramingThe visual composition of this piece centers around a striking profile render of Rei Ayanami. Clad in a delicate white dress, her signature short blue hair and vivid crimson red eyes are dramatically highlighted by a intense top-down cyan rim light. The stark contrast between the bright, glowing white highlights and the vast, deep navy-black background creates an atmospheric sense of solitude, peace, and futuristic mystery.
+imageAlt: "Anime girl with short blue hair glowing against a dark navy background, lit from one side."

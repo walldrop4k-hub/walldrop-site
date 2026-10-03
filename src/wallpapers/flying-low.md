@@ -19,3 +19,4 @@ featured: false
 trending: true
 ---
 Dive into high-octane cinematic aviation art! Upgrade your smartphone display with this breathtaking 4K Flying Low mobile wallpaper. Featuring vintage fighter planes plunging vertically through dense amber smoke clouds leaving long white contrails, this atmospheric artwork by Andrea Koroveshi brings intense aesthetic energy straight to your phone screen!
+imageAlt: "Vintage fighter planes dive through amber smoke trails against a dark orange sky, leaving white contrails."

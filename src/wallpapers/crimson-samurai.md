@@ -20,3 +20,4 @@ featured: false
 trending: false
 ---
 Embrace the honor of the warrior in a sea of crimson! Upgrade your smartphone display with this breathtaking 4K Crimson Samurai mobile wallpaper. Featuring a dark armored Japanese samurai riding a galloping white horse amidst glowing white butterflies against a deep red atmosphere, this cinematic aesthetic background brings legendary feudal elegance straight to your phone screen!
+imageAlt: "Armored samurai on a white horse galloping through white butterflies against a deep red background."

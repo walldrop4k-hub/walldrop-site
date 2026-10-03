@@ -18,3 +18,4 @@ featured: false
 trending: true
 ---
 Step into a legendary realm of mythic beasts, brave warriors, and swirling cherry blossoms with this Sakura Titan 4K Ultra HD Desktop Wallpaper. Designed specifically for fantasy RPG fans, concept art enthusiasts, Japanese aesthetic lovers, and widescreen battle station builders, this high-resolution artwork depicts a cinematic David-versus-Goliath confrontation in a surreal floral field.
+imageAlt: "Anime warrior with a spear faces a massive mossy beast in a field of pink petals under a pale sky."

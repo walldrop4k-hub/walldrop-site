@@ -22,3 +22,4 @@ trending: true
 Immerse your workspace in surreal cosmic beauty with this Cosmic Galaxy Eyes Anime Girl 4K Wallpaper. Combining high-concept fantasy anime illustration with deep space aesthetics, this high-definition widescreen desktop artwork features a close-up portrait of a girl submerged in wispy white clouds and cosmic mist. Her glowing violet eyes shine like distant nebulae filled with stars, creating a captivating visual anchor set against a pitch-black universe. Designed for anime lovers, dark aesthetic setup customizers, and sci-fi fantasy fans, this portrait backdrop delivers unmatched visual tranquility.
 
 * Mesmerizing Galaxy Eyes: Intricate glowing purple irises filled with sparkling stars and cosmic nebula patterns.
+imageAlt: "Anime face half-submerged in white waves, with glowing blue galaxy eyes against a starry black sky."

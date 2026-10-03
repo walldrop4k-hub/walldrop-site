@@ -20,3 +20,4 @@ featured: false
 trending: false
 ---
 Step into a surreal underwater dreamscape! Upgrade your smartphone screen with this mesmerizing 4K Radiant Koi mobile wallpaper. Featuring an illuminated overhead portal of lily pads pouring divine light beams and vivid colorful koi fish into a dark abyssal void, this aesthetic aquatic artwork brings magical tranquility straight to your phone screen!
+imageAlt: "Bright koi fish swim down through a dark opening, with light beams falling from a lily-pad surface above."

@@ -17,3 +17,4 @@ featured: true
 trending: true
 ---
 Immerse your smartphone display in absolute dark fantasy authority with this Masked King 4K Mobile Wallpaper. Capturing the aura of an enigmatic medieval ruler, this vertical visual artwork showcases a tall, crowned monarch in a dramatic side profile. Adorned with a weathered dark iron crown decorated with prominent cross crests, an engraved face mask featuring ocular slits and geometric maps, a dark chainmail veil, and rich crimson silk robes, this artwork delivers an imposing gothic aesthetic tailored for dark theme setups.
+imageAlt: "Crowned figure in a red-and-black robe with a pale mesh-covered mask, against a deep crimson background."

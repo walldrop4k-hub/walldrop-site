@@ -17,3 +17,4 @@ featured: true
 trending: true
 ---
 Bring lethal elegance, dark gothic anime aesthetics, and intense high-contrast artwork to your PC gaming setup with this Thorn Princess 4K Ultra HD Desktop Wallpaper. Designed specifically for anime lovers, Spy x Family fans, dark-theme setup builders, and widescreen display enthusiasts, this high-resolution visual showcases Yor Forger in her deadly "Thorn Princess" persona against an intense, blood-red backdrop.
+imageAlt: "Anime woman with gold hairpins and a black gown, looking over her shoulder against a red wall."

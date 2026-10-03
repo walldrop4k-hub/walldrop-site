@@ -17,3 +17,4 @@ featured: true
 trending: true
 ---
 Experience the unmatched speed and precision of top-tier motorsport every time you check your phone with this Formula Speed 4K Mobile Wallpaper. Specially crafted for Formula 1 fans, racing enthusiasts, and minimal aesthetic lovers, this vertical digital artwork captures a high-tech black and gold F1 race car blasting down the asphalt track. With dramatic speed blur streaks sweeping diagonally across the lower half and a crisp, bold F1 logo floating in the clean upper canvas, this wallpaper delivers the perfect balance of action and clean design.
+imageAlt: "Motion-blurred Formula 1 cars in black, white and yellow streak past below a black F1 logo on white."
