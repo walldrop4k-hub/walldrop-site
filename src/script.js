@@ -104,7 +104,18 @@ const revealObserver = new IntersectionObserver(
   { threshold: 0 }
 );
 
-revealEls.forEach((el) => revealObserver.observe(el));
+// Stagger siblings inside a .reveal-group, then watch every .reveal element
+// under root. Called again after search and favorites render their cards.
+function observeReveals(root = document) {
+  root.querySelectorAll('.reveal-group').forEach((group) => {
+    Array.from(group.children).forEach((child, i) => {
+      child.style.setProperty('--d', `${Math.min(i, 8) * 0.07}s`);
+    });
+  });
+  root.querySelectorAll('.reveal:not(.is-visible)').forEach((el) => revealObserver.observe(el));
+}
+
+observeReveals();
 
 // Desktop / Mobile format tabs (Trending now, Latest drops).
 // We upload wallpapers in exactly two formats — 16:9 desktop and
@@ -309,41 +320,41 @@ function escapeHtml(str) {
   }[c]));
 }
 
-// Mirrors mediaOrFallback in macros.njk — same opacity-0-then-fade-in
-// onload and onerror both stopping the parent's skeleton-shimmer
-// animation (see .has-image in style.css), so search/favorites results
-// match every server-rendered grid.
+// Mirrors mediaOrFallback in macros.njk: an image that loads or fails gets
+// is-loaded on its parent, which removes the shimmer sweep.
 function mediaMarkup(src, alt, gradientClass, cssClass) {
   if (src) {
-    return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" style="width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.2s ease;" onload="this.style.opacity='1';this.parentElement.style.animation='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.style.animation='none';"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
+    return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" onload="this.parentElement.classList.add('is-loaded');" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.classList.add('is-loaded');"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
   }
   return `<div class="${cssClass} ${gradientClass || 'grad-1'}"></div>`;
 }
 
+// Same card as wallpaperCard in macros.njk: title only, with the resolution
+// badge and download icon shown on hover, and the wallpaper's own glow.
 function renderWallpaperCard(item) {
   const ratio = item.category === 'desktop' ? 'ratio-16-9' : 'ratio-9-16';
-  const tagLabel = item.subcategory ? item.subcategory.charAt(0).toUpperCase() + item.subcategory.slice(1) : '';
   // Cards show the thumbnail (falls back to the full image) — the full
   // image itself is only ever linked from the wallpaper's own download
   // button, not loaded into a grid tile.
   const cardSrc = item.thumbnail || item.image;
   const hasImage = cardSrc ? ' has-image' : '';
-  return `<a href="${item.url}" class="wallpaper-card">
+  const glow = item.dominantColor || '#8b7bff';
+  const badge = item.label ? `<span class="res-badge">${escapeHtml(item.label)}</span>` : '';
+  return `<a href="${item.url}" class="wallpaper-card reveal" style="--glow:${escapeHtml(glow)}">
       <div class="thumb ${ratio}${hasImage}">
-        ${mediaMarkup(cardSrc, item.imageAlt, item.gradientClass, 'thumb-bg')}
-        <span class="tag" data-subcategory="${escapeHtml((item.subcategory || '').toLowerCase())}">${escapeHtml(tagLabel)}</span>
+        ${mediaMarkup(cardSrc, item.imageAlt || item.title, item.gradientClass, 'thumb-bg')}
+        ${badge}
         <span class="download-btn" aria-hidden="true">${downloadIconSvg}</span>
       </div>
       <div class="card-info">
         <h3 class="card-title">${escapeHtml(item.title)}</h3>
-        <p class="card-res">${escapeHtml(item.resolution || '')}</p>
       </div>
     </a>`;
-  }
+}
 
 // Fetches /wallpapers-index.json once and caches the promise — the
 // Favorites page, the header's "Surprise me" shuffle, and the detail
-// page's Prev/Next controls all need the same full wallpaper list, so
+// "Surprise me" and the favorites page both need the same full wallpaper list, so
 // whichever of them runs first on a given page fetches it and the rest
 // reuse that same in-flight/resolved request instead of each firing
 // their own.
@@ -358,7 +369,7 @@ function getWallpaperIndex() {
 
 function renderArticleCard(item) {
   const hasImage = item.image ? ' has-image' : '';
-  return `<a href="${item.url}" class="article-card">
+  return `<a href="${item.url}" class="article-card reveal">
       <div class="thumb${hasImage}">${mediaMarkup(item.image, item.imageAlt, item.gradientClass, 'thumb-bg')}</div>
       <div class="card-info">
         <p class="card-eyebrow">${escapeHtml(item.category)}</p>
@@ -434,6 +445,7 @@ if (searchWallpapersEl) {
 
         if (wallpapers.length) {
           searchWallpapersEl.innerHTML = wallpapers.map(renderWallpaperCard).join('');
+          observeReveals(searchWallpapersEl);
           wallpapersSection.hidden = false;
         } else {
           wallpapersSection.hidden = true;
@@ -441,6 +453,7 @@ if (searchWallpapersEl) {
 
         if (articles.length) {
           searchArticlesEl.innerHTML = articles.map(renderArticleCard).join('');
+          observeReveals(searchArticlesEl);
           articlesSection.hidden = false;
         } else {
           articlesSection.hidden = true;
@@ -530,6 +543,7 @@ if (favoritesGrid) {
           return;
         }
         favoritesGrid.innerHTML = matches.map(renderWallpaperCard).join('');
+        observeReveals(favoritesGrid);
       })
       .catch(() => {
         favoritesEmpty.hidden = false;
@@ -573,150 +587,3 @@ if (surpriseBtn) {
   });
 }
 
-// ==========================================================
-// Prev/Next on the wallpaper detail page. "Adjacent" means: within
-// whatever category/subcategory (+ chip, if any) the visitor arrived
-// from — recovered either from this page's own ?ctx= query param (set
-// by a previous Prev/Next click, so context survives a chain of them)
-// or, failing that, from document.referrer if it's a same-origin
-// category page URL. With no usable context (direct link, search
-// result, homepage, related-wallpapers, favorites, …) it falls back to
-// the full wallpapers-index.json order.
-// ==========================================================
-const detailEl = document.querySelector('.wallpaper-detail');
-
-if (detailEl) {
-  const currentSlug = detailEl.dataset.currentSlug;
-  const prevLink = document.getElementById('detail-prev-btn');
-  const nextLink = document.getElementById('detail-next-btn');
-
-  function matchesChip(item, chip) {
-    if (!chip || chip === 'all') return true;
-    return item.subcategory === chip || item.tags.includes(chip);
-  }
-
-  function resolveContext() {
-    const params = new URLSearchParams(window.location.search);
-    const fromParam = params.get('ctx');
-    if (fromParam) {
-      const [category, subcategory, chip] = fromParam.split('/');
-      if (category && subcategory) return { category, subcategory, chip: chip || 'all' };
-    }
-
-    try {
-      if (document.referrer) {
-        const ref = new URL(document.referrer);
-        if (ref.origin === window.location.origin) {
-          const match = ref.pathname.match(/^\/category\/(desktop|mobile)\/([a-z0-9-]+)\/$/);
-          if (match) {
-            return { category: match[1], subcategory: match[2], chip: ref.searchParams.get('chip') || 'all' };
-          }
-        }
-      }
-    } catch (err) {
-      // Malformed/unreadable referrer — fall through to "no context".
-    }
-
-    return null;
-  }
-
-  function ctxSuffix(context) {
-    if (!context) return '';
-    return `?ctx=${encodeURIComponent(`${context.category}/${context.subcategory}/${context.chip}`)}`;
-  }
-
-  getWallpaperIndex().then((index) => {
-    const context = resolveContext();
-    const set = context
-      ? index.filter((item) => item.category === context.category && item.subcategory === context.subcategory && matchesChip(item, context.chip))
-      : index;
-
-    const currentIndex = set.findIndex((item) => item.slug === currentSlug);
-    // The current wallpaper isn't in its own resolved set (e.g. a stale
-    // ?ctx= after the CMS content changed) — nothing sensible to link to.
-    if (currentIndex === -1) return;
-
-    const prev = currentIndex > 0 ? set[currentIndex - 1] : null;
-    const next = currentIndex < set.length - 1 ? set[currentIndex + 1] : null;
-    const suffix = ctxSuffix(context);
-
-    if (prev && prevLink) {
-      prevLink.href = prev.url + suffix;
-      prevLink.hidden = false;
-    }
-    if (next && nextLink) {
-      nextLink.href = next.url + suffix;
-      nextLink.hidden = false;
-    }
-
-    // Swipe left/right on the preview image — natural on mobile, and
-    // harmless to wire up unconditionally since touch events simply
-    // never fire on non-touch devices. Only treats it as a swipe once
-    // the gesture is clearly more horizontal than vertical, so it
-    // doesn't fight normal vertical page scrolling.
-    const previewPanel = document.querySelector('.preview-panel');
-    if (previewPanel) {
-      let touchStartX = 0;
-      let touchStartY = 0;
-
-      previewPanel.addEventListener('touchstart', (event) => {
-        touchStartX = event.touches[0].clientX;
-        touchStartY = event.touches[0].clientY;
-      }, { passive: true });
-
-      previewPanel.addEventListener('touchend', (event) => {
-        const deltaX = event.changedTouches[0].clientX - touchStartX;
-        const deltaY = event.changedTouches[0].clientY - touchStartY;
-        const SWIPE_THRESHOLD = 50;
-        if (Math.abs(deltaX) < SWIPE_THRESHOLD || Math.abs(deltaX) < Math.abs(deltaY)) return;
-        if (deltaX < 0 && next) {
-          window.location.href = next.url + suffix;
-        } else if (deltaX > 0 && prev) {
-          window.location.href = prev.url + suffix;
-        }
-      }, { passive: true });
-    }
-  });
-}
-
-// ==========================================================
-// Hero background thumbnails — a handful of real wallpaper thumbnails
-// scattered behind the search hero as texture (see .hero-thumb-N slots
-// in style.css, which fix each one's position/rotation/size — this just
-// picks which images fill them). Re-picked at random on every load.
-// Hidden entirely below 480px: tested both a reduced (2-slot) version and
-// none at all at 390px/320px side by side — even 2 small corner thumbs
-// sat close enough to the heading/description to feel slightly busy on
-// a screen this narrow, while the glow blobs alone (still active, just
-// smaller — see the same breakpoint in style.css) already read as
-// "intentional and premium" on their own, so none won out.
-// ==========================================================
-const heroThumbsEl = document.getElementById('hero-thumbs');
-
-if (heroThumbsEl) {
-  const slotCount = window.innerWidth <= 480 ? 0 : 6;
-
-  getWallpaperIndex().then((index) => {
-    if (!index.length) return;
-    // A gradient-only entry (no real image) wouldn't read as "texture"
-    // here, so prefer ones that actually have a thumbnail/image.
-    const withImages = index.filter((w) => w.thumbnail || w.image);
-    const pool = withImages.length >= slotCount ? withImages : index;
-
-    const picks = [];
-    const used = new Set();
-    while (picks.length < slotCount && used.size < pool.length) {
-      const candidate = pool[Math.floor(Math.random() * pool.length)];
-      if (used.has(candidate.slug)) continue;
-      used.add(candidate.slug);
-      picks.push(candidate);
-    }
-
-    heroThumbsEl.innerHTML = picks
-      .map((w, i) => {
-        const src = (w.thumbnail || w.image || '').replace(/'/g, '%27');
-        return `<div class="hero-thumb hero-thumb-${i + 1}" style="background-image:url('${src}')"></div>`;
-      })
-      .join('');
-  });
-}

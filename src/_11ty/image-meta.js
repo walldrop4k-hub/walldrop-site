@@ -27,6 +27,42 @@ function formatFileSize(bytes) {
 
 const FORMAT_NAMES = { jpeg: "JPG", jpg: "JPG", png: "PNG", webp: "WEBP", gif: "GIF", avif: "AVIF" };
 
+// The color used for a wallpaper's glow on cards and its detail page. A plain
+// average goes grey or muddy on dark images, so each pixel is weighted by
+// how saturated and bright it is — the vivid parts of the picture decide the
+// color. Very dark or colorless images fall back to the site's accent violet.
+async function dominantColor(filePath) {
+  const { data, info } = await sharp(filePath)
+    .rotate()
+    .resize(48, 48, { fit: "inside" })
+    .removeAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  let total = 0;
+  for (let i = 0; i < data.length; i += info.channels) {
+    const R = data[i];
+    const G = data[i + 1];
+    const B = data[i + 2];
+    const max = Math.max(R, G, B);
+    const min = Math.min(R, G, B);
+    const saturation = max === 0 ? 0 : (max - min) / max;
+    const weight = 0.1 + saturation * saturation * (max / 255);
+    r += R * weight;
+    g += G * weight;
+    b += B * weight;
+    total += weight;
+  }
+
+  const [R, G, B] = [r / total, g / total, b / total].map(Math.round);
+  const luminance = (0.2126 * R + 0.7152 * G + 0.0722 * B) / 255;
+  if (luminance < 0.08) return "#8b7bff";
+  return `#${[R, G, B].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+}
+
 async function readImageMeta(filePath) {
   const meta = await sharp(filePath).metadata();
 
@@ -46,6 +82,7 @@ async function readImageMeta(filePath) {
     fileSize: formatFileSize(fs.statSync(filePath).size),
     format,
     ext: format.toLowerCase(),
+    dominantColor: await dominantColor(filePath),
   };
 }
 

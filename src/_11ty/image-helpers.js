@@ -32,6 +32,20 @@ async function toWebpFeaturedImage(inputPath) {
   return stats.webp[0].url;
 }
 
+// A 1920px-wide WebP for showing a wallpaper on screen: the homepage hero and
+// the detail page preview. Much lighter than the uploaded original, which is
+// still what the download button links to.
+async function toWebpDisplayImage(inputPath) {
+  const stats = await Image(inputPath, {
+    widths: [1920],
+    formats: ["webp"],
+    sharpWebpOptions: { quality: 82 },
+    outputDir: "./_site/assets/generated/",
+    urlPath: "/assets/generated/",
+  });
+  return stats.webp[0].url;
+}
+
 // A 1200px-wide JPEG for og:image / twitter:image — social platforms
 // don't reliably render WebP (or SVG), so every source gets normalized
 // to JPEG here regardless of what format was actually uploaded.
@@ -46,4 +60,4 @@ async function toJpegSocialImage(inputPath) {
   return stats.jpeg[0].url;
 }
 
-module.exports = { toWebpThumbnail, toWebpFeaturedImage, toJpegSocialImage };
+module.exports = { toWebpThumbnail, toWebpFeaturedImage, toWebpDisplayImage, toJpegSocialImage };

@@ -15,6 +15,7 @@ layout: base.njk
         <p class="card-eyebrow">{{ category }}</p>
         <h1 class="page-title">{{ title }}</h1>
         <p class="article-meta">{{ date | readableDate }} · {{ readTime }}</p>
+        <p class="article-byline">By {{ author or site.operator }}</p>
       </div>
 
       <!-- ============ FEATURED IMAGE ============ -->
@@ -39,7 +40,7 @@ layout: base.njk
   <section class="section reveal">
     <div class="section-inner">
       <h2 class="section-title">Related articles</h2>
-      <div class="article-grid">
+      <div class="article-grid reveal-group">
         {% set relatedList = collections.allArticles | excludeSlug(slug) %}
         {% for a in relatedList.slice(0, 3) %}{{ articleCard(a) }}{% endfor %}
       </div>

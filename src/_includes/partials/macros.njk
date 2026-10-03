@@ -1,69 +1,45 @@
-{# Reusable card/tile renderers, shared by the homepage, category pages,
-   and "related" sections — one definition per card type instead of the
-   same markup hand-copied in five places. #}
+{# Reusable card renderers, shared by the homepage, category pages, related
+   sections, and the search and favorites pages. script.js builds the same
+   markup in renderWallpaperCard, so keep the two in step. #}
 
 {% macro downloadIcon() %}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M4 19h16"></path></svg>{% endmacro %}
 
-{# Renders an <img>, but falls back to the gradient placeholder look if
-   the image URL ever 404s (a broken upload, a deploy that hasn't fully
-   propagated yet, a since-deleted file) — so a visitor only ever sees a
-   clean placeholder, never a broken-image icon. cssClass carries any
-   positioning classes (e.g. "thumb-bg", "preview-media ratio-16-9") so
-   the fallback div lines up exactly like the image would have. fit
-   defaults to "cover" (fills the box, crops if needed — right for
-   fixed-size grid cards); pass "contain" for a spot like the wallpaper
-   detail preview, where the whole image must stay visible uncropped. #}
-{# The img starts transparent and fades in on load (see the .has-image
-   skeleton-shimmer rules in style.css, toggled by the calling markup
-   below) — onload both reveals it and turns off the parent's shimmer
-   animation, matching the same inline-handler pattern onerror already
-   uses here rather than adding a JS listener for something this simple. #}
+{# Renders an <img>, falling back to the gradient placeholder if the URL
+   fails, so a visitor never sees a broken-image icon. When the image
+   finishes loading (or fails), the parent gets .is-loaded, which removes
+   the shimmer sweep. fit defaults to "cover". #}
 {% macro mediaOrFallback(src, alt, cssClass, gradientClass, fit="cover", loading="eager") %}
-{% if src %}<img class="{{ cssClass }}" src="{{ src }}" alt="{{ alt }}" loading="{{ loading }}" style="width:100%;height:100%;object-fit:{{ fit }};opacity:0;transition:opacity 0.2s ease;" onload="this.style.opacity='1';this.parentElement.style.animation='none';" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.style.animation='none';"><div class="{{ cssClass }} {{ gradientClass or 'grad-1' }}" style="display:none;"></div>{% else %}<div class="{{ cssClass }} {{ gradientClass or 'grad-1' }}"></div>{% endif %}
+{% if src %}<img class="{{ cssClass }}" src="{{ src }}" alt="{{ alt }}" loading="{{ loading }}" decoding="async" style="object-fit:{{ fit }};" onload="this.parentElement.classList.add('is-loaded');" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.classList.add('is-loaded');"><div class="{{ cssClass }} {{ gradientClass or 'grad-1' }}" style="display:none;"></div>{% else %}<div class="{{ cssClass }} {{ gradientClass or 'grad-1' }}"></div>{% endif %}
 {% endmacro %}
 
-{% macro wallpaperCard(w, extraClass="", loading="eager") %}
-{% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
+{# The one wallpaper card used everywhere. Shows the title, and on hover the
+   resolution badge and download icon slide in. No category label. The glow
+   color is this wallpaper's own dominant color, computed at build time. #}
+{% macro wallpaperCard(w, extraClass="", loading="lazy") %}
 {% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
-{# data-* attributes carry no visual effect — they're read by script.js
-   for the category-page chip filter/sort (see .chip-row / .sort-select). #}
-<a href="{{ w.url }}" class="wallpaper-card {{ extraClass }}" data-category="{{ w.data.category }}" data-subcategory="{{ (w.data.subcategory or '') | lower }}" data-tags="{{ ((w.data.tags or []) | join(',')) | lower }}" data-date="{{ w.data.date | isoDate }}">
+{% set glow = w.data.imageMeta.dominantColor if w.data.imageMeta else "#8b7bff" %}
+<a href="{{ w.url }}" class="wallpaper-card reveal {{ extraClass }}" style="--glow:{{ glow }}" data-category="{{ w.data.category }}" data-subcategory="{{ (w.data.subcategory or '') | lower }}" data-tags="{{ ((w.data.tags or []) | join(',')) | lower }}" data-date="{{ w.data.date | isoDate }}">
   <div class="thumb {{ ratio }}{{ ' has-image' if w.data.cardImage }}">
-    {# cardImage (see wallpapers.11tydata.js) is a manual CMS thumbnail if
-       one was set, otherwise an auto-generated compressed WebP built from
-       the full image — the full image itself is only ever linked from the
-       wallpaper's own download button (wallpaper.njk). #}
     {{ mediaOrFallback(w.data.cardImage, w.data.imageAlt or w.data.title, "thumb-bg", w.data.gradientClass, "cover", loading) }}
-    <span class="tag" data-subcategory="{{ (w.data.subcategory or '') | lower }}">{{ cat.name if cat else w.data.subcategory }}</span>
-    {# Decorative only — not a real control, so it can't be the thing a
-       tap lands on. The whole card is the one click target; the actual
-       download link lives on the wallpaper's own page. #}
+    {% if w.data.imageMeta %}<span class="res-badge">{{ w.data.imageMeta.label }}</span>{% endif %}
+    {# Decorative only. The whole card is the click target; the real
+       download link is on the wallpaper's own page. #}
     <span class="download-btn" aria-hidden="true">{{ downloadIcon() }}</span>
   </div>
   <div class="card-info">
     <h3 class="card-title">{{ w.data.title }}</h3>
-    <p class="card-res">{{ w.data.imageMeta.dimensions if w.data.imageMeta else "" }}</p>
   </div>
 </a>
 {% endmacro %}
 
-{% macro trendingCard(w, loading="eager") %}
-{% set cat = categories[w.data.category] | findBySlug(w.data.subcategory) %}
-{% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
-<a href="{{ w.url }}" class="trending-card {{ ratio }} fade-item{{ ' has-image' if w.data.cardImage }}">
-  {{ mediaOrFallback(w.data.cardImage, w.data.imageAlt or w.data.title, "trending-bg", w.data.gradientClass, "cover", loading) }}
-  <div class="trending-overlay"></div>
-  <span class="tag" data-subcategory="{{ (w.data.subcategory or '') | lower }}">{{ cat.name if cat else w.data.subcategory }}</span>
-  <div class="trending-info">
-    <h3 class="card-title">{{ w.data.title }}</h3>
-    <p class="card-res">{{ w.data.imageMeta.dimensions if w.data.imageMeta else "" }}</p>
-  </div>
-</a>
+{# Trending cards are the same card, so the look stays identical. #}
+{% macro trendingCard(w, loading="lazy") %}
+{{ wallpaperCard(w, "", loading) }}
 {% endmacro %}
 
-{% macro articleCard(a, showExcerpt=true, loading="eager") %}
-<a href="{{ a.url }}" class="article-card fade-item">
-  <div class="thumb{{ ' has-image' if a.data.image }}">
+{% macro articleCard(a, showExcerpt=true, loading="lazy") %}
+<a href="{{ a.url }}" class="article-card reveal">
+  <div class="thumb{{ ' has-image' if a.data.featuredImage }}">
     {{ mediaOrFallback(a.data.featuredImage, a.data.imageAlt or a.data.title, "thumb-bg", a.data.gradientClass, "cover", loading) }}
   </div>
   <div class="card-info">

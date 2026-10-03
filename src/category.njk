@@ -71,7 +71,7 @@
 
       <!-- ============ WALLPAPER GRID ============ -->
       {% set matches = collections.allWallpapers | byCategory(cat.type, cat.slug) %}
-      <div class="{{ gridClass }}" id="wallpaper-grid">
+      <div class="{{ gridClass }} reveal-group" id="wallpaper-grid">
         {% for w in matches %}
         {{ wallpaperCard(w) }}
         {% else %}
@@ -98,7 +98,7 @@
   <section class="section reveal">
     <div class="section-inner">
       <h2 class="section-title">Guides for {{ typeLabel | lower }} wallpapers</h2>
-      <div class="article-grid">
+      <div class="guides-grid reveal-group">
         {% for a in guides.slice(0, 3) %}{{ articleCard(a, false) }}{% endfor %}
       </div>
     </div>

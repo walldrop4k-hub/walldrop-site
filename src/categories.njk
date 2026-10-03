@@ -1,0 +1,37 @@
+---
+layout: base.njk
+title: All Categories
+permalink: /categories/index.html
+metaDescription: "Every wallpaper category on WallDrop4K, from 4K desktop to iPhone and AMOLED mobile, each with a fresh cover."
+breadcrumbs:
+  - { name: "Home", url: "/" }
+  - { name: "Categories", url: "/categories/" }
+---
+{% from "partials/breadcrumb.njk" import breadcrumbNav %}
+
+  <section class="page-intro-section">
+    <div class="ambient-glow ambient-glow-1" aria-hidden="true"></div>
+    <div class="section-inner">
+      {{ breadcrumbNav(breadcrumbs) }}
+      <p class="eyebrow">Browse</p>
+      <h1 class="page-title">All categories</h1>
+      <p class="page-desc">Every category with wallpapers in it, most populated first.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 8px;">
+    <div class="section-inner">
+      <div class="category-grid reveal-group">
+        {% for c in collections.occupiedCategoryCards %}
+        <a href="{{ c.url }}" class="category-card reveal">
+          <div class="category-card-bg" style="background-image:url('{{ c.cover }}')"></div>
+          <div class="category-card-scrim" aria-hidden="true"></div>
+          <div class="category-card-info">
+            <span class="category-card-name">{{ c.name }}</span>
+            <span class="category-card-count">{{ c.count }} wallpaper{{ "s" if c.count != 1 }} · {{ "Mobile" if c.type == "mobile" else "Desktop" }}</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>

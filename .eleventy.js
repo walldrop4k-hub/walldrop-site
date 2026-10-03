@@ -1,5 +1,6 @@
 const { plainText } = require("./src/_11ty/text-helpers.js");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
+const categoriesData = require("./src/_data/categories.json");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
@@ -186,6 +187,45 @@ module.exports = function (eleventyConfig) {
     api.getFilteredByGlob("src/articles/*.md").sort(byNewestFirst)
   );
 
+  // Homepage hero — the newest featured desktop wallpapers. Desktop only,
+  // because a landscape image is the one that fills a full-width banner
+  // without cropping the subject out.
+  eleventyConfig.addCollection("heroWallpapers", (api) =>
+    api
+      .getFilteredByGlob("src/wallpapers/*.md")
+      .filter((item) => item.data.category === "desktop" && item.data.featured && item.data.displayImage)
+      .sort(byNewestFirst)
+      .slice(0, 5)
+  );
+
+  // Every category that has at least one wallpaper, most populated first.
+  // Each carries its newest wallpaper as the cover image. The homepage shows
+  // the top 8; /categories/ shows all of them.
+  eleventyConfig.addCollection("occupiedCategoryCards", (api) => {
+    const groups = new Map();
+    for (const w of api.getFilteredByGlob("src/wallpapers/*.md").sort(byNewestFirst)) {
+      const key = `${w.data.category}/${w.data.subcategory}`;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(w);
+    }
+    const cards = [];
+    for (const [key, list] of groups) {
+      const [type, slug] = key.split("/");
+      const cat = (categoriesData[type] || []).find((c) => c.slug === slug);
+      if (!cat) continue;
+      cards.push({
+        type,
+        slug,
+        name: cat.name,
+        url: `/category/${type}/${slug}/`,
+        count: list.length,
+        cover: list[0].data.cardImage || null,
+        coverColor: list[0].data.imageMeta ? list[0].data.imageMeta.dominantColor : null,
+      });
+    }
+    return cards.sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+  });
+
   // Every wallpaper, in the exact shape the /favorites/ page, the header's
   // "Surprise me" shuffle, and the detail page's Prev/Next controls all
   // need — see src/wallpapers-index.njk (recomputed fresh on every build,
@@ -201,12 +241,14 @@ module.exports = function (eleventyConfig) {
         category: item.data.category,
         subcategory: item.data.subcategory,
         tags: (item.data.tags || []).map((t) => String(t).trim().toLowerCase()),
+        dominantColor: item.data.imageMeta ? item.data.imageMeta.dominantColor : null,
         url: item.url,
         image: item.data.image || null,
         imageAlt: item.data.imageAlt || "",
         thumbnail: item.data.cardImage || null,
         gradientClass: item.data.gradientClass || null,
         resolution: item.data.imageMeta ? item.data.imageMeta.dimensions : "",
+        label: item.data.imageMeta ? item.data.imageMeta.label : "",
       }))
   );
 
@@ -229,6 +271,7 @@ module.exports = function (eleventyConfig) {
         thumbnail: item.data.cardImage || null,
         gradientClass: item.data.gradientClass || null,
         resolution: item.data.imageMeta ? item.data.imageMeta.dimensions : "",
+        label: item.data.imageMeta ? item.data.imageMeta.label : "",
       }));
 
     const articles = api

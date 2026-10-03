@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
-const { toWebpThumbnail, toJpegSocialImage } = require("../_11ty/image-helpers.js");
+const { toWebpThumbnail, toWebpDisplayImage, toJpegSocialImage } = require("../_11ty/image-helpers.js");
 const { plainText } = require("../_11ty/text-helpers.js");
 const { readImageMeta } = require("../_11ty/image-meta.js");
 
@@ -27,6 +27,18 @@ module.exports = {
     // the CMS required an alt field, so the title is the fallback — it still
     // names what the image shows, rather than leaving the alt attribute empty.
     imageAlt: (data) => data.imageAlt || data.title,
+
+    // The image shown on screen (hero and detail preview): a 1920px WebP built
+    // from the upload. The download button still links to the original file.
+    displayImage: async (data) => {
+      if (!data.image) return null;
+      try {
+        return await toWebpDisplayImage(path.join("src", data.image));
+      } catch (err) {
+        console.warn(`[displayImage] Falling back to original for ${data.image}: ${err.message}`);
+        return data.image;
+      }
+    },
 
     // Breadcrumb trail (visible on the page and in BreadcrumbList JSON-LD):
     // Home > Desktop/Mobile > subcategory > this wallpaper.
