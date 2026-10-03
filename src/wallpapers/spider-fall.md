@@ -1,3 +1,22 @@
-
+---
+title: Spider Fall
+slug: spider-fall-4k-mobile-wallpaper
+category: mobile
+subcategory: android
+image: /assets/wallpapers/spider-man-falling-city.png
+gradientClass: null
+resolutions:
+  - label: 4K
+    dimensions: 2208 x 3954
+fileSize: 11 MB
+format: PNG
+tags:
+  - Superhero
+  - Spider-Verse
+  - Aesthetic
+date: 2026-09-19T21:45:00.000+03:00
+featured: false
+trending: false
+---
 
 Spider Fall is a high-energy mobile wallpaper with a comic-book feel. A figure in a black-and-red suit drops headfirst through a futuristic city, with glowing skyscrapers and rooftops rushing past. The scene is drawn in deep blues and violets, with neon accents and bright streaks of glitchy color that suggest speed. The tall, phone-shaped layout carries the eye down the screen, so the fall feels like it's happening right in your hand. It suits superhero fans, comic-art lovers, and anyone who likes cyberpunk-style city scenes. The dark background helps the neon details stand out on a phone's home screen. At 2208 × 3954 pixels, this is a high-resolution mobile wallpaper, so the glowing windows and the figure's suit keep their detail on a modern screen. It works best as a lock screen with plenty of energy.

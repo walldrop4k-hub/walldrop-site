@@ -18,6 +18,22 @@ module.exports = function (eleventyConfig) {
   // HTML template engine, just ship it as-is via the passthrough above.
   eleventyConfig.ignores.add("src/admin/index.html");
 
+  // ============ Unpublished wallpapers ============
+  // Taken offline until further notice. Eleventy skips these files
+  // entirely: no page is built, and they leave every collection, listing,
+  // search index, and the sitemap. The source files stay in src/wallpapers/
+  // so they can be restored. To publish one again, delete its slug below.
+  const UNPUBLISHED_WALLPAPERS = [
+    "leroy-sane",
+    "spider-fall",
+    "thorn-princess",
+    "loki-god-of-mischief",
+    "time-rebel",
+  ];
+  for (const slug of UNPUBLISHED_WALLPAPERS) {
+    eleventyConfig.ignores.add(`src/wallpapers/${slug}.md`);
+  }
+
   // ============ Filters ============
 
   // Look up a category object by its slug — this is what keeps the nav,
