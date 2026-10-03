@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/red-car-figure-art.webp
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 1920 × 1080
-fileSize: 1.2 MB
-format: WEBP
 tags:
   - Mobile
   - Cars

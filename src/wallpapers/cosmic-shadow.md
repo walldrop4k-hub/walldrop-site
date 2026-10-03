@@ -5,11 +5,6 @@ category: desktop
 subcategory: dark
 image: /assets/wallpapers/cosmic-shadow-glowing-eyes-4k-wallpaper.png
 gradientClass: grad-1
-resolutions:
-  - label: 2K
-    dimensions: 2752 × 1536
-fileSize: 5.3 MB
-format: PNG
 tags:
   - Desktop
   - Dark

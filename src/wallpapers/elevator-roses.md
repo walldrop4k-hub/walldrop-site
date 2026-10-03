@@ -6,11 +6,6 @@ subcategory: iphone
 image: /assets/wallpapers/man-with-roses-elevator.png
 thumbnail: ""
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2872 × 5120
-fileSize: 7.65 MB
-format: PNG
 tags:
   - iPhone
 date: 2026-09-16T20:26:00.000+03:00

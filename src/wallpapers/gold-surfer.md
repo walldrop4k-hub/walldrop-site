@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/cosmic-gold-silver-surfer-marvel-wallpaper.jpg
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 1920 × 1080
-fileSize: 493 KB
-format: JPG
 tags:
   - Amoled
   - Dark

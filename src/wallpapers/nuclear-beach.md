@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/beach-sunset-boom.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2208 × 3312
-fileSize: 8.72 MB
-format: PNG
 tags:
   - Mobile
 date: 2026-09-16T20:04:00.000+03:00

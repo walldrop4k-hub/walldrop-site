@@ -5,11 +5,6 @@ category: desktop
 subcategory: gaming
 image: /assets/wallpapers/sakura-warrior-.png
 gradientClass: null
-resolutions:
-  - label: 2K
-    dimensions: 2944 × 1656
-fileSize: 5.59 MB
-format: PNG
 tags:
   - Gaming
   - Desktop

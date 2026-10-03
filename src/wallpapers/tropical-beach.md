@@ -5,11 +5,6 @@ category: desktop
 subcategory: nature
 image: /assets/wallpapers/desktop_010_1779395902.jpg
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 3426 x 1912
-fileSize: 485 KB
-format: JPG
 tags:
   - Nature
   - Desktop Wallpaper

@@ -5,11 +5,6 @@ category: desktop
 subcategory: anime
 image: /assets/wallpapers/katana-girl-tat.png
 gradientClass: null
-resolutions:
-  - label: 2K
-    dimensions: 2944 × 1656
-fileSize: 3.09 MB
-format: PNG
 tags:
   - Desktop
   - Anime

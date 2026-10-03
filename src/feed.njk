@@ -13,7 +13,7 @@ eleventyExcludeFromCollections: true
 <lastBuildDate>{{ collections.allWallpapers | getNewestCollectionItemDate | dateToRfc822 }}</lastBuildDate>
 {%- for w in collections.allWallpapers.slice(0, 50) %}
 {%- if w.data.image %}
-{%- set imgFormat = (w.data.format or "jpg") | lower %}
+{%- set imgFormat = w.data.imageMeta.ext if w.data.imageMeta else "jpg" %}
 {%- set imgType = "image/png" if imgFormat == "png" else ("image/webp" if imgFormat == "webp" else "image/jpeg") %}
 <item>
 <title>{{ w.data.title }}</title>

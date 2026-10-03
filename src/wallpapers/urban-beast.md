@@ -8,11 +8,6 @@ imageAlt: Vertical rear-view artwork of a dark metallic widebody Ferrari
   featuring an exposed twin-turbocharger exhaust system, parked over a crosswalk
   in a narrow Japanese alley with overhead power lines.
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 3000 x 6667
-fileSize: 1.8 MB
-format: JPG
 tags:
   - "Mobile "
   - Cars

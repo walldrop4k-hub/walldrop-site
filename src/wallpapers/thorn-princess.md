@@ -5,11 +5,6 @@ category: desktop
 subcategory: anime
 image: /assets/wallpapers/56.png
 gradientClass: grad-1
-resolutions:
-  - label: 4K
-    dimensions: 4096 × 2457
-fileSize: 250 KB
-format: PNG
 tags:
   - Anime
 date: 2026-09-16T20:59:00.000+03:00

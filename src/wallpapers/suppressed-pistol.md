@@ -5,11 +5,6 @@ category: desktop
 subcategory: 4k
 image: /assets/wallpapers/556.png
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 1280 × 720
-fileSize: 1.0 MB
-format: PNG
 tags:
   - Tactical
   - Dark

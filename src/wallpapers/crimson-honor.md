@@ -5,11 +5,6 @@ category: desktop
 subcategory: gaming
 image: /assets/wallpapers/red-tree-warrio.png
 gradientClass: null
-resolutions:
-  - label: HD
-    dimensions: 2944 × 1656
-fileSize: 6.91 MB
-format: PNG
 tags:
   - Desktop
 date: 2026-09-17T17:14:00.000+03:00

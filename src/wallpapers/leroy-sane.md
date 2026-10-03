@@ -5,11 +5,6 @@ category: mobile
 subcategory: amoled
 image: /assets/wallpapers/leroy-san-bayern-munich-diamond-grillz-wallpaper-1-.jpg
 gradientClass: null
-resolutions:
-  - label: 2K
-    dimensions: 1732 × 3782
-fileSize: 1.9 MB
-format: JPG
 tags:
   - Leroy Sane
   - Sports

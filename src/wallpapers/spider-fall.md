@@ -5,11 +5,6 @@ category: mobile
 subcategory: android
 image: /assets/wallpapers/spider-man-falling-city.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2208 x 3954
-fileSize: 11 MB
-format: PNG
 tags:
   - Superhero
   - Spider-Verse

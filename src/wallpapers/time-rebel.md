@@ -5,11 +5,6 @@ category: desktop
 subcategory: 4k
 image: /assets/wallpapers/fuck-9-5-luxury-watch-art-4k-wallpaper.png
 gradientClass: null
-resolutions:
-  - label: 2K
-    dimensions: 2752 × 1536
-fileSize: 7.90 MB
-format: PNG
 tags:
   - Desktop
   - Pop Art

@@ -5,11 +5,6 @@ category: desktop
 subcategory: 4k
 image: /assets/wallpapers/asus-rog-strix-3840x2160-16691.png
 gradientClass: null
-resolutions:
-  - label: FULL HD
-    dimensions: 3840 × 1080
-fileSize: 1.0 MB
-format: JPG
 tags:
   - ASUS
   - PC Wallpaper

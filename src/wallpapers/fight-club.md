@@ -5,11 +5,6 @@ category: desktop
 subcategory: 4k
 image: /assets/wallpapers/movie-fight-club.jpg
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 400 × 2250
-fileSize: 851 KB
-format: JPG
 tags:
   - Desktop
   - Dark

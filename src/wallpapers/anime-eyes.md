@@ -5,11 +5,6 @@ category: desktop
 subcategory: anime
 image: /assets/wallpapers/anime-eyes-torn-paper-dark-aesthetic-wallpaper.png
 gradientClass: null
-resolutions:
-  - label: SD
-    dimensions: 1186 x 667
-fileSize: 800 KB
-format: PNG
 tags:
   - Desktop
   - Anime

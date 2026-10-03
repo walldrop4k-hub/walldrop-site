@@ -5,11 +5,6 @@ category: mobile
 subcategory: samsung
 image: /assets/wallpapers/samurai-horse-butterflies.png
 gradientClass: null
-resolutions:
-  - label: 2K
-    dimensions: 2070 × 3680
-fileSize: 2.81 MB
-format: PNG
 tags:
   - Mobile
   - Fantasy

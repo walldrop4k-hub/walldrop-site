@@ -5,11 +5,6 @@ category: desktop
 subcategory: abstract
 image: /assets/wallpapers/5554.jpg
 gradientClass: null
-resolutions:
-  - label: 8K
-    dimensions: 9833 × 5600
-fileSize: 8.86 MB
-format: JPG
 tags:
   - Desktop
   - Cyberpunk

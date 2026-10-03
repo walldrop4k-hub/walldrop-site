@@ -3,12 +3,26 @@ const path = require("path");
 const matter = require("gray-matter");
 const { toWebpThumbnail, toJpegSocialImage } = require("../_11ty/image-helpers.js");
 const { plainText } = require("../_11ty/text-helpers.js");
+const { readImageMeta } = require("../_11ty/image-meta.js");
 
 module.exports = {
   layout: "wallpaper.njk",
   permalink: "/wallpaper/{{ page.fileSlug }}/index.html",
 
   eleventyComputed: {
+    // Width, height, file size, format, and resolution label, read from the
+    // uploaded image at build time. null if there's no image yet, so every
+    // template checks for it before showing these values.
+    imageMeta: async (data) => {
+      if (!data.image) return null;
+      try {
+        return await readImageMeta(path.join("src", data.image));
+      } catch (err) {
+        console.warn(`[imageMeta] Could not read ${data.image}: ${err.message}`);
+        return null;
+      }
+    },
+
     // Alt text for the main image. Most older wallpapers were saved before
     // the CMS required an alt field, so the title is the fallback — it still
     // names what the image shows, rather than leaving the alt attribute empty.

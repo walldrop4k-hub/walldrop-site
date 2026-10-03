@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/blue-sign-daisies-light.jpg
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2944 × 5084
-fileSize: 2.65 MB
-format: PNG
 tags:
   - iPhone
 date: 2026-09-16T20:09:00.000+03:00

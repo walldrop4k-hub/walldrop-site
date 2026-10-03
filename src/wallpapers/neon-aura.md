@@ -5,11 +5,6 @@ category: desktop
 subcategory: anime
 image: /assets/wallpapers/rei-ayanami-blue-light.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2208 x 1371
-fileSize: 2.33 MB
-format: JPG
 tags:
   - Desktop
   - Anime

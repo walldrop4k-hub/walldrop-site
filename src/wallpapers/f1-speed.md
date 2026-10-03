@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/f1-race-car-speed.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2208 × 3924
-fileSize: 4.89 MB
-format: PNG
 tags:
   - iPhone
 date: 2026-09-16T20:19:00.000+03:00

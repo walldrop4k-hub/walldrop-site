@@ -5,11 +5,6 @@ category: desktop
 subcategory: 4k
 image: /assets/wallpapers/far-from-away-any-road-at.jpg
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 3840 × 2160
-fileSize: 4.9 MB
-format: JPG
 tags:
   - Desktop
   - Cars

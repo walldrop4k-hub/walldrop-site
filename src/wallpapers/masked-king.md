@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/crimson-king.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2700 × 4800
-fileSize: 12 MB
-format: JPG
 tags:
   - iPhone
 date: 2026-09-16T20:15:00.000+03:00

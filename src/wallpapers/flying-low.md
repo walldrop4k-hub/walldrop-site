@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/flying-low-planes-smoke.png
 gradientClass: null
-resolutions:
-  - label: 2K
-    dimensions: 2130 × 3600
-fileSize: 8.07 MB
-format: PNG
 tags:
   - Mobile
   - Cinematic

@@ -6,11 +6,6 @@ subcategory: gaming
 image: /assets/wallpapers/1377738.png
 thumbnail: ""
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 5824 × 3264
-fileSize: 32 MB
-format: JPG
 tags:
   - Desktop 4K
 date: 2026-09-16T20:29:00.000+03:00

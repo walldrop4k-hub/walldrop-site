@@ -5,11 +5,6 @@ category: desktop
 subcategory: ultra-hd
 image: /assets/wallpapers/rolex-who-cares-im-already-late-luxury-watch-wallpaper.png
 gradientClass: null
-resolutions:
-  - label: HD
-    dimensions: 1376 × 768
-fileSize: 2.14 MB
-format: PNG
 tags:
   - Desktop
   - Illustration

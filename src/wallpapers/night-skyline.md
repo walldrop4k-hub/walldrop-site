@@ -8,11 +8,6 @@ imageAlt: Digital artwork of a Nissan Skyline GT-R R32 parked on a dark mountain
   road at night with glowing red twin-circle taillights and a person leaning
   against the car under a streetlight.
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 1080 x 1920
-fileSize: 565 KB
-format: JPG
 tags:
   - Mobile
   - Cars

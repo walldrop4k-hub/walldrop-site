@@ -5,11 +5,6 @@ category: desktop
 subcategory: 4k
 image: /assets/wallpapers/snow-mountains-5120x3413-26362.jpg
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 5120 × 3413
-fileSize: 8.7 MB
-format: JPG
 tags:
   - Mountains
   - 4k Desktop

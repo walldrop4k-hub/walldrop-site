@@ -6,11 +6,6 @@ subcategory: iphone
 image: /assets/wallpapers/airport-waiting-dreamy.png
 thumbnail: /assets/wallpapers/airport-waiting-dreamy-1-.webp
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2208 × 3777
-fileSize: 7.98 MB
-format: PNG
 tags:
   - Mobile
   - Anime

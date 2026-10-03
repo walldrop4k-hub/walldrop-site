@@ -5,11 +5,6 @@ category: desktop
 subcategory: cars
 image: /assets/wallpapers/55.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 1280 × 720
-fileSize: 2.07 MB
-format: PNG
 tags:
   - Desktop 4k
 date: 2026-09-16T20:55:00.000+03:00

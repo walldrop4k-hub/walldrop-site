@@ -57,10 +57,10 @@ layout: base.njk
              dimensions already have their own "Resolution" row below, so
              they're not repeated in the button. trim because CMS entries
              occasionally carry stray leading/trailing spaces. #}
-          {% set downloadLabel = "Download" + (" " + (resolutions[0].label | trim) if resolutions and resolutions.length and resolutions[0].label else "") %}
+          {% set downloadLabel = "Download" + (" " + imageMeta.label if imageMeta else "") %}
           <div class="download-row">
             {% if image %}
-            <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ (format or 'jpg') | lower }}" class="btn btn-primary btn-large">{{ downloadLabel }}</a>
+            <a href="{{ image }}" download="{{ slug }}-walldrop4k.{{ imageMeta.ext if imageMeta else 'jpg' }}" class="btn btn-primary btn-large">{{ downloadLabel }}</a>
             {% else %}
             <button class="btn btn-primary btn-large" disabled style="opacity: 0.5; cursor: not-allowed;">{{ downloadLabel }}</button>
             {% endif %}
@@ -75,12 +75,12 @@ layout: base.njk
               </svg>
             </button>
           </div>
-          <p class="download-meta">{{ fileSize }}</p>
+          <p class="download-meta">{{ imageMeta.fileSize if imageMeta else "" }}</p>
 
           <div class="info-rows">
-            <div class="info-row"><span>Resolution</span><span>{{ resolutions[0].dimensions if resolutions and resolutions.length else "" }}</span></div>
-            <div class="info-row"><span>File size</span><span>{{ fileSize }}</span></div>
-            <div class="info-row"><span>Format</span><span>{{ format }}</span></div>
+            <div class="info-row"><span>Resolution</span><span>{% if imageMeta %}{{ imageMeta.dimensions }} · {{ imageMeta.label }}{% endif %}</span></div>
+            <div class="info-row"><span>File size</span><span>{{ imageMeta.fileSize if imageMeta else "" }}</span></div>
+            <div class="info-row"><span>Format</span><span>{{ imageMeta.format if imageMeta else "" }}</span></div>
             <div class="info-row"><span>Category</span><span>{{ typeLabel }} · {{ catName }}</span></div>
             <div class="info-row"><span>Added</span><span>{{ date | readableDate }}</span></div>
           </div>
@@ -133,7 +133,7 @@ layout: base.njk
   "contentUrl": {{ (site.url + (image if image else "/favicon.svg")) | jsonify | safe }},
   "datePublished": {{ date | isoDate | jsonify | safe }},
   "keywords": {{ ((tags or []) | join(", ")) | jsonify | safe }},
-  "width": {{ (resolutions[0].dimensions if resolutions and resolutions.length else "") | dimension("width") | jsonify | safe }},
-  "height": {{ (resolutions[0].dimensions if resolutions and resolutions.length else "") | dimension("height") | jsonify | safe }}
+  "width": {{ (imageMeta.width if imageMeta else "") | jsonify | safe }},
+  "height": {{ (imageMeta.height if imageMeta else "") | jsonify | safe }}
 }
 </script>

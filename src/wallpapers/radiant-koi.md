@@ -5,11 +5,6 @@ category: mobile
 subcategory: amoled
 image: /assets/wallpapers/school-of-fish-light.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2205 x 3939
-fileSize: 10.1 MB
-format: PNG
 tags:
   - Mobile
   - Fantasy

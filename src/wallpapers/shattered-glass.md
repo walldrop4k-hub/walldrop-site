@@ -5,11 +5,6 @@ category: mobile
 subcategory: iphone
 image: /assets/wallpapers/broken-mask-boy-sunshine.png
 gradientClass: null
-resolutions:
-  - label: 4K
-    dimensions: 2208 × 3753
-fileSize: 8.43 MB
-format: PNG
 tags:
   - iPhone
 date: 2026-09-16T20:12:00.000+03:00

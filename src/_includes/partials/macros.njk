@@ -42,7 +42,7 @@
   </div>
   <div class="card-info">
     <h3 class="card-title">{{ w.data.title }}</h3>
-    <p class="card-res">{{ w.data.resolutions[0].dimensions if w.data.resolutions and w.data.resolutions.length else "" }}</p>
+    <p class="card-res">{{ w.data.imageMeta.dimensions if w.data.imageMeta else "" }}</p>
   </div>
 </a>
 {% endmacro %}
@@ -56,7 +56,7 @@
   <span class="tag" data-subcategory="{{ (w.data.subcategory or '') | lower }}">{{ cat.name if cat else w.data.subcategory }}</span>
   <div class="trending-info">
     <h3 class="card-title">{{ w.data.title }}</h3>
-    <p class="card-res">{{ w.data.resolutions[0].dimensions if w.data.resolutions and w.data.resolutions.length else "" }}</p>
+    <p class="card-res">{{ w.data.imageMeta.dimensions if w.data.imageMeta else "" }}</p>
   </div>
 </a>
 {% endmacro %}

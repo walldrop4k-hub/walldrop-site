@@ -5,11 +5,6 @@ category: mobile
 subcategory: amoled
 image: /assets/wallpapers/dark-angel-sculpture-warrior-sword-wallpaper.jpg
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 1920 × 1080
-fileSize: 343 KB
-format: JPG
 tags:
   - Dark
   - Amoled

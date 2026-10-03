@@ -5,11 +5,6 @@ category: mobile
 subcategory: samsung
 image: /assets/wallpapers/tiger-monarch-butterfly-amoled-mobile-wallpaper.jpg
 gradientClass: null
-resolutions:
-  - label: 2K
-    dimensions: 1242 × 2688
-fileSize: 369 KB
-format: JPG
 tags:
   - Mobile
   - Wildlife

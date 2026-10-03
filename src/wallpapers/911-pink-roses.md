@@ -5,11 +5,6 @@ category: mobile
 subcategory: android
 image: /assets/wallpapers/porsche-911-cherry-blossoms-wallpaper.jpg
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: " 1920 × 1080"
-fileSize: 1.0 MB
-format: JPG
 tags:
   - "cars "
   - Mobile Wallpaper

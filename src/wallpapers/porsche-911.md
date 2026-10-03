@@ -5,11 +5,6 @@ category: mobile
 subcategory: android
 image: /assets/wallpapers/porsche-911-gt3-rs-space-orbit-wallpaper.jpg
 gradientClass: null
-resolutions:
-  - label: Full HD
-    dimensions: 1920 × 1080
-fileSize: 1.0 MB
-format: JPG
 tags:
   - Mobile Wallpaper
   - Cars
