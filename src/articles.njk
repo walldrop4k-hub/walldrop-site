@@ -1,14 +1,19 @@
 ---
 layout: base.njk
 title: The Journal
-permalink: /articles/index.html
+permalink: /articles/
 metaDescription: "Short reads on picking, setting and caring for your wallpapers — plus the occasional deep dive into what's trending."
+breadcrumbs:
+  - { name: "Home", url: "/" }
+  - { name: "Articles", url: "/articles/" }
 ---
 {% from "partials/macros.njk" import articleCard with context %}
+{% from "partials/breadcrumb.njk" import breadcrumbNav %}
 
   <!-- ============ PAGE HEADING ============ -->
   <section class="page-intro-section">
     <div class="section-inner">
+      {{ breadcrumbNav(breadcrumbs) }}
       <p class="eyebrow">The Journal</p>
       <h1 class="page-title">Guides, trends &amp; tips</h1>
       <p class="page-desc">Short reads on picking, setting and caring for your wallpapers — plus the occasional deep dive into what's trending.</p>

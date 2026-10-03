@@ -1,0 +1,15 @@
+{# Visible breadcrumb trail. items is [{ name, url }]; the last item is the
+   current page and renders as plain text, not a link. The matching
+   BreadcrumbList JSON-LD is emitted from _includes/base.njk. #}
+{% macro breadcrumbNav(items) %}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  {% for item in items %}
+  {% if loop.last %}
+  <span class="current">{{ item.name }}</span>
+  {% else %}
+  <a href="{{ item.url }}">{{ item.name }}</a>
+  <span>/</span>
+  {% endif %}
+  {% endfor %}
+</nav>
+{% endmacro %}

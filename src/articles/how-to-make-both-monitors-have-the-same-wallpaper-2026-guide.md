@@ -5,13 +5,14 @@ excerpt: Struggling with mismatched screens? Here's exactly how to make both
   monitors have the same wallpaper on Windows 10, Windows 11, and Mac — no
   guesswork
 category: Guides
+wallpaperFormat: desktop
 image: /assets/wallpapers/dual_monitor_wallpaper_featured_image.png
 imageAlt: How to make both monitors have the same wallpaper — illustration of
   two desktop monitors side by side with one seamless sunset wallpaper spanning
   across both screens
 gradientClass: null
 date: 2026-09-26T16:48:00.000+03:00
-author: WallDrop4K Team
+author: Muhammad Saad
 readTime: 5 min read
 seo:
   description: Struggling with mismatched screens? Here's exactly how to make both

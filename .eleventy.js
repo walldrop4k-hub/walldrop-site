@@ -68,6 +68,39 @@ module.exports = function (eleventyConfig) {
   // scheme reading awkwardly.
   eleventyConfig.addFilter("bareDomain", (url) => String(url || "").replace(/^https?:\/\//, ""));
 
+  // One trailing-slash form for every canonical/og:url/sitemap URL:
+  // "/articles/index.html" -> "/articles/", "/category/x" -> "/category/x/".
+  // Files with an extension (sitemap.xml, robots.txt) are left alone.
+  eleventyConfig.addFilter("canonicalPath", (url) => {
+    let path = String(url || "/").replace(/index\.html$/, "");
+    const lastSegment = path.split("/").pop();
+    if (!path.endsWith("/") && !/\.[a-z0-9]+$/i.test(lastSegment)) path += "/";
+    return path;
+  });
+
+  // BreadcrumbList JSON-LD from [{ name, url }] items. Item URLs become
+  // absolute on the production domain. "<" is escaped so a title can't
+  // close the surrounding <script> tag.
+  eleventyConfig.addFilter("breadcrumbSchema", (items, siteUrl) => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: (items || []).map((item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.name,
+        item: siteUrl + item.url,
+      })),
+    };
+    return JSON.stringify(schema).replace(/</g, "\\u003c");
+  });
+
+  // Guides (articles) tagged for one wallpaper format — "desktop" or
+  // "mobile" — so category and wallpaper pages can link to them.
+  eleventyConfig.addFilter("byWallpaperFormat", (list, format) =>
+    (list || []).filter((item) => item.data.wallpaperFormat === format)
+  );
+
   // Same wallpaper/mobile collection minus the current page, for "Related
   // wallpapers" — avoids relying on for-loop counters, which Nunjucks
   // doesn't reliably persist across iterations.

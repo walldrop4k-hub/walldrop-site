@@ -6,6 +6,22 @@ module.exports = {
   permalink: "/article/{{ page.fileSlug }}/index.html",
 
   eleventyComputed: {
+    // Alt text for the featured image. The title is the fallback for guides
+    // saved without an alt field, so the attribute is never left empty.
+    imageAlt: (data) => data.imageAlt || data.title,
+
+    // Breadcrumb trail: Home > Articles > this article.
+    breadcrumbs: (data) => [
+      { name: "Home", url: "/" },
+      { name: "Articles", url: "/articles/" },
+      { name: data.title, url: data.page.url },
+    ],
+
+    // "Browse wallpapers" button at the end of the article. Points at a
+    // category page in the same format the guide is about.
+    browseUrl: (data) =>
+      data.wallpaperFormat === "mobile" ? "/category/mobile/iphone/" : "/category/desktop/4k/",
+
     // <title>/og:title override — the on-page H1 always stays the plain
     // "title" field; this only affects what search/social show.
     seoTitle: (data) => (data.seo && data.seo.title) || data.title,

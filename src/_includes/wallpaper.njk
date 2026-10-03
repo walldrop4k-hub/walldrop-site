@@ -1,7 +1,8 @@
 ---
 layout: base.njk
 ---
-{% from "partials/macros.njk" import wallpaperCard, mediaOrFallback with context %}
+{% from "partials/macros.njk" import wallpaperCard, articleCard, mediaOrFallback with context %}
+{% from "partials/breadcrumb.njk" import breadcrumbNav %}
 {% set cat = categories[category] | findBySlug(subcategory) %}
 {% set ratio = "ratio-16-9" if category == "desktop" else "ratio-9-16" %}
 {% set detailModifier = "" if category == "desktop" else " wallpaper-detail-mobile" %}
@@ -12,15 +13,7 @@ layout: base.njk
     <div class="section-inner">
 
       <!-- ============ BREADCRUMB ============ -->
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/">Home</a>
-        <span>/</span>
-        <a href="/category/{{ category }}/{{ subcategory }}/">{{ typeLabel }}</a>
-        <span>/</span>
-        <a href="/category/{{ category }}/{{ subcategory }}/">{{ catName }}</a>
-        <span>/</span>
-        <span class="current">{{ title }}</span>
-      </nav>
+      {{ breadcrumbNav(breadcrumbs) }}
 
       <!-- ============ DETAIL LAYOUT ============ -->
       {# data-current-slug is what script.js's Prev/Next and "Surprise me"
@@ -106,6 +99,19 @@ layout: base.njk
 
     </div>
   </section>
+
+  <!-- ============ RELATED GUIDES ============ -->
+  {% set guides = collections.allArticles | byWallpaperFormat(category) %}
+  {% if guides.length %}
+  <section class="section">
+    <div class="section-inner">
+      <h2 class="section-title">Related guides</h2>
+      <div class="article-grid">
+        {% for a in guides.slice(0, 2) %}{{ articleCard(a, false) }}{% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
 
   <!-- ============ RELATED WALLPAPERS ============ -->
   <section class="section">

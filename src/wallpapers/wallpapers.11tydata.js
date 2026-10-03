@@ -9,6 +9,25 @@ module.exports = {
   permalink: "/wallpaper/{{ page.fileSlug }}/index.html",
 
   eleventyComputed: {
+    // Alt text for the main image. Most older wallpapers were saved before
+    // the CMS required an alt field, so the title is the fallback — it still
+    // names what the image shows, rather than leaving the alt attribute empty.
+    imageAlt: (data) => data.imageAlt || data.title,
+
+    // Breadcrumb trail (visible on the page and in BreadcrumbList JSON-LD):
+    // Home > Desktop/Mobile > subcategory > this wallpaper.
+    breadcrumbs: (data) => {
+      const list = (data.categories && data.categories[data.category]) || [];
+      const sub = list.find((c) => c.slug === data.subcategory);
+      const subUrl = `/category/${data.category}/${data.subcategory}/`;
+      return [
+        { name: "Home", url: "/" },
+        { name: data.category === "desktop" ? "Desktop" : "Mobile", url: subUrl },
+        { name: sub ? sub.name : data.subcategory, url: subUrl },
+        { name: data.title, url: data.page.url },
+      ];
+    },
+
     // <title>/og:title override — the on-page H1 always stays the plain
     // "title" field; this only affects what search/social show.
     seoTitle: (data) => (data.seo && data.seo.title) || data.title,

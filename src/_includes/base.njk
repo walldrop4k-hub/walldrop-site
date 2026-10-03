@@ -9,7 +9,7 @@
 {% set pageImage = site.url + (ogImage or defaultOgImage or "/favicon.svg") %}
 <title>{{ pageTitle }}</title>
 <meta name="description" content="{{ pageDescription }}">
-<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+<link rel="canonical" href="{{ site.url }}{{ page.url | canonicalPath }}">
 {% if noindex %}<meta name="robots" content="noindex">{% endif %}
 <meta name="p:domain_verify" content="3a2e8fa6212339c4c429ce1bd7498992"/>
 <link rel="alternate" type="application/rss+xml" title="{{ settings.title }}" href="/feed.xml">
@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="{{ settings.title }}">
 <meta property="og:title" content="{{ pageTitle }}">
 <meta property="og:description" content="{{ pageDescription }}">
-<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:url" content="{{ site.url }}{{ page.url | canonicalPath }}">
 <meta property="og:image" content="{{ pageImage }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ pageTitle }}">
@@ -42,6 +42,14 @@
 
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<!-- BreadcrumbList JSON-LD on every page except the homepage. Pages that
+     set their own "breadcrumbs" (wallpapers, articles, categories) use
+     that trail; every other page gets Home > this page. -->
+{% if page.url != "/" %}
+{% set crumbs = breadcrumbs or [{ name: "Home", url: "/" }, { name: title, url: page.url | canonicalPath }] %}
+<script type="application/ld+json">{{ crumbs | breadcrumbSchema(site.url) | safe }}</script>
+{% endif %}
 
 <!-- Google Analytics 4 — set the real ID in src/_data/site.json (GA_ID) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.GA_ID }}"></script>

@@ -5,10 +5,11 @@ excerpt: I set a gorgeous mountain wallpaper and it looked terrible. The monitor
   wasn't broken — the file was the wrong size. Here's how to never make that
   mistake again.
 category: Guides
+wallpaperFormat: desktop
 image: /assets/wallpapers/far-from-away-any-road-at.jpg
 gradientClass: grad-5
 date: 2026-09-16T19:37:00.000+03:00
-author: WallDrop4K Team
+author: Muhammad Saad
 readTime: 8 min read
 seo:
   title: What Size Is Desktop Wallpaper? Complete Resolution Guide

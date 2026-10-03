@@ -2,9 +2,13 @@
 layout: base.njk
 ---
 {% from "partials/macros.njk" import articleCard, mediaOrFallback with context %}
+{% from "partials/breadcrumb.njk" import breadcrumbNav %}
 
   <section class="section" style="padding-bottom: 0;">
     <div class="section-inner readable">
+
+      <!-- ============ BREADCRUMB ============ -->
+      {{ breadcrumbNav(breadcrumbs) }}
 
       <!-- ============ ARTICLE HEADER ============ -->
       <div class="article-header">
@@ -22,6 +26,11 @@ layout: base.njk
       <div class="article-body">
         {{ content | safe }}
       </div>
+
+      <!-- ============ BROWSE WALLPAPERS ============ -->
+      <p style="margin-top: 32px;">
+        <a href="{{ browseUrl }}" class="btn btn-primary">Browse wallpapers</a>
+      </p>
 
     </div>
   </section>
@@ -43,8 +52,13 @@ layout: base.njk
   "@type": "Article",
   "headline": {{ title | jsonify | safe }},
   "description": {{ excerpt | jsonify | safe }},
-  "author": { "@type": "Person", "name": {{ author | jsonify | safe }} },
+  "mainEntityOfPage": {{ (site.url + (page.url | canonicalPath)) | jsonify | safe }},
+  {%- if image %}
+  "image": {{ (site.url + image) | jsonify | safe }},
+  {%- endif %}
+  "author": { "@type": "Person", "name": {{ site.operator | jsonify | safe }} },
   "datePublished": {{ date | isoDate | jsonify | safe }},
+  "dateModified": {{ date | isoDate | jsonify | safe }},
   "publisher": { "@type": "Organization", "name": {{ settings.title | jsonify | safe }} }
 }
 </script>
