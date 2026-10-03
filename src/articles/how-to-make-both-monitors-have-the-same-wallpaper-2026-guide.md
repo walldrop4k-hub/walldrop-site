@@ -12,7 +12,7 @@ imageAlt: How to make both monitors have the same wallpaper — illustration of
   across both screens
 gradientClass: null
 date: 2026-09-26T16:48:00.000+03:00
-author: Muhammad Saad
+author: Saad Jutt
 readTime: 5 min read
 seo:
   description: Struggling with mismatched screens? Here's exactly how to make both

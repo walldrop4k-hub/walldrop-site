@@ -140,7 +140,7 @@ collections:
         options: [grad-1, grad-2, grad-3, grad-4, grad-5, grad-6, grad-7, grad-8]
 
       - { label: Date, name: date, widget: datetime }
-      - { label: Author, name: author, widget: string, default: "Muhammad Saad" }
+      - { label: Author, name: author, widget: string, default: "Saad Jutt" }
       - { label: Read Time, name: readTime, widget: string, hint: "e.g. 5 min read" }
 
       - { label: Body, name: body, widget: markdown }

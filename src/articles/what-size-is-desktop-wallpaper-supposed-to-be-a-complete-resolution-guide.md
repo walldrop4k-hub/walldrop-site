@@ -9,7 +9,7 @@ wallpaperFormat: desktop
 image: /assets/wallpapers/far-from-away-any-road-at.jpg
 gradientClass: grad-5
 date: 2026-09-16T19:37:00.000+03:00
-author: Muhammad Saad
+author: Saad Jutt
 readTime: 8 min read
 seo:
   title: What Size Is Desktop Wallpaper? Complete Resolution Guide
