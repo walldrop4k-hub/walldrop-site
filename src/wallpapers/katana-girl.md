@@ -17,5 +17,5 @@ date: 2026-09-18T19:21:00.000+03:00
 featured: true
 trending: false
 ---
-Bring electrifying pop-art colors, futuristic cyberpunk aesthetics, and sharp Japanese warrior energy to your PC battle station with this Neon Blade 4K Ultra HD Desktop Wallpaper. Designed specifically for anime fans, digital art collectors, yellow-and-cyan setup builders, and widescreen display enthusiasts, this high-resolution visual showcases a fierce warrior holding a glowing pink katana across her shoulders.
+Bring electrifying pop-art colors, futuristic cyberpunk aesthetics, and sharp Japanese warrior energy to your PC battle station with this Katana Girl 4K Ultra HD Desktop Wallpaper. Designed specifically for anime fans, digital art collectors, yellow-and-cyan setup builders, and widescreen display enthusiasts, this high-resolution visual showcases a fierce warrior holding a glowing pink katana across her shoulders.
 imageAlt: "Woman with a back tattoo holds a pink katana over her shoulder against bold yellow and cyan swirls."

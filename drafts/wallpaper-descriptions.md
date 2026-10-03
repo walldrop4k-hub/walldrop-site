@@ -50,7 +50,7 @@ Flying Low is a high-energy aviation wallpaper for your phone. Vintage fighter p
 
 Katana Girl is a bold, high-contrast anime wallpaper with pop-art color and a cyberpunk edge. A warrior holds a glowing pink katana across her shoulders, with a yellow-and-cyan palette that makes the image stand out on any desktop. It suits anime fans, digital art collectors, and anyone with a yellow-and-cyan setup or a widescreen monitor. The strong color contrast keeps the image lively without needing a busy background. The PNG format keeps the sharp line work and the glow of the blade crisp at 4K.
 
-*Verify:* the current text calls this "Neon Blade" in the body but the title is "Katana Girl". Pick one name and keep it consistent. Confirm the katana is pink and held across the shoulders.
+*Verify:* the live text called this "Neon Blade" in the body. It now says "Katana Girl" to match the title. Confirm the katana is pink and held across the shoulders.
 
 ---
 
