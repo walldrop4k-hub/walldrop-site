@@ -12,6 +12,7 @@ tags:
 date: 2026-09-19T21:31:00.000+03:00
 featured: false
 trending: true
+imageAlt: "Vintage fighter planes dive through amber smoke trails against a dark orange sky, leaving white contrails."
 ---
 
 Flying Low is a high-energy mobile wallpaper with a cinematic edge. Vintage fighter planes dive almost straight down through dense smoke, each one trailing a long white or grey contrail that stretches up toward the top of the screen. The sky shifts from dark slate at the top to burnt orange near the bottom, with glowing embers scattered across the frame. The tall layout suits a phone lock screen, and the vertical lines of the planes and smoke carry the eye down the screen, which gives the image a sense of motion even when it's still. It appeals to aviation fans, vintage aircraft lovers, and anyone who likes bold, action-driven art. At 2130 × 3600 pixels, the file has enough detail for the smoke textures and the small planes to look crisp on a modern phone. It's a good pick if you want something energetic without being busy.

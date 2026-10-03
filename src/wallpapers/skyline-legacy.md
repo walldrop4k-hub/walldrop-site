@@ -10,6 +10,6 @@ tags:
 date: 2026-09-16T20:55:00.000+03:00
 featured: true
 trending: true
+imageAlt: "Several generations of Nissan Skyline and GT-R cars parked in a plaza, from classic coupes to modern models."
 ---
 Bring the absolute pinnacle of Japanese automotive engineering and JDM heritage to your PC battle station with this Skyline Legacy 4K Ultra HD Desktop Wallpaper. Designed specifically for car enthusiasts, JDM culture fans, PC gamers, and widescreen workstation setups, this high-resolution showcase brings seven generations of Nissan's legendary GT-R and Skyline sports cars together in a single symmetrical courtyard lineup.
-imageAlt: "Several generations of Nissan Skyline and GT-R cars parked in a plaza, from classic coupes to modern models."

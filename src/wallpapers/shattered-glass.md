@@ -10,6 +10,6 @@ tags:
 date: 2026-09-16T20:12:00.000+03:00
 featured: true
 trending: true
+imageAlt: "Dark-haired figure in a black coat, face partly hidden by floating glass shards against a bright blue sky."
 ---
 Step into a world of brilliant sunlight and surreal crystal reflections! Upgrade your smartphone display with this breathtaking 4K Shattered Glass wallpaper. Featuring a stylish anime-inspired boy looking up into a bright azure sky while sharp glass shards float and refract light all around him, this high-concept artistic background brings pure cinematic depth to your iPhone or Android lock screen!
-imageAlt: "Dark-haired figure in a black coat, face partly hidden by floating glass shards against a bright blue sky."
