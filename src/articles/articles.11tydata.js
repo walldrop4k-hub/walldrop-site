@@ -3,7 +3,9 @@ const { toWebpFeaturedImage, toJpegSocialImage } = require("../_11ty/image-helpe
 
 module.exports = {
   layout: "article.njk",
-  permalink: "/article/{{ page.fileSlug }}/index.html",
+  // Prefer the CMS slug field, so editing it changes the live URL. Fall back
+  // to the filename when the slug is empty.
+  permalink: (data) => `/article/${data.slug || data.page.fileSlug}/index.html`,
 
   eleventyComputed: {
     // Alt text for the featured image. The title is the fallback for guides

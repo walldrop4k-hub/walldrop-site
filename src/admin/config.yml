@@ -109,7 +109,7 @@ collections:
     label_singular: Article
     folder: src/articles
     create: true
-    slug: "{{slug}}"
+    slug: "{{fields.slug}}"
     identifier_field: title
     fields:
       - { label: Title, name: title, widget: string }

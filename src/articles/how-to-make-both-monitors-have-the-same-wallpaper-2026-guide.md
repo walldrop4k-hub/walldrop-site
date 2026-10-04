@@ -1,6 +1,6 @@
 ---
 title: How to Make Both Monitors Have the Same Wallpaper (2026 Guide)
-slug: how-to-make-both-monitors-have-the-same-wallpaper
+slug: how-to-make-both-monitors-have-the-same-wallpaper-2026-guide
 excerpt: Struggling with mismatched screens? Here's exactly how to make both
   monitors have the same wallpaper on Windows 10, Windows 11, and Mac — no
   guesswork

@@ -1,6 +1,6 @@
 ---
 title: What Size Is Desktop Wallpaper Supposed to Be? A Complete Resolution Guide
-slug: what-size-is-desktop-wallpaper
+slug: what-size-is-desktop-wallpaper-supposed-to-be-a-complete-resolution-guide
 excerpt: I set a gorgeous mountain wallpaper and it looked terrible. The monitor
   wasn't broken — the file was the wrong size. Here's how to never make that
   mistake again.
