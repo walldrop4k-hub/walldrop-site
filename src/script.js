@@ -338,7 +338,7 @@ function renderWallpaperCard(item) {
   // button, not loaded into a grid tile.
   const cardSrc = item.thumbnail || item.image;
   const hasImage = cardSrc ? ' has-image' : '';
-  const glow = item.dominantColor || '#8b7bff';
+  const glow = item.dominantColor || '#f5c877';
   const badge = item.label ? `<span class="res-badge">${escapeHtml(item.label)}</span>` : '';
   return `<a href="${item.url}" class="wallpaper-card reveal" style="--glow:${escapeHtml(glow)}">
       <div class="thumb ${ratio}${hasImage}">

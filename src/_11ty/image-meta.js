@@ -59,7 +59,7 @@ async function dominantColor(filePath) {
 
   const [R, G, B] = [r / total, g / total, b / total].map(Math.round);
   const luminance = (0.2126 * R + 0.7152 * G + 0.0722 * B) / 255;
-  if (luminance < 0.08) return "#8b7bff";
+  if (luminance < 0.08) return "#f5c877";
   return `#${[R, G, B].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
 }
 

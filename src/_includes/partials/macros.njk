@@ -17,7 +17,7 @@
    color is this wallpaper's own dominant color, computed at build time. #}
 {% macro wallpaperCard(w, extraClass="", loading="lazy") %}
 {% set ratio = "ratio-16-9" if w.data.category == "desktop" else "ratio-9-16" %}
-{% set glow = w.data.imageMeta.dominantColor if w.data.imageMeta else "#8b7bff" %}
+{% set glow = w.data.imageMeta.dominantColor if w.data.imageMeta else "#f5c877" %}
 <a href="{{ w.url }}" class="wallpaper-card reveal {{ extraClass }}" style="--glow:{{ glow }}" data-category="{{ w.data.category }}" data-subcategory="{{ (w.data.subcategory or '') | lower }}" data-tags="{{ ((w.data.tags or []) | join(',')) | lower }}" data-date="{{ w.data.date | isoDate }}">
   <div class="thumb {{ ratio }}{{ ' has-image' if w.data.cardImage }}">
     {{ mediaOrFallback(w.data.cardImage, w.data.imageAlt or w.data.title, "thumb-bg", w.data.gradientClass, "cover", loading) }}

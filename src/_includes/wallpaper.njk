@@ -6,7 +6,7 @@ layout: base.njk
 {% set cat = categories[category] | findBySlug(subcategory) %}
 {% set typeLabel = "Desktop" if category == "desktop" else "Mobile" %}
 {% set catName = cat.name if cat else subcategory %}
-{% set glow = imageMeta.dominantColor if imageMeta else "#8b7bff" %}
+{% set glow = imageMeta.dominantColor if imageMeta else "#f5c877" %}
 {% set guides = collections.allArticles | byWallpaperFormat(category) %}
 {% set relatedList = (collections.desktopWallpapers if category == "desktop" else collections.mobileWallpapers) | excludeSlug(slug) %}
 

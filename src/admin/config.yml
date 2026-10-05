@@ -143,7 +143,7 @@ collections:
       - { label: Author, name: author, widget: string, default: "Saad Jutt" }
       - { label: Read Time, name: readTime, widget: string, hint: "e.g. 5 min read" }
 
-      - { label: Body, name: body, widget: markdown }
+      - { label: Body, name: body, widget: markdown, modes: ["raw", "rich_text"] }
 
       - label: "SEO (optional — leave blank to auto-generate)"
         name: seo
