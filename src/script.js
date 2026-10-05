@@ -587,3 +587,153 @@ if (surpriseBtn) {
   });
 }
 
+
+// ==========================================================
+// Hero marquee. Slows to 20% on hover instead of stopping, so it keeps
+// moving; pauses when it is off-screen, the tab is hidden, or focus is
+// inside it; and does not auto-scroll for reduced-motion users. Touch
+// taps do not trigger the hover slowdown.
+// ==========================================================
+(function initMarquee() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const SLOW_RATE = 0.2;
+
+  // One controller per strip. A strip that is hidden at this screen size has
+  // no running animation, so it is set up only when it is first shown.
+  function setUp(marquee) {
+    const track = marquee.querySelector('.track');
+    let anim = null;
+    let hovered = false;
+    let focused = false;
+    let inView = true;
+    let rate = 1;
+    let targetRate = 1;
+    let rafId = null;
+    let lastTs = null;
+
+    // Ease the playback rate toward its target a little each frame. Changing
+    // playbackRate keeps the current position, so nothing skips.
+    function step(ts) {
+      if (lastTs === null) lastTs = ts;
+      const dt = ts - lastTs;
+      lastTs = ts;
+      const diff = targetRate - rate;
+      rate += diff * Math.min(1, dt / 120);
+      anim.playbackRate = rate;
+      if (Math.abs(diff) > 0.002) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        rate = targetRate;
+        anim.playbackRate = rate;
+        rafId = null;
+        lastTs = null;
+      }
+    }
+
+    function apply() {
+      if (!anim) return;
+      targetRate = hovered ? SLOW_RATE : 1;
+      const shouldRun = inView && !document.hidden && !focused;
+      if (!shouldRun) {
+        anim.pause();
+        return;
+      }
+      if (anim.playState !== 'running') anim.play();
+      if (rafId === null) {
+        lastTs = null;
+        rafId = requestAnimationFrame(step);
+      }
+    }
+
+    function start() {
+      // Hidden strips have no animation yet. Retry while this strip is shown.
+      const found = track.getAnimations()[0];
+      if (!found) {
+        if (marquee.offsetParent !== null) window.requestAnimationFrame(start);
+        return;
+      }
+      anim = found;
+
+      marquee.addEventListener('pointerenter', (event) => {
+        if (event.pointerType !== 'mouse') return;
+        hovered = true;
+        apply();
+      });
+      marquee.addEventListener('pointerleave', () => {
+        hovered = false;
+        apply();
+      });
+      // Only keyboard focus pauses the strip. A mouse click or tap also moves
+      // focus, but it does not match :focus-visible, so it does not count.
+      marquee.addEventListener('focusin', (event) => {
+        if (!event.target.matches(':focus-visible')) return;
+        focused = true;
+        apply();
+      });
+      marquee.addEventListener('focusout', (event) => {
+        if (marquee.contains(event.relatedTarget)) return;
+        focused = false;
+        apply();
+      });
+
+      new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        apply();
+      }).observe(marquee);
+
+      document.addEventListener('visibilitychange', apply);
+
+      apply();
+    }
+
+    // Back to normal speed and state, used when the page is restored from the
+    // back/forward cache with the strip still paused or slowed.
+    function reset() {
+      hovered = false;
+      focused = false;
+      if (rafId !== null) window.cancelAnimationFrame(rafId);
+      rafId = null;
+      lastTs = null;
+      rate = 1;
+      targetRate = 1;
+      if (anim) {
+        anim.playbackRate = 1;
+        apply();
+      }
+    }
+
+    start();
+    return { marquee, reset };
+  }
+
+  const strips = Array.from(document.querySelectorAll('.marquee'));
+  const started = new Set();
+
+  const controllers = [];
+
+  function startVisible() {
+    strips.forEach((strip) => {
+      if (strip.offsetParent !== null && !started.has(strip)) {
+        started.add(strip);
+        controllers.push(setUp(strip));
+      }
+    });
+  }
+
+  // Restored from the back/forward cache: the strip may have been left paused
+  // (keyboard focus on a link that was then clicked) or slowed (a hover that
+  // ended while the page was away). Reset it, and drop focus that is only a
+  // mouse or tap click.
+  window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return;
+    controllers.forEach(({ marquee, reset }) => {
+      const active = document.activeElement;
+      if (active && marquee.contains(active) && !active.matches(':focus-visible')) active.blur();
+      reset();
+    });
+  });
+
+  startVisible();
+  window.matchMedia('(max-width: 759px)').addEventListener('change', startVisible);
+})();

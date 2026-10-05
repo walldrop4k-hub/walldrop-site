@@ -39,15 +39,33 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
   </section>
 
   <!-- ============ MARQUEE ============ -->
-  {# Real thumbnails, listed twice so the 50% translate loops seamlessly.
-     Pauses on hover (see .marquee in style.css). #}
-  {% set strip = collections.allWallpapers.slice(0, 16) %}
-  {% if strip.length %}
-  <div class="marquee" aria-hidden="true">
+  {# Two strips, one per screen size: desktop wallpapers in landscape tiles,
+     and mobile wallpapers in portrait tiles. CSS shows one and hides the
+     other (see .marquee-desktop / .marquee-mobile in style.css). Tiles are
+     links to each wallpaper's page, and images are lazy-loaded so the hidden
+     strip never downloads. The second pass repeats the list for a seamless
+     loop; those copies are removed from the tab order. Tiles are CSS
+     background images: a browser does not download the background of an
+     element that is display:none, so the hidden strip loads nothing. #}
+  {% set deskStrip = collections.desktopWallpapers.slice(0, 16) %}
+  {% set mobStrip = collections.mobileWallpapers.slice(0, 16) %}
+  {% if deskStrip.length %}
+  <div class="marquee marquee-desktop" role="region" aria-label="Featured desktop wallpapers">
     <div class="track">
       {% for pass in [1, 2] %}
-      {% for w in strip %}
-      <div class="track-item" style="background-image:url('{{ w.data.cardImage }}')"></div>
+      {% for w in deskStrip %}
+      <a href="{{ w.url }}" class="track-item" aria-label="{{ w.data.imageAlt or w.data.title }}" style="background-image:url('{{ w.data.cardImage }}')"{{ ' tabindex="-1" aria-hidden="true"' | safe if pass == 2 }}></a>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {% if mobStrip.length %}
+  <div class="marquee marquee-mobile" role="region" aria-label="Featured mobile wallpapers">
+    <div class="track">
+      {% for pass in [1, 2] %}
+      {% for w in mobStrip %}
+      <a href="{{ w.url }}" class="track-item" aria-label="{{ w.data.imageAlt or w.data.title }}" style="background-image:url('{{ w.data.cardImage }}')"{{ ' tabindex="-1" aria-hidden="true"' | safe if pass == 2 }}></a>
       {% endfor %}
       {% endfor %}
     </div>
