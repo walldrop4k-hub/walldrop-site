@@ -322,9 +322,10 @@ function escapeHtml(str) {
 
 // Mirrors mediaOrFallback in macros.njk: an image that loads or fails gets
 // is-loaded on its parent, which removes the shimmer sweep.
-function mediaMarkup(src, alt, gradientClass, cssClass) {
+function mediaMarkup(src, alt, gradientClass, cssClass, srcset) {
   if (src) {
-    return `<img class="${cssClass}" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" onload="this.parentElement.classList.add('is-loaded');" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.classList.add('is-loaded');"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
+    const set = srcset ? ` srcset="${escapeHtml(srcset)}" sizes="(min-width: 1000px) 23vw, (min-width: 760px) 31vw, 46vw"` : '';
+    return `<img class="${cssClass}" src="${escapeHtml(src)}"${set} alt="${escapeHtml(alt)}" loading="lazy" decoding="async" onload="this.parentElement.classList.add('is-loaded');" onerror="this.style.display='none';this.nextElementSibling.style.display='block';this.parentElement.classList.add('is-loaded');"><div class="${cssClass} ${gradientClass || 'grad-1'}" style="display:none;"></div>`;
   }
   return `<div class="${cssClass} ${gradientClass || 'grad-1'}"></div>`;
 }
@@ -342,7 +343,7 @@ function renderWallpaperCard(item) {
   const badge = item.label ? `<span class="res-badge">${escapeHtml(item.label)}</span>` : '';
   return `<a href="${item.url}" class="wallpaper-card reveal" style="--glow:${escapeHtml(glow)}">
       <div class="thumb ${ratio}${hasImage}">
-        ${mediaMarkup(cardSrc, item.imageAlt || item.title, item.gradientClass, 'thumb-bg')}
+        ${mediaMarkup(cardSrc, item.imageAlt || item.title, item.gradientClass, 'thumb-bg', cardSrc === item.thumbnail ? item.thumbnailSrcset : null)}
         ${badge}
         <span class="download-btn" aria-hidden="true">${downloadIconSvg}</span>
       </div>
@@ -589,6 +590,28 @@ if (surpriseBtn) {
 
 
 // ==========================================================
+// Hero slides after the first are given their sources one at a time: each one
+// about 1.5 seconds before it is first shown (slide n is shown at 5n seconds,
+// see --delay in index.njk). Nothing loads before the window load event, so
+// no slide competes with the first one (the LCP image) or with the page.
+(function loadHeroSlides() {
+  var slides = Array.prototype.slice.call(document.querySelectorAll('img.hero-slide[data-src]'));
+  function giveSource(img) {
+    img.src = img.dataset.src;
+    if (img.dataset.srcset) img.srcset = img.dataset.srcset;
+    img.removeAttribute('data-src');
+    img.removeAttribute('data-srcset');
+  }
+  function scheduleAll() {
+    slides.forEach(function (img, i) {
+      var showAt = (5 * (i + 1) - 1.5) * 1000;
+      setTimeout(function () { giveSource(img); }, Math.max(0, showAt - performance.now()));
+    });
+  }
+  if (document.readyState === 'complete') scheduleAll();
+  else window.addEventListener('load', scheduleAll, { once: true });
+})();
+
 // Hero marquee. Slows to 20% on hover instead of stopping, so it keeps
 // moving; pauses when it is off-screen, the tab is hidden, or focus is
 // inside it; and does not auto-scroll for reduced-motion users. Touch

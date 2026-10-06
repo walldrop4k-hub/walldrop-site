@@ -35,6 +35,13 @@ module.exports = function (eleventyConfig) {
   // script.js and style.css are minified once the build has copied them to
   // _site. Source files are not changed.
 
+  // Critical CSS (the header and hero rules) is inlined into every page.
+  // The full stylesheet loads without blocking the first paint.
+  eleventyConfig.addFilter("inlineCss", (filePath) => {
+    const source = fs.readFileSync(path.join(__dirname, filePath), "utf8");
+    return new CleanCSS({ level: 1 }).minify(source).styles;
+  });
+
   eleventyConfig.addTransform("minify-html", async function (content) {
     if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) return content;
     return minifyHtml(content, {
@@ -283,6 +290,7 @@ module.exports = function (eleventyConfig) {
         image: item.data.image || null,
         imageAlt: item.data.imageAlt || "",
         thumbnail: item.data.cardImage || null,
+        thumbnailSrcset: item.data.cardImageSrcset || null,
         gradientClass: item.data.gradientClass || null,
         resolution: item.data.imageMeta ? item.data.imageMeta.dimensions : "",
         label: item.data.imageMeta ? item.data.imageMeta.label : "",
@@ -306,6 +314,7 @@ module.exports = function (eleventyConfig) {
         image: item.data.image || null,
         imageAlt: item.data.imageAlt || "",
         thumbnail: item.data.cardImage || null,
+        thumbnailSrcset: item.data.cardImageSrcset || null,
         gradientClass: item.data.gradientClass || null,
         resolution: item.data.imageMeta ? item.data.imageMeta.dimensions : "",
         label: item.data.imageMeta ? item.data.imageMeta.label : "",
