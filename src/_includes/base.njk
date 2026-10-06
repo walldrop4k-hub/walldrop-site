@@ -30,15 +30,16 @@
 <meta name="twitter:description" content="{{ pageDescription }}">
 <meta name="twitter:image" content="{{ pageImage }}">
 
-<!-- Fonts: Space Grotesk (headings) and Inter (body), as in the design
-     preview. Loaded without blocking first paint; text shows in a fallback
-     font and swaps in once they arrive. -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"></noscript>
+<!-- Fonts are self-hosted (see @font-face at the top of style.css). Only the
+     main body weight is preloaded, so text can paint in Inter straight away. -->
 
+
+{% if page.url == "/" and collections.heroWallpapers.length %}
+{% set heroFirst = collections.heroWallpapers[0].data %}
+<link rel="preload" as="image" href="{{ heroFirst.displayImage }}" imagesrcset="{{ heroFirst.displayImageSrcset }}" imagesizes="100vw" fetchpriority="high">
+{% elif displayImage %}
+<link rel="preload" as="image" href="{{ displayImage }}" imagesrcset="{{ displayImageSrcset }}" imagesizes="(min-width: 900px) 55vw, 100vw" fetchpriority="high">
+{% endif %}
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
@@ -74,6 +75,6 @@
 
 {% include "partials/footer.njk" %}
 
-<script src="/script.js"></script>
+<script src="/script.js" defer></script>
 </body>
 </html>

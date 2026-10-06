@@ -33,10 +33,20 @@ module.exports = {
     displayImage: async (data) => {
       if (!data.image) return null;
       try {
-        return await toWebpDisplayImage(path.join("src", data.image));
+        return (await toWebpDisplayImage(path.join("src", data.image))).src;
       } catch (err) {
         console.warn(`[displayImage] Falling back to original for ${data.image}: ${err.message}`);
         return data.image;
+      }
+    },
+
+    // srcset for the display image, so the browser picks the size that fits.
+    displayImageSrcset: async (data) => {
+      if (!data.image) return null;
+      try {
+        return (await toWebpDisplayImage(path.join("src", data.image))).srcset;
+      } catch (err) {
+        return null;
       }
     },
 
@@ -81,7 +91,16 @@ module.exports = {
     // of reprocessing. wallpaper.njk's big preview and Download button
     // always link to the original "image" field directly, never this one.
     cardImage: async (data) => {
-      if (data.thumbnail) return data.thumbnail;
+      // A manual thumbnail is still compressed to the same card size, so an
+      // upload never reaches the grid at full size.
+      if (data.thumbnail) {
+        try {
+          return await toWebpThumbnail(path.join("src", data.thumbnail));
+        } catch (err) {
+          console.warn(`[cardImage] Using manual thumbnail as-is for ${data.thumbnail}: ${err.message}`);
+          return data.thumbnail;
+        }
+      }
       if (!data.image) return null;
       try {
         return await toWebpThumbnail(path.join("src", data.image));

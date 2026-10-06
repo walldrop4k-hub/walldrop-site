@@ -24,7 +24,7 @@ layout: base.njk
           <div class="preview-panel">
             {# The 1920px WebP is what's shown. The download button below links
                to the original upload. Portrait images are shown whole. #}
-            <img class="preview-media{{ ' ratio-9-16' if category == 'mobile' }}" src="{{ displayImage or image }}" alt="{{ imageAlt or title }}" width="{{ imageMeta.width if imageMeta }}" height="{{ imageMeta.height if imageMeta }}" fetchpriority="high" decoding="async" onload="this.classList.add('is-loaded')">
+            <img class="preview-media{{ ' ratio-9-16' if category == 'mobile' }}" src="{{ displayImage or image }}"{% if displayImageSrcset %} srcset="{{ displayImageSrcset }}" sizes="(min-width: 900px) 55vw, 100vw"{% endif %} alt="{{ imageAlt or title }}" width="{{ imageMeta.width if imageMeta }}" height="{{ imageMeta.height if imageMeta }}" fetchpriority="high" decoding="async" onload="this.classList.add('is-loaded')">
           </div>
         </div>
 

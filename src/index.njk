@@ -12,7 +12,7 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
      scripts run. #}
   <section class="search-hero hero-home">
     {% for w in collections.heroWallpapers %}
-    <div class="hero-slide" aria-hidden="true" style="--img:url('{{ w.data.displayImage }}');--delay:{{ loop.index0 * 5 }}s"></div>
+    <img class="hero-slide" src="{{ w.data.displayImage }}" srcset="{{ w.data.displayImageSrcset }}" sizes="100vw" alt="" aria-hidden="true" decoding="async" {{ 'fetchpriority="high"' | safe if loop.first else 'loading="lazy"' | safe }} style="--delay:{{ loop.index0 * 5 }}s">
     {% endfor %}
     <div class="section-inner">
       <h1 class="search-hero-title">Find your next wallpaper</h1>

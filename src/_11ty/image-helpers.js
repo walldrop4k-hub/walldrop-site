@@ -35,15 +35,21 @@ async function toWebpFeaturedImage(inputPath) {
 // A 1920px-wide WebP for showing a wallpaper on screen: the homepage hero and
 // the detail page preview. Much lighter than the uploaded original, which is
 // still what the download button links to.
+// Two sizes: 960px for phones and 1920px for large screens, so a phone never
+// downloads the full-width file. Returns the largest as src and both as srcset.
 async function toWebpDisplayImage(inputPath) {
   const stats = await Image(inputPath, {
-    widths: [1920],
+    widths: [960, 1920],
     formats: ["webp"],
     sharpWebpOptions: { quality: 82 },
     outputDir: "./_site/assets/generated/",
     urlPath: "/assets/generated/",
   });
-  return stats.webp[0].url;
+  const sizes = stats.webp;
+  return {
+    src: sizes[sizes.length - 1].url,
+    srcset: sizes.map((s) => `${s.url} ${s.width}w`).join(", "),
+  };
 }
 
 // A 1200px-wide JPEG for og:image / twitter:image — social platforms
