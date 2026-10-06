@@ -39,7 +39,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'; this.onload=null;">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v={{ buildId }}">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
 <!-- BreadcrumbList JSON-LD on every page except the homepage. Pages that
@@ -74,6 +74,6 @@
 
 {% include "partials/footer.njk" %}
 
-<script src="/script.js"></script>
+<script src="/script.js?v={{ buildId }}"></script>
 </body>
 </html>

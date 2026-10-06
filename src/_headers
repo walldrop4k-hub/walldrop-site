@@ -19,6 +19,53 @@
 /favicon.svg
   Cache-Control: public, max-age=86400, must-revalidate
 
+# HTML is never cached for long. It names the CSS and JS version, so a stale
+# page would keep pointing at files a browser had cached.
+/
+  Cache-Control: no-cache
+
+/article/*
+  Cache-Control: no-cache
+
+/articles/*
+  Cache-Control: no-cache
+
+/wallpaper/*
+  Cache-Control: no-cache
+
+/category/*
+  Cache-Control: no-cache
+
+/categories/*
+  Cache-Control: no-cache
+
+/about/*
+  Cache-Control: no-cache
+
+/contact/*
+  Cache-Control: no-cache
+
+/privacy/*
+  Cache-Control: no-cache
+
+/terms/*
+  Cache-Control: no-cache
+
+/dmca/*
+  Cache-Control: no-cache
+
+/search/*
+  Cache-Control: no-cache
+
+/favorites/*
+  Cache-Control: no-cache
+
+/thank-you/*
+  Cache-Control: no-cache
+
+/404.html
+  Cache-Control: no-cache
+
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY

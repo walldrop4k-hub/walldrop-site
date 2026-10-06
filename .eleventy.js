@@ -13,6 +13,10 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/admin");
   // Cloudflare Pages reads this from the build output root.
   eleventyConfig.addPassthroughCopy("src/_headers");
+
+  // One id per build, added to the CSS and JS URLs so a new deploy always
+  // loads fresh files, even in browsers that cached an earlier version.
+  eleventyConfig.addGlobalData("buildId", () => Date.now().toString(36));
   eleventyConfig.addPassthroughCopy("src/_redirects");
 
   // Decap CMS's admin/index.html is a static app shell (loads the CMS

@@ -649,6 +649,12 @@ p {
   padding: 80px 0 64px;
 }
 
+/* The hero is a flex row, so its text container would shrink to its content
+   and overflow the screen on phones. It fills the hero instead. */
+.search-hero.hero-home > .section-inner {
+  width: 100%;
+}
+
 .hero-slide {
   position: absolute;
   inset: -6%;
