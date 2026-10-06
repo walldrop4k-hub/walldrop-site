@@ -1,19 +1,15 @@
 # Cloudflare Pages reads this file from the build output root and applies
-# these headers automatically.
+# these headers automatically — no dashboard config needed. Same rules
+# that used to live in netlify.toml.
 
-# Generated images and self-hosted fonts have content-hashed or versioned
-# names, so they can be cached for a year and never revalidated.
-/assets/generated/*
-  Cache-Control: public, max-age=31536000, immutable
+/assets/*
+  Cache-Control: public, max-age=300, must-revalidate
 
-/assets/fonts/*
-  Cache-Control: public, max-age=31536000, immutable
-
-# Original wallpaper uploads keep their names, so cache them for a day.
-/assets/wallpapers/*
-  Cache-Control: public, max-age=86400
-
-# Site-wide CSS and JS keep their names, so they revalidate every hour.
+# style.css and script.js are NOT filename-hashed — they can change in
+# place on a deploy, so they get a short cache instead of "immutable".
+# (Cloudflare's own CDN still serves the new version instantly on
+# deploy; this only controls how long a visitor's browser trusts its
+# old copy.)
 /style.css
   Cache-Control: public, max-age=3600, must-revalidate
 
@@ -23,53 +19,6 @@
 /favicon.svg
   Cache-Control: public, max-age=86400, must-revalidate
 
-# HTML always revalidates, so content changes show up at once.
-/
-  Cache-Control: public, max-age=0, must-revalidate
-
-/404.html
-  Cache-Control: public, max-age=0, must-revalidate
-
-/article/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/articles/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/wallpaper/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/category/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/categories/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/about/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/contact/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/privacy/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/terms/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/dmca/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/search/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/favorites/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-/thank-you/*
-  Cache-Control: public, max-age=0, must-revalidate
-
-# Security headers for every response.
 /*
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY

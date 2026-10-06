@@ -1,10 +1,5 @@
 const { plainText } = require("./src/_11ty/text-helpers.js");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
-const fs = require("fs");
-const path = require("path");
-const CleanCSS = require("clean-css");
-const { minify: minifyHtml } = require("html-minifier-terser");
-const { minify: minifyJs } = require("terser");
 const categoriesData = require("./src/_data/categories.json");
 
 module.exports = function (eleventyConfig) {
@@ -24,37 +19,6 @@ module.exports = function (eleventyConfig) {
   // script itself), not an Eleventy template — don't run it through the
   // HTML template engine, just ship it as-is via the passthrough above.
   eleventyConfig.ignores.add("src/admin/index.html");
-
-  // Read a file from the project into a template. Used to inline the
-  // stylesheet, so the page never waits on a separate CSS request.
-  eleventyConfig.addFilter("inlineFile", (filePath) =>
-    fs.readFileSync(path.join(__dirname, filePath), "utf8")
-  );
-
-  // Build-time minification. HTML is minified as each page is written.
-  // script.js and style.css are minified once the build has copied them to
-  // _site. Source files are not changed.
-
-  eleventyConfig.addTransform("minify-html", async function (content) {
-    if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) return content;
-    return minifyHtml(content, {
-      collapseWhitespace: true,
-      removeComments: true,
-      minifyJS: true,
-      minifyCSS: true,
-      useShortDoctype: true,
-      removeRedundantAttributes: true,
-    });
-  });
-
-  eleventyConfig.on("eleventy.after", async () => {
-    const js = fs.readFileSync(path.join(__dirname, "src/script.js"), "utf8");
-    const jsOut = await minifyJs(js, { compress: true, mangle: true });
-    fs.writeFileSync(path.join(__dirname, "_site/script.js"), jsOut.code);
-
-    const css = fs.readFileSync(path.join(__dirname, "src/style.css"), "utf8");
-    fs.writeFileSync(path.join(__dirname, "_site/style.css"), new CleanCSS({ level: 1 }).minify(css).styles);
-  });
 
   // ============ Filters ============
 
