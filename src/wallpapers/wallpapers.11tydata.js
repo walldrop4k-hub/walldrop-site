@@ -95,7 +95,7 @@ module.exports = {
       // upload never reaches the grid at full size.
       if (data.thumbnail) {
         try {
-          return (await toWebpThumbnail(path.join("src", data.thumbnail))).src;
+          return await toWebpThumbnail(path.join("src", data.thumbnail));
         } catch (err) {
           console.warn(`[cardImage] Using manual thumbnail as-is for ${data.thumbnail}: ${err.message}`);
           return data.thumbnail;
@@ -103,21 +103,10 @@ module.exports = {
       }
       if (!data.image) return null;
       try {
-        return (await toWebpThumbnail(path.join("src", data.image))).src;
+        return await toWebpThumbnail(path.join("src", data.image));
       } catch (err) {
         console.warn(`[cardImage] Falling back to full image for ${data.image}: ${err.message}`);
         return data.image;
-      }
-    },
-
-    // srcset for the card image, so the smallest size that fits is downloaded.
-    // Null for a manual thumbnail, which is used as uploaded.
-    cardImageSrcset: async (data) => {
-      if (data.thumbnail || !data.image) return null;
-      try {
-        return (await toWebpThumbnail(path.join("src", data.image))).srcset;
-      } catch (err) {
-        return null;
       }
     },
 

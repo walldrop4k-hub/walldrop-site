@@ -11,15 +11,8 @@ metaDescription: "Browse hand-picked 4K and 8K wallpapers for desktop and mobile
      first slide is in the HTML immediately, so the banner paints before any
      scripts run. #}
   <section class="search-hero hero-home">
-    {# Only the first slide loads with the page, and it is the LCP image. The
-       others carry their URLs in data-src and are given a source after the
-       window load event (see script.js), so they never compete with it. #}
     {% for w in collections.heroWallpapers %}
-    {% if loop.first %}
-    <img class="hero-slide" src="{{ w.data.displayImage }}" srcset="{{ w.data.displayImageSrcset }}" sizes="100vw" alt="" aria-hidden="true" decoding="async" fetchpriority="high" style="--delay:0s">
-    {% else %}
-    <img class="hero-slide" data-src="{{ w.data.displayImage }}" data-srcset="{{ w.data.displayImageSrcset }}" sizes="100vw" alt="" aria-hidden="true" decoding="async" style="--delay:{{ loop.index0 * 5 }}s">
-    {% endif %}
+    <img class="hero-slide" src="{{ w.data.displayImage }}" srcset="{{ w.data.displayImageSrcset }}" sizes="100vw" alt="" aria-hidden="true" decoding="async" {{ 'fetchpriority="high"' | safe if loop.first else 'loading="lazy"' | safe }} style="--delay:{{ loop.index0 * 5 }}s">
     {% endfor %}
     <div class="section-inner">
       <h1 class="search-hero-title">Find your next wallpaper</h1>

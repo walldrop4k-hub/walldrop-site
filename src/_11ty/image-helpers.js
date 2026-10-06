@@ -3,22 +3,16 @@
 const Image = require("@11ty/eleventy-img");
 
 // Small compressed WebP used by every grid card (homepage, category
-// pages, related wallpapers, search results). Two sizes: 320px for the
-// smallest cards and 480px for larger ones. Returns the 480px file as src and
-// both as srcset, so a phone downloads the smaller file.
+// pages, related wallpapers, search results).
 async function toWebpThumbnail(inputPath) {
   const stats = await Image(inputPath, {
-    widths: [320, 480],
+    widths: [480],
     formats: ["webp"],
     sharpWebpOptions: { quality: 75 },
     outputDir: "./_site/assets/generated/",
     urlPath: "/assets/generated/",
   });
-  const sizes = stats.webp;
-  return {
-    src: sizes[sizes.length - 1].url,
-    srcset: sizes.map((s) => s.url + " " + s.width + "w").join(", "),
-  };
+  return stats.webp[0].url;
 }
 
 // A compressed WebP for article featured images — used everywhere the
@@ -45,9 +39,9 @@ async function toWebpFeaturedImage(inputPath) {
 // downloads the full-width file. Returns the largest as src and both as srcset.
 async function toWebpDisplayImage(inputPath) {
   const stats = await Image(inputPath, {
-    widths: [640, 960, 1920],
+    widths: [960, 1920],
     formats: ["webp"],
-    sharpWebpOptions: { quality: 74 },
+    sharpWebpOptions: { quality: 82 },
     outputDir: "./_site/assets/generated/",
     urlPath: "/assets/generated/",
   });

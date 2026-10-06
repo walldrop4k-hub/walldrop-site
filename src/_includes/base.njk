@@ -30,10 +30,8 @@
 <meta name="twitter:description" content="{{ pageDescription }}">
 <meta name="twitter:image" content="{{ pageImage }}">
 
-<!-- Fonts are self-hosted. Only the two faces used above the fold are
-     preloaded: Space Grotesk 700 for headings and Inter 400 for body text. -->
-<link rel="preload" href="/assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+<!-- Fonts are self-hosted (see @font-face at the top of style.css). Only the
+     main body weight is preloaded, so text can paint in Inter straight away. -->
 
 
 {% if page.url == "/" and collections.heroWallpapers.length %}
@@ -42,19 +40,7 @@
 {% elif displayImage %}
 <link rel="preload" as="image" href="{{ displayImage }}" imagesrcset="{{ displayImageSrcset }}" imagesizes="(min-width: 900px) 55vw, 100vw" fetchpriority="high">
 {% endif %}
-{% if page.url == "/" %}
-<!-- Homepage only: critical CSS (header and hero) is inlined so the first paint
-     needs no request, and the full stylesheet loads without blocking render.
-     The hero layout is covered by the critical rules, so nothing shifts when
-     the full sheet arrives. -->
-<style>{{ "src/critical.css" | inlineCss | safe }}</style>
-<link rel="preload" href="/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="/style.css"></noscript>
-{% else %}
-<!-- Other pages: a normal stylesheet link. Their layout is not covered by the
-     critical rules, so the stylesheet must apply before the first paint. -->
 <link rel="stylesheet" href="/style.css">
-{% endif %}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
 <!-- BreadcrumbList JSON-LD on every page except the homepage. Pages that
